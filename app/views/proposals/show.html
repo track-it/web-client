@@ -1,0 +1,15 @@
+<div class="container">
+  <h1>
+    {{ proposalCtrl.proposal.title }}
+  </h1>
+  <small class="text-muted">Created {{ proposalCtrl.proposal.created_at }}</small>
+  <hr>
+  <h3>Description:</h3>
+  <p>
+    {{ proposalCtrl.proposal.description }}
+
+    <p class="text-muted" ng-if="!proposalCtrl.proposal.description">
+      No description.
+    </p>
+  </p>
+</div>

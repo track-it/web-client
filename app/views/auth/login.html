@@ -1,0 +1,49 @@
+<!-- Huvudinnehåll -->
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4">
+      <h1 class="text-center login-title">Sign in to TrackIt</h1>
+      <div class="well login-well">
+        <form ng-submit="loginCtrl.auth(loginCtrl.username, loginCtrl.password)">
+          <p ng-if="loginCtrl.error" class="text-danger text-center m-b-2">
+            Username or password is incorrect. Please try again.
+          </p>
+          <div class="form-group">
+            <input type="text" class="form-control" ng-model="loginCtrl.username" placeholder="Username" autofocus>
+          </div>
+          <div class="form-group">
+            <input type="password" class="form-control" ng-model="loginCtrl.password" placeholder="Password">
+          </div>
+          <div class="form-group">
+            <button class="btn btn-lg btn-primary btn-block" type="submit">
+              Sign in
+            </button>
+          </div>
+          <br>
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-6">
+                <label for="remember">
+                  <input type="checkbox" id="remember">
+                  Remember me
+                </label>
+              </div>
+              <div class="col-md-6">
+                <a href="#" class="pull-right need-help">Need help?</a>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <p class="text-center">
+        <a href="#">Create an account</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+
+
+
+
