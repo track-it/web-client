@@ -1,3 +1,7 @@
+const api = (endpoint) => {
+  return AppSettings.API_URL + endpoint;
+};
+
 const AppSettings = {
   // constants
   APP_NAME: 'TrackIt',
@@ -6,9 +10,7 @@ const AppSettings = {
   API_TOKEN: 'api_token',
 
   // global helpers
-  api: (endpoint) => {
-    return this.API_URL + endpoint;
-  },
+  api: api,
 };
 
 export default AppSettings;

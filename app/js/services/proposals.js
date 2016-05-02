@@ -1,26 +1,24 @@
-function ProposalsService($http, AppSettings) {
+function ProposalService($http, $q, AppSettings) {
   'ngInject';
 
   const config = AppSettings;
   const service = {};
 
   service.index = function () {
-    return new Promise((resolve, reject) => {
-      $http.get(config.api('proposals'))
-        .success((data) => resolve(data))
-        .error((err, status) => reject(err, status));
-    });
+    return $http.get(config.api('proposals'))
+        .then(res => {
+          return res.data.data;
+        });
   };
 
   service.get = function (id) {
-    return new Promise((resolve, reject) => {
-      $http.get(config.api(`proposals/${id}`))
-        .success((data) => resolve(data))
-        .error((err, status) => reject(err, status));
-    });
+    return $http.get(config.api(`proposals/${id}`))
+      .then(res => {
+        return res.data.data;
+      });
   };
 
-  service.create = function (payload) {
+  service.store = function (payload) {
     return new Promise((resolve, reject) => {
       $http.post(config.api('proposals'), payload)
         .success((data) => resolve(data))
@@ -41,6 +39,6 @@ function ProposalsService($http, AppSettings) {
 }
 
 export default {
-  name: 'ProposalsService',
-  fn: ProposalsService
+  name: 'ProposalService',
+  fn: ProposalService
 };

@@ -1,10 +1,15 @@
-import Router from './router';
+import Routes from './routes';
 
-function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $httpProvider) {
+function OnConfig($stateProvider, $locationProvider, $urlRouterProvider) {
   'ngInject';
 
-  $locationProvider.html5Mode(true);
-  Router($stateProvider);
+  $locationProvider.html5Mode({
+    enabled: true,
+    requireBase: false
+  });
+
+  Routes.setup($stateProvider);
+
   $urlRouterProvider.otherwise('/');
 }
 

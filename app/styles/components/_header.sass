@@ -1,0 +1,44 @@
+.header
+  margin: 2rem 0
+  font-family: $font-heading
+  border-bottom: 4px solid $primary
+  overflow: auto
+
+  .navigation
+    float: left
+
+    &-list
+      list-style: none
+      height: 100%
+
+    &-item
+      display: inline-block
+      margin: 0 1.5rem
+      height: 100%
+      line-height: 420%
+      transition: all 100ms
+      &:hover, &.active
+        transform: scale(1.1)
+        a
+          color: darken($primary, 10%)
+      a
+        text-transform: uppercase
+        display: inline-block
+        color: black
+        &:hover, &:active, &:focus
+          text-decoration: none
+
+
+    &-right
+      float: right
+
+.header-brand
+  float: left
+  font-size: 3em
+  .brand-track
+    color: black
+  .brand-it
+    color: $primary
+
+  &:hover, &:active, &:focus
+    text-decoration: none

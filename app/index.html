@@ -8,12 +8,47 @@
       <meta name="description" content="">
       <meta name="viewport" content="width=device-width">
 
+      <base href="/">
+
       <link rel="stylesheet" href="css/main.css">
   </head>
   <body>
+    <div class="container">
+      <header class="header" ng-controller="NavCtrl as navCtrl">
+        <a ui-sref="home" class="header-brand">
+          <span class="brand-track">Track</span><span class="brand-it">It</span>
+        </a>
+        <nav class="navigation">
+          <ul class="navigation-list">
+            <li class="navigation-item" ng-class="{ active: navCtrl.isActive('home') }">
+              <a ui-sref="home">Home</a>
+            </li>
+            <li class="navigation-item" ng-class="{ active: navCtrl.isActive('proposals') }">
+              <a ui-sref="proposals">Proposals</a>
+            </li>
+            <li class="navigation-item" ng-class="{ active: navCtrl.isActive('createProposal') }">
+              <a ui-sref="createProposal">Submit proposal</a>
+            </li>
+          </ul>
+        </nav>
+        <nav ng-if="!navCtrl.authed" class="navigation navigation-right">
+          <ul class="navigation-list">
+            <li class="navigation-item" ng-class="{ active: navCtrl.isActive('login') }">
+              <a ui-sref="login">Login</a>
+            </li>
+          </ul>
+        </nav>
+        <nav ng-if="navCtrl.authed" class="navigation navigation-right">
+          <ul class="navigation-list">
+            <li class="navigation-item" ng-class="{ active: navCtrl.isActive('login') }">
+              <a ui-sref="account">My account</a>
+            </li>
+          </ul>
+        </nav>
+      </header>
+    </div>
+    <div ui-view></div>
 
-      <div ui-view></div>
-
-      <script src="js/main.js"></script>
+    <script src="js/main.js"></script>
   </body>
 </html>

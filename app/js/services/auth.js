@@ -11,22 +11,16 @@ function AuthService($http, AppSettings) {
   };
 
   service.check = function () {
-    $http.get(config.api('auth/check'))
-      .success((data) => {
-        if (data.authed) authed = true;
+    return $http.get(config.api('auth/check'))
+      .then((res) => {
+        if (res.data.authed) authed = true;
       });
   };
 
   service.auth = function (username, password) {
-    return new Promise((resolve, reject) => {
-      $http.post(config.api('auth'), {
-        username: username,
-        password: password
-      }).success((data) => {
-        resolve(data);
-      }).error((err, status) => {
-        reject(err, status);
-      });
+    return $http.post(config.api('auth'), {
+      username: username,
+      password: password
     });
   };
 

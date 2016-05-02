@@ -1,23 +1,17 @@
-$base: 0.5rem
+$margin-base: 0.5rem
 
-.m-b-1
-  margin-bottom: $base
-.m-b-2
-  margin-bottom: $base * 2
-.m-b-3
-  margin-bottom: $base * 3
-.m-b-4
-  margin-bottom: $base * 4
-.m-b-5
-  margin-bottom: $base * 5
+@for $i from 1 through 5
+  .m-b-#{$i}
+    margin-bottom: $margin-base * $i
 
-.m-t-1
-  margin-top: $base
-.m-t-2
-  margin-top: $base * 2
-.m-t-3
-  margin-top: $base * 3
-.m-t-4
-  margin-top: $base * 4
-.m-t-5
-  margin-top: $base * 5
+@for $i from 1 through 5
+  .m-t-#{$i}
+    margin-top: $margin-base * $i
+
+@for $i from 1 through 5
+  .m-r-#{$i}
+    margin-right: $margin-base * $i
+
+@for $i from 1 through 5
+  .m-l-#{$i}
+    margin-left: $margin-base * $i
