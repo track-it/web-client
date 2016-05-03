@@ -1,0 +1,17 @@
+<div class="container">
+  <h1>
+    {{ projectCtrl.project.name }}
+  </h1>
+  <small class="text-muted">Created {{ projectCtrl.project.created_at }} from <a href="/proposal/{{projectCtrl.project.proposal}}">This proposal</a> <href </small>
+  <hr>
+  <h3>Members:</h3>
+  <p>
+    Stakeholder/owner: {{ projectCtrl.project.owner.name }}
+    Supervisor: {{ projectCtrl.project.supervisor.name }}
+    Students: Har inte implementerat loop över lista i app/views/projects/show.html.
+
+    <p class="text-muted" ng-if="!projectCtrl.project.description">
+      No description.
+    </p>
+  </p>
+</div>

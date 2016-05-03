@@ -11,6 +11,13 @@ function ProjectService($http, $q, AppSettings) {
         });
   };
 
+  service.get = function (id) {
+    return $http.get(config.api(`projects/${id}`))
+      .then(res => {
+        return res.data.data;
+      });
+  };
+
   return service;
 
 }

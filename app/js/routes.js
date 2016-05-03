@@ -59,6 +59,18 @@ const projects = {
   }
 };
 
+const showProject = {
+  url: '/projects/:id',
+  controller: 'ProjectsCtrl as projectCtrl',
+  templateUrl: 'projects/show.html',
+  title: 'Project',
+  resolve: {
+    proposal: function (ProjectService, $stateParams) {
+      return ProposalService.get($stateParams.id);
+    }
+  }
+};
+
 export default {
   setup: function ($stateProvider) {
     $stateProvider
@@ -67,6 +79,7 @@ export default {
       .state('proposals', proposals)
       .state('createProposal', createProposal)
       .state('showProposal', showProposal)
-      .state('projects', projects);
+      .state('projects', projects)
+      .state('createProject', createProject);
   }
 };
