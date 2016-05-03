@@ -1,24 +1,32 @@
-function AuthService($http, AppSettings) {
+function AuthService($http, $rootScope, AppSettings) {
   'ngInject';
 
   const config = AppSettings;
   const service = {};
 
-  let authed = false;
+  service.isAuthenticated = false;
 
-  service.isAuthenticated = function () {
-    return authed;
-  };
+  service.check = (cb) => {
+    $http.get(config.api('site'))
+      .then(res => {
+        cb(res.data.user);
+      });
+  }
 
-  service.check = function () {
-    return $http.get(config.api('auth/check'))
-      .then((res) => {
-        if (res.data.authed) authed = true;
+  service.initialize = () => {
+    $http.get(config.api('site'))
+      .then(res => {
+        window.sitemap = res.data;
+
+        if (res.data.user) {
+          window.user = res.data.user;
+          service.isAuthenticated = true;
+        }
       });
   };
 
   service.auth = function (username, password) {
-    return $http.post(config.api('auth'), {
+    return $http.post(config.api('auth/login'), {
       username: username,
       password: password
     });
