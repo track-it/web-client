@@ -16,24 +16,24 @@
     </form>
   </div>
 
+  <hr>
+
   <h2>Approved proposals</h2>
-  <div class="well">
-    <table class="table table-striped">
-      <thead>
-        <th>Title</th>
-        <th>Created</th>
-      </thead>
-      <tbody>
-        <tr ng-repeat="proposal in proposalCtrl.proposals">
-          <td><a ui-sref="showProposal({ id: proposal.id })">{{ proposal.title }}</a></td>
-          <td>{{ proposal.created_at }}</td>
-        </tr>
-        <tr ng-if="proposalCtrl.proposals.length == 0">
-          <td class="text-muted" colspan="2">
-            No proposals could be found.
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <table class="table table-striped">
+    <thead>
+      <th>Title</th>
+      <th>Created</th>
+    </thead>
+    <tbody>
+      <tr ng-repeat="proposal in proposalCtrl.proposals">
+        <td><a ui-sref="showProposal({ id: proposal.id })">{{ proposal.title }}</a></td>
+        <td>{{ proposal.created_at }}</td>
+      </tr>
+      <tr ng-if="proposalCtrl.proposals.length == 0">
+        <td class="text-muted" colspan="2">
+          No proposals could be found.
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
