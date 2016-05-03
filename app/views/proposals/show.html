@@ -1,15 +1,71 @@
 <div class="container">
-  <h1>
-    {{ proposalCtrl.proposal.title }}
-  </h1>
-  <small class="text-muted">Created {{ proposalCtrl.proposal.created_at }}</small>
-  <hr>
-  <h3>Description:</h3>
-  <p>
-    {{ proposalCtrl.proposal.description }}
+  <div class="row">
+    <div class="{{ proposalCtrl.user ? 'col-md-9' : 'col-md-12' }}">
+      <h1>
+        {{ proposalCtrl.proposal.title }}
+      </h1>
+      <small class="text-muted">Created {{ proposalCtrl.proposal.created_at }}</small>
+      <hr>
+      <h2>Description</h2>
+      <p>
+        {{ proposalCtrl.proposal.description }}
 
-    <p class="text-muted" ng-if="!proposalCtrl.proposal.description">
-      No description.
-    </p>
-  </p>
+        <p class="text-muted" ng-if="!proposalCtrl.proposal.description">
+          No description.
+        </p>
+      </p>
+
+      <div class="comments" ng-if="proposalCtrl.isCommentable()">
+        <hr>
+        <h2>Comments</h2>
+
+        <div class="comment" ng-repeat="comment in proposalCtrl.proposal.getComments()">
+          {{ comment.body }}
+        </div>
+
+        <p class="text-muted" ng-if="!proposalCtrl.proposal.comments">
+          No comments has been posted for this proposal.
+        </p>
+
+        <form ng-submit="proposalCtrl.postComment()">
+          <div class="form-group">
+            <textarea class="form-control" ng-model="proposalCtrl.comment.body"></textarea>
+          </div>
+          <button class="btn btn-primary">Post comment</button>
+        </form>
+      </div>
+    </div>
+    <div ng-if="proposalCtrl.user.role == proposalCtrl.config.ROLES.TEACHER" class="col-md-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>Approve</h4>
+        </div>
+        <div class="panel-body">
+          <div class="form-group">
+            <label for="course">Select course:</label>
+            <select name="course" id="course" class="form-control">
+              <option ng-repeat="course in proposalCtrl.user.courses" value="{{ course.id }}">
+                {{ course.code }}
+              </option>
+            </select>
+          </div>
+          <button class="btn btn-success btn-block">Approve proposal</button>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>Tags</h4>
+        </div>
+        <div class="panel-body">
+          <div class="form-group">
+            <input type="text" class="form-control">
+          </div>
+          <button class="btn btn-default btn-block">Add tag</button>
+        </div>
+      </div>
+    </div>
+    <div ng-if="proposalCtrl.user.role == proposalCtrl.config.ROLES.STUDENT" class="col-md-3">
+
+    </div>
+  </div>
 </div>

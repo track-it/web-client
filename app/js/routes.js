@@ -34,6 +34,9 @@ const showProposal = {
   resolve: {
     proposal: function (ProposalService, $stateParams) {
       return ProposalService.get($stateParams.id);
+    },
+    comments: function (CommentService, $stateParams) {
+      return CommentService.get('proposals', $stateParams.id);
     }
   }
 };
@@ -44,7 +47,7 @@ const createProposal = {
   url: '/proposals/create',
   controller: 'CreateProposalCtrl as proposalCtrl',
   templateUrl: 'proposals/create.html',
-  title: 'Proposal'
+  title: 'Submit proposal'
 };
 
 const projects = {
@@ -53,7 +56,7 @@ const projects = {
   templateUrl: 'projects/index.html',
   title: 'Projects',
   resolve: {
-    proposals: function (ProjectService) {
+    projects: function (ProjectService) {
       return ProjectService.index();
     }
   }

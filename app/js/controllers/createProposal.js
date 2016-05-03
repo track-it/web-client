@@ -5,6 +5,8 @@ function CreateProposalCtrl(ProposalService, $state) {
   const vm = this;
 
   vm.new = {};
+  vm.title = 'Submit proposal';
+
   vm.store = () => {
     ProposalService.store(vm.new)
       .then(() => {
