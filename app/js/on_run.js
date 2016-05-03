@@ -1,19 +1,20 @@
-function OnRun($rootScope, $state, AppSettings, AuthService, StorageService) {
+function OnRun($rootScope, $http, $state, AppSettings, AuthService, StorageService, SitemapService) {
   'ngInject';
 
   const config  = AppSettings;
   const auth    = AuthService;
   const storage = StorageService;
 
+  SitemapService.run();
 
   if (storage.exists(config.API_TOKEN)) {
-    $http.defaults.headers.common.Authorization = 'Basic ' + storage.get(config.API_TOKEN);
-    auth.check();
+    $http.defaults.headers.common.Authorization = 'Bearer ' + storage.get(config.API_TOKEN);
+    auth.initialize();
   }
 
   // Redirect unauthenticated users if route is protected
   $rootScope.$on('$stateChangeStart', function (event, toState) {
-    if (toState.authenticate && ! auth.isAuthenticated()) {
+    if (toState.authenticate && ! auth.isAuthenticated) {
       $state.transitionTo('login');
       event.preventDefault();
     }
@@ -21,7 +22,7 @@ function OnRun($rootScope, $state, AppSettings, AuthService, StorageService) {
 
   // Redirected authenticated users if route is guest only
   $rootScope.$on('$stateChangeStart', function (event, toState) {
-    if (toState.gues && auth.isAuthenticated()) {
+    if (toState.guest && auth.isAuthenticated) {
       $state.transitionTo('home');
       event.preventDefault();
     }

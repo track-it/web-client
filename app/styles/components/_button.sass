@@ -1,12 +1,15 @@
 .btn
   border-radius: 0.2rem
-  padding: 1.05rem
+  padding: 0.85em 2rem 0.8rem 2rem
   font-family: $font-heading
   text-transform: uppercase
+  border: 0.2em solid rgba(black, 0.1)
+
+  &:hover, &:active, &:focus
+    border: 0.2em solid rgba(black, 0.2)
 
   &.btn-primary
     background: $primary
-    border: darken($primary, 10%)
 
-    &:hover, &:active, &:focus
-      background: darken($primary, 10%)
+    &:hover
+      background: darken($primary, 6%)
