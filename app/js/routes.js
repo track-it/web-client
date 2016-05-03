@@ -56,7 +56,7 @@ const projects = {
   templateUrl: 'projects/index.html',
   title: 'Projects',
   resolve: {
-    proposals: function (ProjectService) {
+    projects: function (ProjectService) {
       return ProjectService.index();
     }
   }
