@@ -1,16 +1,37 @@
 <div class="container">
-  <h1>
-    {{ projectCtrl.project.name }}
-  </h1>
-  <small class="text-muted">Created {{ projectCtrl.project.created_at }} from <a href="/proposals/{{projectCtrl.project.proposal_id}}">This proposal</a> <href </small>
-  <hr>
-  <h3>Members:</h3>
-  <p>
+  <div class="row">
+    <div class="{{ projectCtrl.user ? 'col-md-9' : 'col-md-12' }}">
+      <h1>
+        {{ projectCtrl.project.name }}
+      </h1>
+      <small class="text-muted">Created {{ projectCtrl.project.created_at }} from <a ui-sref="showProposal({ id: projectCtrl.project.proposal_id })">this proposal</a> <href </small>
+      <hr>
+      <h2>Members:</h2>
       <p>Stakeholder/owner: {{ projectCtrl.project.owner.name }}</p>
       <p>Supervisor: {{ projectCtrl.project.supervisor.name }}</p>
       <p>Students: Har inte implementerat loop över lista i app/views/projects/show.html.</p>
-    <p class="text-muted" ng-if="!projectCtrl.project.description">
-      No description.
-    </p>
-  </p>
+      <hr>
+      <h2>Workflow</h2>
+      <p class="text-muted" ng-if="!projectCtrl.project.workflow">No workflow defined.</p>
+      <div class="comments" ng-if="projectCtrl.isCommentable()">
+        <hr>
+        <h2>Comments</h2>
+
+        <div class="comment" ng-repeat="comment in projectCtrl.project.getComments()">
+          {{ comment.body }}
+        </div>
+
+        <p class="text-muted" ng-if="!projectCtrl.project.comments">
+          No comments has been posted for this project.
+        </p>
+
+        <form ng-submit="projectCtrl.postComment()">
+          <div class="form-group">
+            <textarea class="form-control" ng-model="projectCtrl.comment.body"></textarea>
+          </div>
+          <button class="btn btn-primary">Post comment</button>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
