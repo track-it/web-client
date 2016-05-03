@@ -4,7 +4,7 @@ function NavCtrl(AuthService, $state) {
   // ViewModel
   const vm = this;
 
-  vm.authed = AuthService.isAuthenticated()
+  vm.authed = true;// AuthService.isAuthenticated()
 
   vm.isActive = function (state) {
     return $state.is(state);
