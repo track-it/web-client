@@ -1,0 +1,39 @@
+<div class="container">
+  <h1>{{ projectCtrl.title }}</h1>
+  <div class="well">
+    <form action="#">
+      <div class="row">
+        <div class="col-sm-10">
+          <input type="text" name="search" id="search" class="form-control" placeholder="Enter keywords to search">
+        </div>
+        <div class="col-sm-2">
+          <button class="btn btn-default btn-block">Search</button>
+        </div>
+      </div>
+      <div class="text-muted small m-t-2">
+        <a href="#">Advanced search</a>
+      </div>
+    </form>
+  </div>
+
+  <h2>Projects</h2>
+  <div class="well">
+    <table class="table table-striped">
+      <thead>
+        <th>Title</th>
+        <th>Created</th>
+      </thead>
+      <tbody>
+        <tr ng-repeat="project in projectCtrl.projects">
+          <td><a ui-sref="showproject({ id: project.id })">{{ project.name }}</a></td>
+          <td>{{ project.created_at }}</td>
+        </tr>
+        <tr ng-if="projectCtrl.projects.length == 0">
+          <td class="text-muted" colspan="2">
+            No projects could be found.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

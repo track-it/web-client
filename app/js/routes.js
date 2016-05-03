@@ -47,6 +47,18 @@ const createProposal = {
   title: 'Proposal'
 };
 
+const projects = {
+  url: '/projects',
+  controller: 'ProjectsCtrl as projectCtrl',
+  templateUrl: 'projects/index.html',
+  title: 'Projects',
+  resolve: {
+    proposals: function (ProjectService) {
+      return ProjectService.index();
+    }
+  }
+};
+
 export default {
   setup: function ($stateProvider) {
     $stateProvider
@@ -54,6 +66,7 @@ export default {
       .state('login', login)
       .state('proposals', proposals)
       .state('createProposal', createProposal)
-      .state('showProposal', showProposal);
+      .state('showProposal', showProposal)
+      .state('projects', projects);
   }
 };
