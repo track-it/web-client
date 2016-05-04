@@ -2,12 +2,15 @@
     <h1>
       {{ projectCtrl.project.name }}
     </h1>
-    <small class="text-muted">Created {{ projectCtrl.project.created_at }} from <a ui-sref="showProposal({ id: projectCtrl.project.proposal_id })">this proposal</a>.</small>
+    <small class="text-muted">
+      <span class="label label-primary">Project</span>
+      created {{ projectCtrl.project.created_at }} from <a ui-sref="showProposal({ id: projectCtrl.project.proposal_id })">this proposal</a>.
+    </small>
     <hr>
 
   <div class="row">
     <div class="members col-md-8">
-      <h2>Members</h2>
+      <h2>Participants</h2>
       <ul class="list-group">
 
         <!-- Students -->
@@ -15,6 +18,11 @@
           {{ student.username }}
           <i class="fa fa-graduation-cap pull-right" aria-hidden="true"></i>
         </a>
+
+        <!-- If there are no students -->
+        <p class="text-muted" ng-if="projectCtrl.project.team.users == 0">
+          There are no participants for this project.
+        </li>
 
       </ul>
     </div>
@@ -29,12 +37,10 @@
           <i class="fa fa-download pull-right" aria-hidden="true"></i>
         </a>
 
-        <!-- If there's no attachments -->
-        <li class="list-group-item list-group-item-default" ng-if="projectCtrl.project.attachments.length == 0">
-          <div class="text-muted">
-            No attachments.
-          </div>
-        </li>
+        <!-- If there are no attachments -->
+        <p class="text-muted" ng-if="projectCtrl.project.attachments.length == 0">
+          There are no attachments for this project.
+        </p>
 
       </ul>
     </div>
