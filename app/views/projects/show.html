@@ -1,37 +1,65 @@
 <div class="container">
   <div class="row">
-    <div class="{{ projectCtrl.user ? 'col-md-9' : 'col-md-12' }}">
-      <h1>
-        {{ projectCtrl.project.name }}
-      </h1>
-      <small class="text-muted">Created {{ projectCtrl.project.created_at }} from <a ui-sref="showProposal({ id: projectCtrl.project.proposal_id })">this proposal</a>.</small>
-      <hr>
-      <h2>Members:</h2>
-      <p>Stakeholder/owner: {{ projectCtrl.project.owner.name }}</p>
-      <p>Supervisor: {{ projectCtrl.project.supervisor.name }}</p>
-      <p>Students: Har inte implementerat loop över lista i app/views/projects/show.html.</p>
-      <hr>
-      <h2>Workflow</h2>
-      <p class="text-muted" ng-if="!projectCtrl.project.workflow">No workflow defined.</p>
-      <div class="comments" ng-if="projectCtrl.isCommentable()">
-        <hr>
-        <h2>Comments</h2>
+    <h1>
+      {{ projectCtrl.project.name }}
+    </h1>
+    <small class="text-muted">Created {{ projectCtrl.project.created_at }} from <a ui-sref="showProposal({ id: projectCtrl.project.proposal_id })">this proposal</a>.</small>
+    <hr>
 
-        <div class="comment" ng-repeat="comment in projectCtrl.project.getComments()">
-          {{ comment.body }}
-        </div>
+    <div class="row">
 
-        <p class="text-muted" ng-if="!projectCtrl.project.comments">
-          No comments has been posted for this project.
-        </p>
-
-        <form ng-submit="projectCtrl.postComment()">
-          <div class="form-group">
-            <textarea class="form-control" ng-model="projectCtrl.comment.body"></textarea>
-          </div>
-          <button class="btn btn-primary">Post comment</button>
-        </form>
+      <div class="col-md-6">
+        <h2>Members</h2>
+        <ul class="list-group">
+          <!-- Students -->
+          <li class="list-group-item list-group-item-warning" ng-repeat="student in projectCtrl.project.team.users">
+            {{ student.username }}
+            <div class="pull-right">Student</div>
+          </li>
+        </ul>
       </div>
+
+      <div class="col-md-6">
+        <h2>Attachments</h2>
+        <ul class="list-group" ng-repeat="attachment in projectCtrl.project.attachments">
+
+          <li class="list-group-item">
+            {{ attachment.name }}
+            <div class="pull-right">
+              {{ attachment.size }}
+            </div>
+          </li>
+
+          <li class="list-group-items" ng-if="projectCtrl.project.attachments.length == 0">
+            <p class="muted">No attachments.</p>
+          </li>
+
+        </ul>
+      </div>
+
+    </div>
+    <div class="row">
+      
+    </div>
+    
+    <div class="comments" ng-if="projectCtrl.isCommentable()">
+      <hr>
+      <h2>Comments</h2>
+
+      <div class="comment" ng-repeat="comment in projectCtrl.project.getComments()">
+        {{ comment.body }}
+      </div>
+
+      <p class="text-muted" ng-if="!projectCtrl.project.comments">
+        No comments has been posted for this project.
+      </p>
+
+      <form ng-submit="projectCtrl.postComment()">
+        <div class="form-group">
+          <textarea class="form-control" ng-model="projectCtrl.comment.body"></textarea>
+        </div>
+        <button class="btn btn-primary">Post comment</button>
+      </form>
     </div>
   </div>
 </div>
