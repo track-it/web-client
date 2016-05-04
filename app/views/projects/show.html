@@ -12,10 +12,8 @@
 
         <!-- Students -->
         <a href="#" class="list-group-item list-group-item-warning" ng-repeat="student in projectCtrl.project.team.users | orderBy: 'username'">
-          <!-- Glyphicons not working? -->
-          <!-- <span class="glyphicon glyphicon-education"></span> -->
           {{ student.username }}
-          <div class="pull-right">Student</div>
+          <i class="fa fa-graduation-cap pull-right" aria-hidden="true"></i>
         </a>
 
       </ul>
@@ -27,10 +25,8 @@
       <ul class="list-group">
 
         <a href="{{ attachment.url }}" class="list-group-item" ng-repeat="attachment in projectCtrl.project.attachments | orderBy: 'attachment.created_at'">
-          <p class="list-group-item-heading">
-            {{ attachment.title }}
-          </p>
-          <p class="pull-right">{{ attachment.mime_type }}</p>
+          {{ attachment.title }}
+          <i class="fa fa-download pull-right" aria-hidden="true"></i>
         </a>
 
         <!-- If there's no attachments -->
