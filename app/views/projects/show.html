@@ -1,65 +1,64 @@
 <div class="container">
-  <div class="row">
     <h1>
       {{ projectCtrl.project.name }}
     </h1>
     <small class="text-muted">Created {{ projectCtrl.project.created_at }} from <a ui-sref="showProposal({ id: projectCtrl.project.proposal_id })">this proposal</a>.</small>
     <hr>
 
-    <div class="row">
+  <div class="row">
+    <div class="members col-md-8">
+      <h2>Members</h2>
+      <ul class="list-group">
 
-      <div class="col-md-6">
-        <h2>Members</h2>
-        <ul class="list-group">
-          <!-- Students -->
-          <li class="list-group-item list-group-item-warning" ng-repeat="student in projectCtrl.project.team.users">
-            {{ student.username }}
-            <div class="pull-right">Student</div>
-          </li>
-        </ul>
-      </div>
+        <!-- Students -->
+        <a href="#" class="list-group-item list-group-item-warning" ng-repeat="student in projectCtrl.project.team.users | orderBy: 'username'">
+          <!-- Glyphicons not working? -->
+          <!-- <span class="glyphicon glyphicon-education"></span> -->
+          {{ student.username }}
+          <div class="pull-right">Student</div>
+        </a>
 
-      <div class="col-md-6">
-        <h2>Attachments</h2>
-        <ul class="list-group" ng-repeat="attachment in projectCtrl.project.attachments">
-
-          <li class="list-group-item">
-            {{ attachment.name }}
-            <div class="pull-right">
-              {{ attachment.size }}
-            </div>
-          </li>
-
-          <li class="list-group-items" ng-if="projectCtrl.project.attachments.length == 0">
-            <p class="muted">No attachments.</p>
-          </li>
-
-        </ul>
-      </div>
-
+      </ul>
     </div>
-    <div class="row">
-      
-    </div>
-    
-    <div class="comments" ng-if="projectCtrl.isCommentable()">
-      <hr>
-      <h2>Comments</h2>
 
-      <div class="comment" ng-repeat="comment in projectCtrl.project.getComments()">
-        {{ comment.body }}
-      </div>
+    <div class="attachments col-md-4">
+      <tr>
+      <h2>Attachments</h2>
+      <ul class="list-group">
 
-      <p class="text-muted" ng-if="!projectCtrl.project.comments">
-        No comments has been posted for this project.
-      </p>
+        <a href="{{ attachment.url }}" class="list-group-item" ng-repeat="attachment in projectCtrl.project.attachments | orderBy: 'attachment.created_at'">
+          <p class="list-group-item-heading">
+            {{ attachment.title }}
+          </p>
+          <p class="pull-right">{{ attachment.mime_type }}</p>
+        </a>
 
-      <form ng-submit="projectCtrl.postComment()">
-        <div class="form-group">
-          <textarea class="form-control" ng-model="projectCtrl.comment.body"></textarea>
-        </div>
-        <button class="btn btn-primary">Post comment</button>
-      </form>
+        <!-- If there's no attachments -->
+        <li class="list-group-item list-group-item-default" ng-if="projectCtrl.project.attachments.length == 0">
+          <div class="text-muted">
+            No attachments.
+          </div>
+        </li>
+
+      </ul>
     </div>
   </div>
+
+  <hr>
+  <h2>Comments</h2>
+
+  <div class="comment" ng-repeat="comment in projectCtrl.project.getComments()">
+    {{ comment.body }}
+  </div>
+
+  <p class="text-muted" ng-if="!projectCtrl.project.comments">
+    No comments has been posted for this project.
+  </p>
+
+  <form ng-submit="projectCtrl.postComment()">
+    <div class="form-group">
+      <textarea class="form-control" ng-model="projectCtrl.comment.body"></textarea>
+    </div>
+    <button class="btn btn-primary">Post comment</button>
+  </form>
 </div>
