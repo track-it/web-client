@@ -1,10 +1,11 @@
-function ProposalCtrl(ProposalService, CommentService, AppSettings, $state, $scope, proposal) {
+function ProposalCtrl(ProposalService, CommentService, AppSettings, $state, $scope, proposal, comments) {
   'ngInject';
 
   const config = AppSettings;
   const vm = this;
 
   vm.proposal = proposal;
+  vm.comments = comments;
   vm.title = proposal.title;
   vm.config = config;
 
@@ -14,8 +15,8 @@ function ProposalCtrl(ProposalService, CommentService, AppSettings, $state, $sco
 
   vm.postComment = () => {
     CommentService.store('proposals', vm.proposal.id, vm.comment.body)
-      .then(() => {
-
+      .then(res => {
+        vm.comments.push(res.data.data);
       });
   };
 
