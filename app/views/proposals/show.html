@@ -19,11 +19,12 @@
         <hr>
         <h2>Comments</h2>
 
-        <div class="comment" ng-repeat="comment in proposalCtrl.proposal.getComments()">
-          {{ comment.body }}
+        <div class="comment" ng-repeat="comment in proposalCtrl.comments">
+          <h3>{{ comment.author.username }} - {{ comment.created_at }}</h3>
+          <p>{{ comment.body }}</p>
         </div>
 
-        <p class="text-muted" ng-if="!proposalCtrl.proposal.comments">
+        <p class="text-muted" ng-if="!proposalCtrl.comments">
           No comments has been posted for this proposal.
         </p>
 

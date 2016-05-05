@@ -77,7 +77,6 @@ const showProject = {
   }
 };
 
-
 export default {
   setup: function ($stateProvider) {
     $stateProvider
