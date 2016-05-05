@@ -13,7 +13,9 @@ function AuthService($http, $rootScope, AppSettings) {
       });
   }
 
-  service.initialize = () => {
+  service.initialize = (apiToken) => {
+    $http.defaults.headers.common.Authorization = 'Bearer ' + apiToken;
+
     $http.get(config.api('site'))
       .then(res => {
         window.sitemap = res.data;

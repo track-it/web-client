@@ -11,15 +11,15 @@ function LoginCtrl(AuthService, AppSettings, StorageService, $state, $rootScope)
   vm.auth = function (username, password) {
     vm.error = false;
     AuthService.auth(username, password)
-      .success(response => {
+      .then(res => {
         $rootScope.$emit('login-occured');
 
-        window.user = response.data;
-        StorageService.put(config.API_TOKEN, window.user.api_token);
+        StorageService.put(config.API_TOKEN, res.data.data.api_token);
+        AuthService.initialize(StorageService.get(config.API_TOKEN));
 
         $state.transitionTo('home');
       })
-      .error(() => {
+      .catch((err, status) => {
         vm.error = true;
       })
   }
