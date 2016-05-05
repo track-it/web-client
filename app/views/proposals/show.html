@@ -5,6 +5,11 @@
         {{ proposalCtrl.proposal.title }}
       </h1>
       <small class="text-muted">Created {{ proposalCtrl.proposal.created_at }}</small>
+      <div>
+        <span ng-repeat="tag in proposalCtrl.proposal.tags">
+          <span class="label label-primary" >{{ tag.name }}</span>&nbsp;
+        </span>
+      </div>
       <hr>
       <h2>Description</h2>
       <p>
@@ -14,6 +19,24 @@
           No description.
         </p>
       </p>
+
+      <div class="attachments">
+        <hr>
+        <h2>Attachments</h2>
+        <ul class="list-group">
+
+          <a href="{{ attachment.url }}" class="list-group-item" ng-repeat="attachment in proposalCtrl.proposal.attachments | orderBy: 'attachment.created_at'">
+            {{ attachment.title }}
+            <i class="fa fa-download pull-right" aria-hidden="true"></i>
+          </a>
+
+          <!-- If there are no attachments -->
+          <p class="text-muted" ng-if="proposalCtrl.proposal.attachments.length == 0">
+            There are no attachments for this proposal.
+          </p>
+
+        </ul>
+      </div>
 
       <div class="comments" ng-if="proposalCtrl.isCommentable()">
         <hr>
