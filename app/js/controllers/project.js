@@ -17,6 +17,7 @@ function ProjectCtrl(ProjectService, CommentService, AppSettings, $state, $scope
     CommentService.store('projects', vm.project.id, vm.comment.body)
       .then(res => {
         vm.comments.push(res.data.data);
+        vm.comment.body = '';
       });
   };
 

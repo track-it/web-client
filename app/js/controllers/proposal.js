@@ -17,6 +17,7 @@ function ProposalCtrl(ProposalService, CommentService, AppSettings, $state, $sco
     CommentService.store('proposals', vm.proposal.id, vm.comment.body)
       .then(res => {
         vm.comments.push(res.data.data);
+        vm.comment.body = '';
       });
   };
 
