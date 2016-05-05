@@ -70,6 +70,9 @@ const showProject = {
   resolve: {
     project: function (ProjectService, $stateParams) {
       return ProjectService.get($stateParams.id);
+    },
+    comments: function (CommentService, $stateParams) {
+      return CommentService.get('projects', $stateParams.id);
     }
   }
 };
