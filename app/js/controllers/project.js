@@ -1,10 +1,11 @@
-function ProjectCtrl(ProjectService, CommentService, AppSettings, $state, $scope, project) {
+function ProjectCtrl(ProjectService, CommentService, AppSettings, $state, $scope, project, comments) {
   'ngInject';
-  
+
   const config = AppSettings;
   const vm = this;
 
   vm.project = project;
+  vm.comments = comments;
   vm.title = project.title;
   vm.config = config;
 
@@ -14,8 +15,9 @@ function ProjectCtrl(ProjectService, CommentService, AppSettings, $state, $scope
 
   vm.postComment = () => {
     CommentService.store('projects', vm.project.id, vm.comment.body)
-      .then(() => {
-
+      .then(res => {
+        vm.comments.push(res.data.data);
+        vm.comment.body = '';
       });
   };
 
