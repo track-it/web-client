@@ -20,7 +20,7 @@
 
       <div class="form-group">
         <label for="usr">Tags:</label>
-        <input type="text" class="form-control" id="tags">
+        <tags-input ng-model="proposalCtrl.tags"></tags-input>
       </div>
 
       <div class="form-group">
@@ -30,7 +30,7 @@
 
       <div class="form-group">
         <label for="attachments">Attachments:</label>
-        <button type="button" class="btn btn-default">Upload file</button>
+        <input type="file" class="btn btn-default" ng-files="proposalCtrl.files" ng-repeat="file in proposalCtrl.filesCount()">
       </div>
       <button class="btn btn-primary btn-lg">Submit</button>
     </div>

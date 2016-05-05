@@ -8,8 +8,7 @@ function OnRun($rootScope, $http, $state, AppSettings, AuthService, StorageServi
   SitemapService.run();
 
   if (storage.exists(config.API_TOKEN)) {
-    $http.defaults.headers.common.Authorization = 'Bearer ' + storage.get(config.API_TOKEN);
-    auth.initialize();
+    auth.initialize(storage.get(config.API_TOKEN));
   }
 
   // Redirect unauthenticated users if route is protected
