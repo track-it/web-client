@@ -14,6 +14,8 @@ import './controllers';
 import './services';
 import './directives';
 
+import './dom/navigation.js';
+
 // create and bootstrap application
 const requires = [
   'ui.router',

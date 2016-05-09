@@ -19,7 +19,7 @@ function LoginCtrl(AuthService, AppSettings, StorageService, $state, $rootScope)
 
         $state.transitionTo('home');
       })
-      .catch((err, status) => {
+      .catch(() => {
         vm.error = true;
       })
   }
