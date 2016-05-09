@@ -2,52 +2,58 @@
     <h1>
       {{ projectCtrl.project.name }}
     </h1>
-    <small class="text-muted">
-      <span class="label label-primary">Project</span>
-      created {{ projectCtrl.project.created_at }} from <a ui-sref="showProposal({ id: projectCtrl.project.proposal_id })">this proposal</a>.
-    </small>
+    <span class="text-muted">
+      <i class="fa fa-clock-o" aria-hidden="true"></i>
+      Created {{ projectCtrl.project.created_at }}
+      <div>
+        <span class="label label-danger">Project</span>
+        originating from <a ui-sref="showProposal({ id: projectCtrl.project.proposal_id })">this proposal</a>.
+      </div>
+    </span>
+
+
     <hr>
+    <h2>Description</h2>
+      <p>
+        {{ projectCtrl.project.description }}
 
-  <div class="row">
-    <div class="members col-md-8">
-      <h2>Participants</h2>
-      <ul class="list-group">
-
-        <!-- Students -->
-        <a href="#" class="list-group-item list-group-item-warning" ng-repeat="student in projectCtrl.project.team.users | orderBy: 'username'">
-          {{ student.username }}
-          <i class="fa fa-graduation-cap pull-right" aria-hidden="true"></i>
-        </a>
-
-        <!-- If there are no students -->
-        <p class="text-muted" ng-if="projectCtrl.project.team.users == 0">
-          There are no participants for this project.
-        </li>
-
-      </ul>
-    </div>
-
-    <div class="attachments col-md-4">
-      <tr>
-      <h2>Attachments</h2>
-      <ul class="list-group">
-
-        <a href="{{ attachment.url }}" class="list-group-item" ng-repeat="attachment in projectCtrl.project.attachments | orderBy: 'attachment.created_at'">
-          {{ attachment.title }}
-          <i class="fa fa-download pull-right" aria-hidden="true"></i>
-        </a>
-
-        <!-- If there are no attachments -->
-        <p class="text-muted" ng-if="projectCtrl.project.attachments.length == 0">
-          There are no attachments for this project.
+        <p class="text-muted" ng-if="!proposalCtrl.proposal.description">
+          No description.
         </p>
+      </p>
 
-      </ul>
-    </div>
-  </div>
+    <hr>
+    <h2>Participants</h2>
+    <ul class="list-group">
+      <!-- Students -->
+      <a href="#" class="list-group-item list-group-item-warning" ng-repeat="student in projectCtrl.project.team.users | orderBy: 'username'">
+        {{ student.username }}
+        <i class="fa fa-graduation-cap pull-right" aria-hidden="true"></i>
+      </a>
+
+      <!-- If there are no students -->
+      <p class="text-muted" ng-if="projectCtrl.project.team.users == 0">
+        There are no participants for this project.
+      </li>
+    </ul>
+
+    <hr>
+    <h2>Attachments</h2>
+    <ul class="list-group">
+
+      <a href="{{ attachment.url }}" class="list-group-item" ng-repeat="attachment in projectCtrl.project.attachments | orderBy: 'attachment.created_at'">
+        {{ attachment.title }}
+        <i class="fa fa-download pull-right" aria-hidden="true"></i>
+      </a>
+
+      <!-- If there are no attachments -->
+      <p class="text-muted" ng-if="projectCtrl.project.attachments.length == 0">
+        There are no attachments for this project.
+      </p>
+
+    </ul>
 
   <hr>
-
   <div class="comments" ng-if="projectCtrl.isCommentable()">
     <h2>Comments</h2>
 

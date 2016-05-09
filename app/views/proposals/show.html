@@ -4,12 +4,17 @@
       <h1>
         {{ proposalCtrl.proposal.title }}
       </h1>
-      <small class="text-muted">Created {{ proposalCtrl.proposal.created_at }}</small>
-      <div>
-        <span ng-repeat="tag in proposalCtrl.proposal.tags">
-          <span class="label label-primary" >{{ tag.name }}</span>&nbsp;
-        </span>
-      </div>
+      <span class="text-muted">
+        <i class="fa fa-clock-o" aria-hidden="true"></i>
+        Created {{ proposalCtrl.proposal.created_at }}
+        <div>
+          <span class="label label-danger">Proposal</span>
+          <span ng-repeat="tag in proposalCtrl.proposal.tags">
+            <span class="label label-primary" >{{ tag.name }}</span>
+          </span>
+        </div>
+      </span>
+
       <hr>
       <h2>Description</h2>
       <p ng-bind-html="proposalCtrl.proposal.description">
@@ -20,23 +25,19 @@
         </p>
       </p>
 
-      <div class="attachments">
-        <hr>
-        <h2>Attachments</h2>
-        <ul class="list-group">
+      <hr>
+      <h2>Attachments</h2>
+      <ul class="list-group">
+        <a href="{{ attachment.url }}" class="list-group-item" ng-repeat="attachment in proposalCtrl.proposal.attachments | orderBy: 'attachment.created_at'">
+          {{ attachment.title }}
+          <i class="fa fa-download pull-right" aria-hidden="true"></i>
+        </a>
 
-          <a href="{{ attachment.url }}" class="list-group-item" ng-repeat="attachment in proposalCtrl.proposal.attachments | orderBy: 'attachment.created_at'">
-            {{ attachment.title }}
-            <i class="fa fa-download pull-right" aria-hidden="true"></i>
-          </a>
-
-          <!-- If there are no attachments -->
-          <p class="text-muted" ng-if="proposalCtrl.proposal.attachments.length == 0">
-            There are no attachments for this proposal.
-          </p>
-
-        </ul>
-      </div>
+        <!-- If there are no attachments -->
+        <p class="text-muted" ng-if="proposalCtrl.proposal.attachments.length == 0">
+          There are no attachments for this proposal.
+        </p>
+      </ul>
 
       <div class="comments" ng-if="proposalCtrl.isCommentable()">
         <hr>
@@ -59,7 +60,8 @@
         </form>
       </div>
     </div>
-    <div ng-if="proposalCtrl.user.role == proposalCtrl.config.ROLES.TEACHER" class="col-md-3">
+
+    <div ng-if="proposalCtrl.user.role_id == proposalCtrl.config.ROLES.TEACHER" class="col-md-3">
       <div class="panel panel-default">
         <div class="panel-heading">
           <h4>Approve</h4>
