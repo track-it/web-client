@@ -6,10 +6,37 @@
 
   .navigation
     float: left
+    @media (max-width: $sm)
+      clear: both
+
+    &-toggler
+      display: none
+      float: right
+      font-size: 2em
+      color: black
+      padding: 0.4rem
+      margin-top: 0.4rem
+      margin-right: 0.4rem
+      &:hover, &:active, &:focus
+        text-decoration: none
+      @media(max-width: $sm)
+        display: block
 
     &-list
       list-style: none
       height: 100%
+
+      @media (max-width: $sm)
+        display: none
+
+        &.toggled
+          clear: both
+          display: block
+          padding-left: 0
+
+          .navigation-item
+            display: list-item
+            margin-left: 1rem
 
     &-item
       display: inline-block
@@ -28,9 +55,11 @@
         &:hover, &:active, &:focus
           text-decoration: none
 
-
     &-right
       float: right
+      @media(max-width: $sm)
+        float: left
+
 
 .header-brand
   float: left

@@ -1,3 +1,5 @@
+import { close } from './dom/navigation.js';
+
 function OnRun($rootScope, $http, $state, AppSettings, AuthService, StorageService, SitemapService) {
   'ngInject';
 
@@ -13,6 +15,7 @@ function OnRun($rootScope, $http, $state, AppSettings, AuthService, StorageServi
 
   // Redirect unauthenticated users if route is protected
   $rootScope.$on('$stateChangeStart', function (event, toState) {
+    close();
     if (toState.authenticate && ! auth.isAuthenticated) {
       $state.transitionTo('login');
       event.preventDefault();

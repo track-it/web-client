@@ -1,4 +1,4 @@
-function SitemapService($http, $q, AppSettings) {
+function SitemapService() {
   'ngInject';
 
   // const config = AppSettings;

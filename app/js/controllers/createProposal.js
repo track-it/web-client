@@ -16,7 +16,7 @@ function CreateProposalCtrl(ProposalService, AttachmentService, $state) {
       .then(res => {
         return uploadFiles(res.data.id);
       })
-      .then(res => {
+      .then(() => {
         $state.transitionTo('proposals');
       });
   };
