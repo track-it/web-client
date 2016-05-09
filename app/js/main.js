@@ -6,6 +6,8 @@ import onConfig  from './on_config';
 import onRun     from './on_run';
 import 'angular-ui-router';
 import 'ng-tags-input';
+import 'textAngular/dist/textAngular-sanitize';
+import textAngular from 'textAngular';
 import './templates';
 import './filters';
 import './controllers';
@@ -22,7 +24,8 @@ const requires = [
   'app.controllers',
   'app.services',
   'app.directives',
-  'ngTagsInput'
+  'ngTagsInput',
+  textAngular,
 ];
 
 // mount on window for testing
