@@ -1,4 +1,4 @@
-function OnRun($rootScope, $http, $state, AppSettings, AuthService, StorageService, SitemapService) {
+function OnRun($rootScope, $http, $state, AppSettings, AuthService, StorageService, SitemapService, taOptions) {
   'ngInject';
 
   const config  = AppSettings;
@@ -10,6 +10,13 @@ function OnRun($rootScope, $http, $state, AppSettings, AuthService, StorageServi
   if (storage.exists(config.API_TOKEN)) {
     auth.initialize(storage.get(config.API_TOKEN));
   }
+
+  taOptions.toolbar = [
+    ['h1', 'h2', 'h3'],
+    ['bold', 'italics', 'underline', 'strikeThrough', 'ul', 'ol'],
+    ['justifyLeft', 'justifyCenter', 'justifyRight'],
+    ['html', 'insertImage','insertLink', 'insertVideo']
+  ];
 
   // Redirect unauthenticated users if route is protected
   $rootScope.$on('$stateChangeStart', function (event, toState) {

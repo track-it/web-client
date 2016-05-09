@@ -81,5 +81,9 @@
   "scripts": {
     "test": "./node_modules/.bin/gulp test"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "angular-sanitize": "^1.5.5",
+    "textangular": "^1.5.1"
+  }
 }
