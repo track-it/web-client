@@ -27,7 +27,7 @@
     </thead>
     <tbody>
       <tr ng-repeat="project in projectCtrl.projects">
-        <td><a ui-sref="showProject({ id: project.id })">{{ project.name }}</a></td>
+        <td><a ui-sref="showProject({ id: project.id })">{{ project.title }}</a></td>
         <td><a ui-sref="showProposal({ id: project.proposal_id })">link</a></td>
         <td>{{ project.created_at }}</td>
       </tr>
