@@ -1,7 +1,8 @@
-function ProjectCtrl(ProjectService, CommentService, AppSettings, $state, $scope, project, comments) {
+function ProjectCtrl(ProjectService, CommentService, StorageService, AppSettings, $state, $scope, project, comments) {
   'ngInject';
 
   const config = AppSettings;
+  const storage = StorageService;
   const vm = this;
 
   vm.project = project;
@@ -10,6 +11,8 @@ function ProjectCtrl(ProjectService, CommentService, AppSettings, $state, $scope
   vm.config = config;
 
   vm.user = window.user;
+
+  vm.token = storage.get('api_token');
 
   vm.comment = {};
 
