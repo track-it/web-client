@@ -6,6 +6,10 @@ function AuthService($http, $rootScope, AppSettings) {
 
   service.isAuthenticated = false;
 
+  service.isAuthed = function () {
+    return service.isAuthenticated;
+  }
+
   service.check = (cb) => {
     $http.get(config.api('site'))
       .then(res => {

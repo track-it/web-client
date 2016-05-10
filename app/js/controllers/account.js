@@ -1,4 +1,4 @@
-function AccountCtrl(me, AppSettings, StorageService, AuthService, $state) {
+function AccountCtrl(me, AppSettings, StorageService, AuthService, $state, $controller) {
   'ngInject';
 
   const config = AppSettings;

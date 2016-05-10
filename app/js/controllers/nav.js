@@ -1,13 +1,19 @@
-function NavCtrl(AuthService, $state, $scope, $rootScope) {
+function NavCtrl(AuthService, $state, $rootScope) {
   'ngInject';
 
   // ViewModel
   const vm = this;
-  vm.authed = false;
+  // vm.authed = false;
 
-  AuthService.check((status) => {
-    if (status) vm.authed = true;
-  });
+  // AuthService.check((status) => {
+    // console.log("lllolololololol");
+    // if (status) vm.authed = true;
+    // }
+  // });
+
+  vm.isAuthed = function () {
+    return AuthService.isAuthed();
+  };
 
   $rootScope.$on('login-occured', () => {
     vm.authed = true;
