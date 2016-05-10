@@ -34,6 +34,12 @@ function AuthService($http, $rootScope, AppSettings) {
     });
   };
 
+  service.logout = function () {
+      delete $http.defaults.headers.common.Authorization;
+      delete window.user;
+      service.isAuthenticated = false; 
+  };
+
   return service;
 
 }

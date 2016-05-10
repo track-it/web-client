@@ -1,4 +1,4 @@
-function AccountCtrl(me, AppSettings) {
+function AccountCtrl(me, AppSettings, StorageService, AuthService, $state) {
   'ngInject';
 
   const config = AppSettings;
@@ -8,6 +8,11 @@ function AccountCtrl(me, AppSettings) {
   vm.me = me;
   vm.config = config;
 
+  vm.logout = function () {
+    StorageService.delete(config.API_TOKEN);
+    AuthService.logout();
+    $state.transitionTo('login');
+  };
 }
 
 export default {
