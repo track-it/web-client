@@ -1,11 +1,12 @@
-function AccountCtrl(me) {
+function AccountCtrl(me, AppSettings) {
   'ngInject';
 
-  // ViewModel
+  const config = AppSettings;
   const vm = this;
 
   vm.title = 'Account';
   vm.me = me;
+  vm.config = config;
 
 }
 

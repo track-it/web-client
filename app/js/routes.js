@@ -17,7 +17,7 @@ const login = {
 const account = {
   url: '/account',
   controller: 'AccountCtrl as accountCtrl',
-  templateUrl: 'auth/account.html',
+  templateUrl: 'account.html',
   title: 'Account',
   resolve: {
     me: function (AccountService) {

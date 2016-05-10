@@ -9,44 +9,44 @@
         <p><b>Permissions:</b> You have a {{ accountCtrl.me.role.name }} permissions</p>
       </div>
       <div class="col-md-6">
-        <p>You have {{ accountCtrl.me.proposals.length }} proposals and {{ accountCtrl.me.project.length }} projects. For details see the lists below.</p>
+        <p>You have {{ accountCtrl.me.proposals.length }} proposals and {{ accountCtrl.me.projects.length }} projects. For details see the lists below.</p>
       </div> 
     </div>
   </div>
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-7">
         <h2>Projects</h2>
           <table class="table table-striped">
             <thead>
               <th>Title</th>
-              <th>Created</th>
               <th>Your role</th>
               <th>Status</th>
+              <th>Created</th>
             </thead>
             <tbody>
               <tr ng-repeat="project in accountCtrl.me.projects">
                 <td><a ui-sref="showProject({ id: project.id })">{{ project.title }}</a></td>
+                <td class="project-role">{{ project.my_role }}</td>
+                <td class="project-status">{{ accountCtrl.config.getProjectStatus(project.status) }}</td>
                 <td>{{ project.created_at }}</td>
-                <td>{{ project.my_role }}</td>
-                <td>{{ project.status }}</td>
               </tr>
               </tr>
             </tbody>
           </table>
       </div>
-    <div class="col-md-6">
+    <div class="col-md-5">
         <h2>Proposals</h2>
           <table class="table table-striped">
             <thead>
               <th>Title</th>
-              <th>Created</th>
               <th>Status</th>
+              <th>Created</th>
             </thead>
             <tbody>
               <tr ng-repeat="proposal in accountCtrl.me.proposals">
                 <td><a ui-sref="showProposal({ id: proposal.id })">{{ proposal.title }}</a></td>
+                <td class="proposal-status">{{ accountCtrl.config.getProposalStatus(proposal.status) }}</td>
                 <td>{{ proposal.created_at }}</td>
-                <td>{{ proposal.status }}</td>
               </tr>
               </tr>
             </tbody>
