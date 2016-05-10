@@ -14,7 +14,7 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, tagsInp
 
   tagsInputConfigProvider.setDefaults('tagsInput', {
     placeholder: 'New tag',
-    minLength: 2,
+    minLength: 1,
     maxLength: 20,
     allowedTagsPattern: /^[a-zA-ZåäöÅÄÖ]{1}[\w\#åäöÅÄÖ]+$/,
     maxTags: 20,
