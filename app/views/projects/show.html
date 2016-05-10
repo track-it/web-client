@@ -9,11 +9,10 @@
         <span class="label label-danger">Project</span>
         originating from <a ui-sref="showProposal({ id: projectCtrl.project.proposal_id })">this proposal</a>.
       </div>
-      <div ng-if="projectCtrl.project.status == 2">
-        <div class="alert alert-info" role="alert">
-          Your project is completed. If you wish to publish the project to MUEP you can follow the instructions 
-          <a href="http://www.mah.se/Bibliotek/Publicering/Studentuppsatser/Publicera-din-uppsats-i-MUEP/" class="alert-link">found here</a>.
-        </div>
+      <div class="alert alert-info project-alert" role="alert" ng-if="projectCtrl.project.status == 2">
+        <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+        Your project is completed. If you wish to publish the project to MUEP you can follow the instructions
+        <a href="http://www.mah.se/Bibliotek/Publicering/Studentuppsatser/Publicera-din-uppsats-i-MUEP/" class="alert-link">found here</a>.
       </div>
     </span>
 
@@ -43,8 +42,8 @@
       </a>
 
       <!-- Students -->
-      <a href="#" class="list-group-item list-group-item-warning" ng-repeat="student in projectCtrl.project.team.users | orderBy: 'username'">
-        {{ student.username }}
+      <a href="#" class="list-group-item list-group-item-warning" ng-repeat="projectUser in projectCtrl.project.project_users | orderBy: 'username'" ng-if="projectUser.user.role_id == 2">
+        {{ projectUser.user.username }}
         <i class="fa fa-graduation-cap pull-right" title="Student" aria-hidden="true"></i>
       </a>
 
@@ -69,8 +68,6 @@
       </p>
 
     </ul>
-
-    <hr>
 
   <div class="comments" ng-if="projectCtrl.isCommentable()">
     <hr>
