@@ -16,8 +16,11 @@ function StorageService() {
     storage[key] = value;
   };
 
-  return service;
+  service.delete = function (key) {
+    storage[key] = null;
+  }
 
+  return service;
 }
 
 export default {
