@@ -9,8 +9,18 @@
         <span class="label label-danger">Project</span>
         originating from <a ui-sref="showProposal({ id: projectCtrl.project.proposal_id })">this proposal</a>.
       </div>
+      <div ng-if="projectCtrl.project.status == 2">
+        <div class="alert alert-info" role="alert">
+          Your project is completed. If you wish to publish the project to MUEP you can follow the instructions 
+          <a href="http://www.mah.se/Bibliotek/Publicering/Studentuppsatser/Publicera-din-uppsats-i-MUEP/" class="alert-link">found here</a>.
+        </div>
+      </div>
+      <div ng-if="projectCtrl.project.status == 3">
+        <div class="alert alert-success" role="alert">
+          Your project is published to MUEP.
+        </div>
+      </div>
     </span>
-
 
     <hr>
     <h2>Description</h2>
@@ -52,8 +62,7 @@
       </p>
 
     </ul>
-
-  <hr>
+    <hr>
   <div class="comments" ng-if="projectCtrl.isCommentable()">
     <h2>Comments</h2>
 
