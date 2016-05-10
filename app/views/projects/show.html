@@ -57,7 +57,7 @@
     <h2>Attachments</h2>
     <ul class="list-group">
 
-      <a href="{{ attachment.url }}" class="list-group-item" ng-repeat="attachment in projectCtrl.project.attachments | orderBy: 'attachment.created_at'">
+      <a href="{{ attachment.url }}?api_token={{ projectCtrl.token }}" class="list-group-item" ng-repeat="attachment in projectCtrl.project.attachments | orderBy: 'attachment.created_at'">
         {{ attachment.title }}
         <i class="fa fa-download pull-right" aria-hidden="true"></i>
       </a>

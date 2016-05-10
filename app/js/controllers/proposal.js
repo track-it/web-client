@@ -1,7 +1,8 @@
-function ProposalCtrl(ProposalService, CommentService, UserService, TeamService, AppSettings, $state, $scope, proposal, comments) {
+function ProposalCtrl(ProposalService, CommentService, StorageService, UserService, TeamService, AppSettings, $state, $scope, proposal, comments) {
   'ngInject';
 
   const config = AppSettings;
+  const storage = StorageService;
   const vm = this;
 
   vm.proposal = proposal;
@@ -11,6 +12,8 @@ function ProposalCtrl(ProposalService, CommentService, UserService, TeamService,
   vm.config = config;
 
   vm.user = window.user;
+
+  vm.token = storage.get('api_token');
 
   vm.comment = {};
   vm.team = [];
