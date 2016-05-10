@@ -1,4 +1,4 @@
-function ProposalCtrl(ProposalService, CommentService, AppSettings, $state, $scope, proposal, comments) {
+function ProposalCtrl(ProposalService, CommentService, UserService, TeamService, AppSettings, $state, $scope, proposal, comments) {
   'ngInject';
 
   const config = AppSettings;
@@ -6,12 +6,14 @@ function ProposalCtrl(ProposalService, CommentService, AppSettings, $state, $sco
 
   vm.proposal = proposal;
   vm.comments = comments;
+  vm.students = [];
   vm.title = proposal.title;
   vm.config = config;
 
   vm.user = window.user;
 
   vm.comment = {};
+  vm.team = [];
 
   vm.postComment = () => {
     CommentService.store('proposals', vm.proposal.id, vm.comment.body)
@@ -24,6 +26,37 @@ function ProposalCtrl(ProposalService, CommentService, AppSettings, $state, $sco
   vm.isCommentable = () => {
     return true;
   };
+
+  vm.memberCount = () => {
+    let indices = [];
+    for (var i = 0; i < vm.team.length + 1; i++) {
+      indices.push(i);
+    }
+    return indices;
+  }
+
+  vm.sendApplication = () => {
+    TeamService.store(vm.proposal.id, {
+      'user_ids': vm.team
+    }).then(team => {
+      console.log(team);
+    });
+  }
+
+  if (vm.user.role_id == config.ROLES.STUDENT) {
+    UserService.index({'role': 'student'})
+      .then(students => {
+        vm.students = students;
+      });
+
+    TeamService.index(vm.proposal.id, {
+      'user_id': vm.user.id
+    }).then(teams => {
+      if (teams.length == 1)
+        vm.team = teams[0];
+    });
+  }
+
 }
 
 export default {
