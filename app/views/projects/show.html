@@ -30,14 +30,26 @@
     <hr>
     <h2>Participants</h2>
     <ul class="list-group">
+      <!-- Customers -->
+      <a href="#" class="list-group-item list-group-item-info" ng-repeat="projectUser in projectCtrl.project.project_users | orderBy: 'username'" ng-if="projectUser.user.role_id == 1">
+        {{ projectUser.user.username }}
+        <i class="fa fa-user pull-right" title="Customer" aria-hidden="true"></i>
+      </a>
+
+      <!-- Teachers -->
+      <a href="#" class="list-group-item list-group-item-danger" ng-repeat="projectUser in projectCtrl.project.project_users | orderBy: 'username'" ng-if="projectUser.user.role_id == 3">
+        {{ projectUser.user.username }}
+        <i class="fa fa-university pull-right" title="Teacher" aria-hidden="true"></i>
+      </a>
+
       <!-- Students -->
       <a href="#" class="list-group-item list-group-item-warning" ng-repeat="student in projectCtrl.project.team.users | orderBy: 'username'">
         {{ student.username }}
-        <i class="fa fa-graduation-cap pull-right" aria-hidden="true"></i>
+        <i class="fa fa-graduation-cap pull-right" title="Student" aria-hidden="true"></i>
       </a>
 
-      <!-- If there are no students -->
-      <p class="text-muted" ng-if="projectCtrl.project.team.users == 0">
+      <!-- If there are no participants -->
+      <p class="text-muted" ng-if="projectCtrl.project.team.users == 0 && projectCtrl.project.project_users == 0">
         There are no participants for this project.
       </li>
     </ul>
@@ -116,7 +128,7 @@
     </div>
 
     <p class="text-muted" ng-if="projectCtrl.comments.length == 0">
-      No comments has been posted for this proposal.
+      No comments has been posted for this project.
     </p>
 
     <form class="postComment" ng-submit="projectCtrl.postComment()">
