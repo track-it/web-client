@@ -14,6 +14,18 @@ const login = {
   title: 'Login'
 };
 
+const account = {
+  url: '/account',
+  controller: 'AccountCtrl as accountCtrl',
+  templateUrl: 'auth/account.html',
+  title: 'Account',
+  resolve: {
+    me: function (AccountService) {
+      return AccountService.me();
+    }
+  }
+};
+
 const proposals = {
   url: '/proposals',
   controller: 'ProposalsCtrl as proposalCtrl',
@@ -82,6 +94,7 @@ export default {
     $stateProvider
       .state('home', home)
       .state('login', login)
+      .state('account', account)
       .state('proposals', proposals)
       .state('createProposal', createProposal)
       .state('showProposal', showProposal)
