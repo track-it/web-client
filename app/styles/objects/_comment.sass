@@ -1,0 +1,68 @@
+.tip
+  width: 0
+  height: 0
+  position: absolute
+  background: transparent
+  border: 10px solid $gray
+  top: 10px
+  left: -25px
+  border-top-color: transparent
+  border-left-color: transparent
+  border-bottom-color: transparent
+
+.dialogbox .body
+  position: relative
+  max-width: 100%
+  height: auto
+  margin: 10px
+  padding: 5px
+  background-color: $lightGray
+  border-radius: 3px
+  border: 5px solid $gray
+
+.timestamp
+  margin-right: 1rem
+  margin-top: -0.5rem
+  text-align: right
+
+.authorbox
+  margin-top: 2.6rem
+  margin-right: -1.5rem
+  font-size: 1.3em
+  text-transform: uppercase
+  font-family: $font-heading
+  color: $black
+  text-align: right
+  text-decoration: none
+  .commentRole
+    font-size: 0.5em
+    font-family: $font-text
+    .fa
+      margin-left: 0.5rem
+
+.body .message
+  min-height: 40px
+  border-radius: 3px
+  font-family: Arial
+  font-size: 14px
+  line-height: 1.5
+  color: #797979
+  font-family: $font-text
+
+.comments
+  hr
+    margin: 5px
+
+.postComment
+  margin-top: 3rem
+
+@media (max-width: $md)
+  .tip
+    top: -25px
+    left: 10px
+    border-right-color: transparent
+    border-left-color: transparent
+    border-top-color: transparent
+
+  .authorbox
+    text-align: left
