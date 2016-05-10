@@ -1,6 +1,6 @@
 import Routes from './routes';
 
-function OnConfig($stateProvider, $locationProvider, $urlRouterProvider) {
+function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, tagsInputConfigProvider) {
   'ngInject';
 
   $locationProvider.html5Mode({
@@ -11,6 +11,18 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider) {
   Routes.setup($stateProvider);
 
   $urlRouterProvider.otherwise('/');
+
+  tagsInputConfigProvider.setDefaults('tagsInput', {
+    placeholder: 'New tag',
+    minLength: 2,
+    maxLength: 20,
+    allowedTagsPattern: /^[a-zA-ZåäöÅÄÖ]{1}[\w\#åäöÅÄÖ]+$/,
+    maxTags: 20,
+    addOnEnter: true,
+    addOnSpace: true,
+    addOnComma: true,
+    enableEditingLastTag: true,
+  });
 }
 
 export default OnConfig;
