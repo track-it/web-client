@@ -40,6 +40,7 @@ function ProposalCtrl(ProposalService, CommentService, UserService, TeamService,
       'user_ids': vm.team
     }).then(team => {
       console.log(team);
+      $state.go($state.current, {}, {reload: true});
     });
   }
 

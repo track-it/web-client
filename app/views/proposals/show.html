@@ -140,7 +140,7 @@
           </div>
         </div>
       </div>
-      <div ng-if="proposalCtrl.user.role_id == proposalCtrl.config.ROLES.STUDENT && proposalCtrl.team.users.length == 0" class="controlpanel">
+      <div ng-if="proposalCtrl.user.role_id == proposalCtrl.config.ROLES.STUDENT && !proposalCtrl.team.users" class="controlpanel">
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4>Apply</h4>
