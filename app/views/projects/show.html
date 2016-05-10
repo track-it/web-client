@@ -9,11 +9,10 @@
         <span class="label label-danger">Project</span>
         originating from <a ui-sref="showProposal({ id: projectCtrl.project.proposal_id })">this proposal</a>.
       </div>
-      <div ng-if="projectCtrl.project.status == 2">
-        <div class="alert alert-info" role="alert">
-          Your project is completed. If you wish to publish the project to MUEP you can follow the instructions 
-          <a href="http://www.mah.se/Bibliotek/Publicering/Studentuppsatser/Publicera-din-uppsats-i-MUEP/" class="alert-link">found here</a>.
-        </div>
+      <div class="alert alert-info project-alert" role="alert" ng-if="projectCtrl.project.status == 2">
+        <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+        Your project is completed. If you wish to publish the project to MUEP you can follow the instructions
+        <a href="http://www.mah.se/Bibliotek/Publicering/Studentuppsatser/Publicera-din-uppsats-i-MUEP/" class="alert-link">found here</a>.
       </div>
     </span>
 
@@ -30,14 +29,26 @@
     <hr>
     <h2>Participants</h2>
     <ul class="list-group">
-      <!-- Students -->
-      <a href="#" class="list-group-item list-group-item-warning" ng-repeat="student in projectCtrl.project.team.users | orderBy: 'username'">
-        {{ student.username }}
-        <i class="fa fa-graduation-cap pull-right" aria-hidden="true"></i>
+      <!-- Customers -->
+      <a href="#" class="list-group-item list-group-item-info" ng-repeat="projectUser in projectCtrl.project.project_users | orderBy: 'username'" ng-if="projectUser.user.role_id == 1">
+        {{ projectUser.user.username }}
+        <i class="fa fa-user pull-right" title="Customer" aria-hidden="true"></i>
       </a>
 
-      <!-- If there are no students -->
-      <p class="text-muted" ng-if="projectCtrl.project.team.users == 0">
+      <!-- Teachers -->
+      <a href="#" class="list-group-item list-group-item-danger" ng-repeat="projectUser in projectCtrl.project.project_users | orderBy: 'username'" ng-if="projectUser.user.role_id == 3">
+        {{ projectUser.user.username }}
+        <i class="fa fa-university pull-right" title="Teacher" aria-hidden="true"></i>
+      </a>
+
+      <!-- Students -->
+      <a href="#" class="list-group-item list-group-item-warning" ng-repeat="projectUser in projectCtrl.project.project_users | orderBy: 'username'" ng-if="projectUser.user.role_id == 2">
+        {{ projectUser.user.username }}
+        <i class="fa fa-graduation-cap pull-right" title="Student" aria-hidden="true"></i>
+      </a>
+
+      <!-- If there are no participants -->
+      <p class="text-muted" ng-if="projectCtrl.project.team.users == 0 && projectCtrl.project.project_users == 0">
         There are no participants for this project.
       </li>
     </ul>
@@ -57,8 +68,6 @@
       </p>
 
     </ul>
-
-    <hr>
 
   <div class="comments" ng-if="projectCtrl.isCommentable()">
     <hr>
@@ -116,7 +125,7 @@
     </div>
 
     <p class="text-muted" ng-if="projectCtrl.comments.length == 0">
-      No comments has been posted for this proposal.
+      No comments has been posted for this project.
     </p>
 
     <form class="postComment" ng-submit="projectCtrl.postComment()">
