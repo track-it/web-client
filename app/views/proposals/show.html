@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="{{ proposalCtrl.user ? 'col-md-9' : 'col-md-12' }}">
+    <div class="{{ proposalCtrl.user ? 'col-md-8' : 'col-md-12' }}">
 
       <h1>
         {{ proposalCtrl.proposal.title }}
@@ -110,37 +110,81 @@
 
     </div>
 
-    <div ng-if="proposalCtrl.user.role_id == proposalCtrl.config.ROLES.TEACHER" class="col-md-3">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4>Approve</h4>
-        </div>
-        <div class="panel-body">
-          <div class="form-group">
-            <label for="course">Select course:</label>
-            <select name="course" id="course" class="form-control">
-              <option ng-repeat="course in proposalCtrl.user.courses" value="{{ course.id }}">
-                {{ course.code }}
-              </option>
-            </select>
+    <div class="col-md-4">
+      <div ng-if="proposalCtrl.user.role_id == proposalCtrl.config.ROLES.TEACHER" class="controlpanel">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4>Approve</h4>
           </div>
-          <button class="btn btn-success btn-block">Approve proposal</button>
+          <div class="panel-body">
+            <div class="form-group">
+              <label for="course">Select course:</label>
+              <select name="course" id="course" class="form-control">
+                <option ng-repeat="course in proposalCtrl.user.courses" value="{{ course.id }}">
+                  {{ course.code }}
+                </option>
+              </select>
+            </div>
+            <button class="btn btn-success btn-block">Approve proposal</button>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4>Tags</h4>
+          </div>
+          <div class="panel-body">
+            <div class="form-group">
+              <input type="text" class="form-control">
+            </div>
+            <button class="btn btn-default btn-block">Add tag</button>
+          </div>
         </div>
       </div>
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4>Tags</h4>
-        </div>
-        <div class="panel-body">
-          <div class="form-group">
-            <input type="text" class="form-control">
-          </div>
-          <button class="btn btn-default btn-block">Add tag</button>
-        </div>
-      </div>
-    </div>
-    <div ng-if="proposalCtrl.user.role == proposalCtrl.config.ROLES.STUDENT" class="col-md-3">
 
+      <div ng-if="proposalCtrl.user.role_id == proposalCtrl.config.ROLES.STUDENT && !proposalCtrl.team.users" class="controlpanel">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4>Apply</h4>
+          </div>
+          <div class="panel-body">
+            <form ng-submit="proposalCtrl.sendApplication()">
+              <div class="form-group">
+                <label for="search">Add members</label>
+                <div class="memberselect" ng-repeat="index in proposalCtrl.memberCount()">
+                  <ol class="nya-bs-select" ng-model="proposalCtrl.team[$index]" data-live-search="true" title="Search...">
+                    <li nya-bs-option="student in proposalCtrl.students" data-value="student.id" >
+                      <a>{{ student.username }}</a>
+                    </li>
+                  </ol>
+                </div>
+              </div>
+              <button class="btn btn-success btn-block">Apply</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div ng-if="proposalCtrl.user.role_id == proposalCtrl.config.ROLES.STUDENT && proposalCtrl.team.users.length > 0" class="controlpanel">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4>Application</h4>
+          </div>
+          <div class="panel-body">
+            <label for="search">Team members</label>
+            <ul class="list-group">
+              <li class="list-group-item list-group-item-warning" ng-repeat="member in proposalCtrl.team.users">
+                {{ member.username }}
+                <i class="fa fa-graduation-cap pull-right" aria-hidden="true"></i>
+              </li>
+            </ul>
+            <div class="text-muted">
+              <small>Application sent at {{ proposalCtrl.team.created_at }}</small>
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+
   </div>
 </div>

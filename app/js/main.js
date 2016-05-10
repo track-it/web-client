@@ -8,6 +8,7 @@ import 'angular-ui-router';
 import 'ng-tags-input';
 import 'textangular/dist/textAngular-sanitize';
 import textAngular from 'textangular';
+import 'nya-bootstrap-select';
 import './templates';
 import './filters';
 import './controllers';
@@ -26,6 +27,7 @@ const requires = [
   'app.directives',
   'ngTagsInput',
   textAngular,
+  'nya.bootstrap.select'
 ];
 
 // mount on window for testing

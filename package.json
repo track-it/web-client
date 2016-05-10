@@ -84,6 +84,7 @@
   "license": "MIT",
   "dependencies": {
     "angular-sanitize": "^1.5.5",
+    "nya-bootstrap-select": "^2.0.11",
     "textangular": "^1.5.1"
   }
 }
