@@ -39,7 +39,6 @@ function ProposalCtrl(ProposalService, CommentService, UserService, TeamService,
     TeamService.store(vm.proposal.id, {
       'user_ids': vm.team
     }).then(team => {
-      console.log(team);
       $state.go($state.current, {}, {reload: true});
     });
   }

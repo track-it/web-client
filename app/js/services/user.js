@@ -11,7 +11,6 @@ function UserService($http, $q, AppSettings) {
       params: params
     })
     .then(res => {
-      console.log(res.data.data);
       return res.data.data;
     });
   };
