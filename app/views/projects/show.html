@@ -4,7 +4,7 @@
     </h1>
     <span class="text-muted">
       <i class="fa fa-clock-o" aria-hidden="true"></i>
-      Created {{ projectCtrl.project.created_at }}
+      <small>Created {{ projectCtrl.project.created_at }}</small>
       <div>
         <span class="label label-danger">Project</span>
         originating from <a ui-sref="showProposal({ id: projectCtrl.project.proposal_id })">this proposal</a>.
@@ -17,7 +17,7 @@
       <p>
         {{ projectCtrl.project.description }}
 
-        <p class="text-muted" ng-if="!proposalCtrl.proposal.description">
+        <p class="text-muted" ng-if="!projectCtrl.proposal.description">
           No description.
         </p>
       </p>
@@ -53,24 +53,71 @@
 
     </ul>
 
-  <hr>
   <div class="comments" ng-if="projectCtrl.isCommentable()">
+    <hr>
     <h2>Comments</h2>
 
-    <div class="comment" ng-repeat="comment in projectCtrl.comments">
-      <h3>{{ comment.author.username }} - {{ comment.created_at }}</h3>
-      <p>{{ comment.body }}</p>
+    <div class="row" ng-repeat="comment in projectCtrl.comments">
+
+      <div class="col-md-2">
+        <div class="authorbox">
+          <!-- <a href="#"> -->
+            <span>{{ comment.author.username }}</span>
+          <!-- </a> -->
+          <div class="commentRole text-muted">
+            <span ng-if="comment.author.role_id == 1">
+              Customer
+              <span class="fa fa-user" aria-hidden="true"></span>
+            </span>
+            <span ng-if="comment.author.role_id == 2">
+              Student
+              <span class="fa fa-graduation-cap" aria-hidden="true"></span>
+            </span>
+            <span ng-if="comment.author.role_id == 3">
+              Teacher
+              <span class="fa fa-university" aria-hidden="true"></span>
+            </span>
+            <span ng-if="comment.author.role_id == 4">
+              Admin
+              <span class="fa fa-user-plus" aria-hidden="true"></span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-8">
+        <div class="dialogbox">
+          <div class="body">
+            <span class="tip"></span>
+            <div class="message">
+              <span>{{ comment.body }}</span>
+            </div>
+          </div>
+          <div class="timestamp text-muted">
+            <i class="fa fa-clock-o" aria-hidden="true"></i>
+            <small>{{ comment.created_at }}</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div ng-if="!$last" class="col-md-8 col-md-offset-2">
+          <hr>
+        </div>
+      </div>
+
     </div>
 
-    <p class="text-muted" ng-if="!projectCtrl.comments">
-      No comments has been posted for this project.
+    <p class="text-muted" ng-if="projectCtrl.comments.length == 0">
+      No comments has been posted for this proposal.
     </p>
 
-    <form ng-submit="projectCtrl.postComment()">
+    <form class="postComment" ng-submit="projectCtrl.postComment()">
       <div class="form-group">
         <textarea class="form-control" ng-model="projectCtrl.comment.body"></textarea>
       </div>
       <button class="btn btn-primary">Post comment</button>
     </form>
+
   </div>
 </div>
