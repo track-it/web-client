@@ -5,12 +5,12 @@
   <div class="well">
     <form ng-submit="proposalCtrl.store()">
       <div class="form-group">
-        <label for="title">Title:</label>
+        <label for="title">Title</label>
         <input type="text" id="title" ng-model="proposalCtrl.new.title" class="form-control">
       </div>
 
       <div class="form-group">
-        <label for="category">Category:</label>
+        <label for="category">Category</label>
         <select name="category" id="category" class="form-control">
           <option value="1">Project</option>
           <option value="2">Bachelor</option>
@@ -19,18 +19,18 @@
       </div>
 
       <div class="form-group">
-        <label for="usr">Tags:</label>
+        <label for="usr">Tags</label>
         <tags-input ng-model="proposalCtrl.tags"></tags-input>
       </div>
 
       <div class="form-group">
-        <label for="comment">Description:</label>
+        <label for="comment">Description</label>
         <text-angular ng-model="proposalCtrl.new.description"></text-angular>
         <!-- <textarea class="form-control" rows="5" id="description" ng-model="proposalCtrl.new.description"></textarea> -->
       </div>
 
       <div class="form-group">
-        <label for="attachments">Attachments:</label>
+        <label for="attachments">Attachments</label>
         <input type="file" class="btn btn-default" ng-files="proposalCtrl.files" ng-repeat="file in proposalCtrl.filesCount()">
       </div>
       <button class="btn btn-primary btn-lg">Submit</button>

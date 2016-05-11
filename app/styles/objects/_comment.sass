@@ -1,69 +1,86 @@
-.tip
-  width: 0
-  height: 0
-  position: absolute
-  background: transparent
-  border: 10px solid $gray
-  top: 10px
-  left: -25px
-  border-top-color: transparent
-  border-left-color: transparent
-  border-bottom-color: transparent
-
 .dialogbox
+
+  .timestamp
+    margin-right: 0.2rem
+    margin-top: -0.5rem
+    text-align: right
+
   .body
     position: relative
     max-width: 100%
     height: auto
-    margin: 10px
+    margin-top: 10px
+    margin-bottom: 10px
     padding: 5px
     background-color: $lightGray
     border-radius: 3px
     border: 5px solid $gray
-  .timestamp
-    margin-right: 1rem
-    margin-top: -0.5rem
-    text-align: right
+
+    .tip
+      width: 0
+      height: 0
+      position: absolute
+      background: transparent
+      border: 10px solid $gray
+      top: 6px
+      left: -25px
+      border-top-color: transparent
+      border-left-color: transparent
+      border-bottom-color: transparent
+
+      @media (max-width: $md)
+        top: -25px
+        left: 6px
+        border-right-color: transparent
+        border-left-color: transparent
+        border-top-color: transparent
+        border-bottom-color: $gray
+
+  .message
+    min-height: 40px
+    border-radius: 3px
+    font-family: Arial
+    font-size: 14px
+    line-height: 1.5
+    color: #797979
+    font-family: $font-text
+    word-wrap: break-word
+    h1, h2, h3, h4, h5
+      margin-top: 0
 
 .authorbox
-  margin-top: 2.2rem
-  margin-right: -1.5rem
+  margin-top: 0.7rem
+  margin-right: -1rem
   font-size: 1.3em
   text-transform: uppercase
   font-family: $font-heading
   color: $black
   text-align: right
   text-decoration: none
+
+  .username
+    margin-top: 0
+
   .commentRole
     font-size: 0.5em
     font-family: $font-text
     .fa
       margin-left: 0.5rem
 
-.body .message
-  min-height: 40px
-  border-radius: 3px
-  font-family: Arial
-  font-size: 14px
-  line-height: 1.5
-  color: #797979
-  font-family: $font-text
-  word-wrap: break-word
+  @media (max-width: $md)
+    margin-top: 0rem
 
 .comments
   hr
-    margin: 5px
+    margin-top: 1rem
+    margin-bottom: 1rem
 
-.postComment
+.inputbox
   margin-top: 3rem
 
 @media (max-width: $md)
-  .tip
-    top: -25px
-    left: 10px
-    border-right-color: transparent
-    border-left-color: transparent
-    border-top-color: transparent
+  .dialogbox .body
+    margin-top: 15px
 
   .authorbox
     text-align: left

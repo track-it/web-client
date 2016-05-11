@@ -46,10 +46,10 @@
 
         <div class="row" ng-repeat="comment in proposalCtrl.comments">
 
-          <div class="col-md-2">
+          <div class="col-md-3">
             <div class="authorbox">
               <!-- <a href="#"> -->
-                <span>{{ comment.author.username }}</span>
+                <span class="username">{{ comment.author.username }}</span>
               <!-- </a> -->
               <div class="commentRole text-muted">
                 <span ng-if="comment.author.role_id == 1">
@@ -72,13 +72,11 @@
             </div>
           </div>
 
-          <div class="col-md-8">
+          <div class="col-md-9">
             <div class="dialogbox">
               <div class="body">
                 <span class="tip"></span>
-                <div class="message">
-                  <span>{{ comment.body }}</span>
-                </div>
+                <div class="message" ng-bind-html="comment.body"></div>
               </div>
               <div class="timestamp text-muted">
                 <i class="fa fa-clock-o" aria-hidden="true"></i>
@@ -88,7 +86,7 @@
           </div>
 
           <div class="row">
-            <div ng-if="!$last" class="col-md-8 col-md-offset-2">
+            <div ng-if="!$last" class="col-md-10 col-md-offset-2">
               <hr>
             </div>
           </div>
@@ -99,9 +97,9 @@
           No comments has been posted for this proposal.
         </p>
 
-        <form class="postComment" ng-submit="proposalCtrl.postComment()">
+        <form class="inputbox" ng-submit="proposalCtrl.postComment()">
           <div class="form-group">
-            <textarea class="form-control" ng-model="proposalCtrl.comment.body"></textarea>
+            <text-angular ng-model="proposalCtrl.comment.body"></text-angular>
           </div>
           <button class="btn btn-primary">Post comment</button>
         </form>
