@@ -9,7 +9,7 @@
         <span class="label label-danger">Project</span>
         originating from <a ui-sref="showProposal({ id: projectCtrl.project.proposal_id })">this proposal</a>.
       </div>
-      <div class="alert alert-info project-alert" role="alert" ng-if="projectCtrl.project.status == 2">
+      <div class="alert alert-info project-alert" role="alert" ng-if="projectCtrl.config.PROJECT_STATUSES.COMPLETED == projectCtrl.project.status">
         <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
         Your project is completed. If you wish to publish the project to MUEP you can follow the instructions
         <a href="http://www.mah.se/Bibliotek/Publicering/Studentuppsatser/Publicera-din-uppsats-i-MUEP/" class="alert-link">found here</a>.
@@ -75,7 +75,7 @@
 
     <div class="row" ng-repeat="comment in projectCtrl.comments">
 
-      <div class="col-md-2">
+      <div class="col-md-3">
         <div class="authorbox">
           <!-- <a href="#"> -->
             <span>{{ comment.author.username }}</span>
@@ -101,13 +101,11 @@
         </div>
       </div>
 
-      <div class="col-md-8">
+      <div class="col-md-9">
         <div class="dialogbox">
           <div class="body">
             <span class="tip"></span>
-            <div class="message">
-              <span>{{ comment.body }}</span>
-            </div>
+              <div class="message" ng-bind-html="comment.body"></div>
           </div>
           <div class="timestamp text-muted">
             <i class="fa fa-clock-o" aria-hidden="true"></i>
@@ -128,9 +126,9 @@
       No comments has been posted for this project.
     </p>
 
-    <form class="postComment" ng-submit="projectCtrl.postComment()">
+    <form class="inputbox" ng-submit="projectCtrl.postComment()">
       <div class="form-group">
-        <textarea class="form-control" ng-model="projectCtrl.comment.body"></textarea>
+        <text-angular ng-model="projectCtrl.comment.body"></text-angular>
       </div>
       <button class="btn btn-primary">Post comment</button>
     </form>

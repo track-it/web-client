@@ -1,7 +1,7 @@
 <!-- Huvudinnehåll -->
 
 <div class="container">
-  <h1>{{ accountCtrl.me.username }}</h1> 
+  <h1>{{ accountCtrl.me.username }}</h1>
   <div class="well">
     <div class="row">
       <div class="col-md-4">
@@ -9,7 +9,7 @@
       </div>
       <div class="col-md-6">
         <p>You have {{ accountCtrl.me.proposals.length }} proposals and {{ accountCtrl.me.projects.length }} projects. For details see the lists below.</p>
-      </div> 
+      </div>
       <div class="col-md-2">
         <form ng-submit="accountCtrl.logout()">
           <button class="btn btn-danger pull-right">Log out</button>

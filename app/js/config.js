@@ -20,6 +20,12 @@ const AppSettings = {
     ADMINISTRATOR:  4,
   },
 
+  PROJECT_STATUSES: {
+    NOT_COMPLETED:  1,
+    COMPLETED:      2,
+    PUBLISHED:      3,
+  },
+
   ROLE_IDS: {
     1:              'CUSTOMER',
     2:              'STUDENT',
@@ -35,8 +41,8 @@ const AppSettings = {
   ],
 
   PROJECT_STATUS_IDS: [
-    'completed',
     'not completed',
+    'completed',
     'published',
   ],
 
