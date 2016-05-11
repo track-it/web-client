@@ -28,9 +28,9 @@ const AppSettings = {
   },
 
   PROPOSAL_STATUS_IDS: [
-    'not reviewed',  
+    'not reviewed',
     'under review',
-    'not approved', 
+    'not approved',
     'approved',
   ],
 
