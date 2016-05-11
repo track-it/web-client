@@ -34,19 +34,19 @@
       <h2>Participants</h2>
       <ul class="list-group">
         <!-- Customers -->
-        <a href="#" class="list-group-item list-group-item-info" ng-repeat="projectUser in projectCtrl.project.project_users | orderBy: 'username'" ng-if="projectUser.user.role_id == 1">
+        <a href="#" class="list-group-item list-group-item-info" ng-repeat="projectUser in projectCtrl.project.project_users | orderBy: 'username'" ng-if="projectUser.project_role_id == 1">
           {{ projectUser.user.username }}
           <i class="fa fa-user pull-right" title="Customer" aria-hidden="true"></i>
         </a>
 
         <!-- Teachers -->
-        <a href="#" class="list-group-item list-group-item-danger" ng-repeat="projectUser in projectCtrl.project.project_users | orderBy: 'username'" ng-if="projectUser.user.role_id == 3">
+        <a href="#" class="list-group-item list-group-item-success" ng-repeat="projectUser in projectCtrl.project.project_users | orderBy: 'username'" ng-if="projectUser.project_role_id == 3">
           {{ projectUser.user.username }}
           <i class="fa fa-university pull-right" title="Teacher" aria-hidden="true"></i>
         </a>
 
         <!-- Students -->
-        <a href="#" class="list-group-item list-group-item-warning" ng-repeat="projectUser in projectCtrl.project.project_users | orderBy: 'username'" ng-if="projectUser.user.role_id == 2">
+        <a href="#" class="list-group-item list-group-item-warning" ng-repeat="projectUser in projectCtrl.project.project_users | orderBy: 'username'" ng-if="projectUser.project_role_id == 2">
           {{ projectUser.user.username }}
           <i class="fa fa-graduation-cap pull-right" title="Student" aria-hidden="true"></i>
         </a>
