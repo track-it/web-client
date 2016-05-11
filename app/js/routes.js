@@ -14,6 +14,15 @@ const login = {
   title: 'Login'
 };
 
+const register = {
+  guest: true,
+
+  url: '/register',
+  controller: 'RegisterCtrl as registerCtrl',
+  templateUrl: 'auth/register.html',
+  title: 'Register'
+};
+
 const account = {
   url: '/account',
   controller: 'AccountCtrl as accountCtrl',
@@ -94,6 +103,7 @@ export default {
     $stateProvider
       .state('home', home)
       .state('login', login)
+      .state('register', register)
       .state('account', account)
       .state('proposals', proposals)
       .state('createProposal', createProposal)
