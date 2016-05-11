@@ -33,6 +33,14 @@ const AppSettings = {
     PUBLISHED:      3,
   },
 
+  PROPOSAL_STATUSES: {
+    NOT_REVIEWED:   1,
+    UNDER_REVIEW:   2,
+    NOT_APPROVED:   3,
+    APPROVED:       4,
+    ARCHIVED:       5,
+  },
+
   ROLE_IDS: {
     1: 'CUSTOMER',
     2: 'STUDENT',
@@ -45,6 +53,7 @@ const AppSettings = {
     'under review',
     'not approved',
     'approved',
+    'archived',
   ],
 
   PROJECT_STATUS_IDS: [
