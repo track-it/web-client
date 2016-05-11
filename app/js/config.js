@@ -20,6 +20,13 @@ const AppSettings = {
     ADMINISTRATOR:  4,
   },
 
+  PROJECT_ROLES: {
+    STAKEHOLDER:    1,
+    STUDENT:        2,
+    TEACHER:        3,
+    SUPERVISOR:     4,
+  },
+
   PROJECT_STATUSES: {
     NOT_COMPLETED:  1,
     COMPLETED:      2,
@@ -27,10 +34,10 @@ const AppSettings = {
   },
 
   ROLE_IDS: {
-    1:              'CUSTOMER',
-    2:              'STUDENT',
-    3:              'TEACHER',
-    4:              'ADMINISTRATOR',
+    1: 'CUSTOMER',
+    2: 'STUDENT',
+    3: 'TEACHER',
+    4: 'ADMINISTRATOR',
   },
 
   PROPOSAL_STATUS_IDS: [

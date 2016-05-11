@@ -2,19 +2,20 @@
     <h1>
       {{ projectCtrl.project.title }}
     </h1>
-    <span class="text-muted">
-      <i class="fa fa-clock-o" aria-hidden="true"></i>
-      <small>Created {{ projectCtrl.project.created_at }}</small>
+    <div class="details text-muted">
       <div>
-        <span class="label label-danger">Project</span>
-        originating from <a ui-sref="showProposal({ id: projectCtrl.project.proposal_id })">this proposal</a>.
+        <i class="fa fa-clock-o" aria-hidden="true"></i>
+        <small>Created {{ projectCtrl.project.created_at }}</small>
       </div>
-      <div class="alert alert-info project-alert" role="alert" ng-if="projectCtrl.config.PROJECT_STATUSES.COMPLETED == projectCtrl.project.status">
-        <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
-        Your project is completed. If you wish to publish the project to MUEP you can follow the instructions
-        <a href="http://www.mah.se/Bibliotek/Publicering/Studentuppsatser/Publicera-din-uppsats-i-MUEP/" class="alert-link">found here</a>.
-      </div>
-    </span>
+      <span class="project-status label label-success">{{ projectCtrl.config.getProjectStatus(projectCtrl.project.status) }}</span>
+      <span class="label label-danger">Project</span>
+      originating from <a ui-sref="showProposal({ id: projectCtrl.project.proposal_id })">this proposal</a>.
+    </div>
+    <div class="alert alert-info project-alert" role="alert" ng-if="projectCtrl.config.PROJECT_STATUSES.COMPLETED == projectCtrl.project.status && projectCtrl.userIsStudent">
+      <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+      Your project is completed. If you wish to publish the project to MUEP you can follow the instructions
+      <a href="http://www.mah.se/Bibliotek/Publicering/Studentuppsatser/Publicera-din-uppsats-i-MUEP/" class="alert-link">found here</a>.
+    </div>
 
     <hr>
     <h2>Description</h2>

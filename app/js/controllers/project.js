@@ -1,4 +1,4 @@
-function ProjectCtrl(ProjectService, CommentService, StorageService, AppSettings, $state, $scope, project, comments) {
+function ProjectCtrl(ProjectService, CommentService, StorageService, AppSettings, $state, $scope, $filter, project, comments) {
   'ngInject';
 
   const config = AppSettings;
@@ -25,8 +25,13 @@ function ProjectCtrl(ProjectService, CommentService, StorageService, AppSettings
   };
 
   vm.isCommentable = () => {
-    return true;
+    return (config.PROJECT_STATUSES.PUBLISHED != project.status);
   };
+
+  vm.userIsStudent = () => {
+    let projectUser = $filter('filter')(project.project_users, {user_id : vm.user.id})[0];
+    return (projectUser.project_role_id == config.PROJECT_ROLES.STUDENT);
+  }
 }
 
 export default {
