@@ -1,4 +1,17 @@
-function ProposalCtrl(ProposalService, CommentService, StorageService, UserService, TeamService, AppSettings, $state, $scope, proposal, comments) {
+function ProposalCtrl(
+  ProposalService,
+  CommentService,
+  TagService,
+  StorageService,
+  UserService,
+  TeamService,
+  AppSettings,
+  $state,
+  $scope,
+  proposal,
+  comments,
+  tags
+) {
   'ngInject';
 
   const config = AppSettings;
@@ -9,6 +22,7 @@ function ProposalCtrl(ProposalService, CommentService, StorageService, UserServi
   vm.comments = comments;
   vm.students = [];
   vm.title = proposal.title;
+  vm.newTags = [];
   vm.config = config;
 
   vm.user = window.user;
@@ -44,6 +58,25 @@ function ProposalCtrl(ProposalService, CommentService, StorageService, UserServi
     }).then(team => {
       $state.go($state.current, {}, {reload: true});
     });
+  }
+
+  vm.updateTag = () => {
+    var tagNames = parseTags(newTags);
+    TagService.store('proposals', vm.proposal.id, tagNames)
+      .then(res => {
+        vm.newTags = [];
+      })
+      .then(() => {
+        $state.transitionTo('proposals/' + vm.proposal.id);
+      });
+  };
+
+  const parseTags = tags => {
+    var names = [];
+    angular.forEach(tags, tag => {
+      names.push(tag.text);
+    });
+    return names;
   }
 
   if (vm.user.role_id == config.ROLES.STUDENT) {

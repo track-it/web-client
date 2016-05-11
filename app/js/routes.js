@@ -49,6 +49,9 @@ const showProposal = {
     },
     comments: function (CommentService, $stateParams) {
       return CommentService.get('proposals', $stateParams.id);
+    },
+    tags: function (TagService, $stateParams) {
+      return TagService.get('proposals', $stateParams.id);
     }
   }
 };

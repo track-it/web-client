@@ -133,10 +133,14 @@
             <h4>Tags</h4>
           </div>
           <div class="panel-body">
-            <div class="form-group">
-              <input type="text" class="form-control">
-            </div>
-            <button class="btn btn-default btn-block">Add tag</button>
+            <form ng-submit="proposalCtrl.updateTags()">
+              <div class="form-group">
+                <tags-input ng-model="proposalCtrl.tags"></tags-input>
+              </div>
+              <button class="btn btn-default btn-block">
+                Add tag<span ng-if="proposalCtrl.tags.length > 1">s</span>
+              </button>
+            </form>
           </div>
         </div>
       </div>
