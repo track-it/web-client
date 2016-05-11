@@ -1,7 +1,7 @@
 import angular from 'angular';
 
 // angular modules
-import constants from './constants';
+import config from './config';
 import onConfig  from './on_config';
 import onRun     from './on_run';
 import 'angular-ui-router';
@@ -33,7 +33,7 @@ const requires = [
 // mount on window for testing
 window.app = angular.module('app', requires);
 
-angular.module('app').constant('AppSettings', constants);
+angular.module('app').constant('AppSettings', config);
 
 angular.module('app').config(onConfig);
 
