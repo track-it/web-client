@@ -55,9 +55,6 @@ const showProposal = {
   resolve: {
     proposal: function (ProposalService, $stateParams) {
       return ProposalService.get($stateParams.id);
-    },
-    comments: function (CommentService, $stateParams) {
-      return CommentService.get('proposals', $stateParams.id);
     }
   }
 };
@@ -91,9 +88,6 @@ const showProject = {
   resolve: {
     project: function (ProjectService, $stateParams) {
       return ProjectService.get($stateParams.id);
-    },
-    comments: function (CommentService, $stateParams) {
-      return CommentService.get('projects', $stateParams.id);
     }
   }
 };
