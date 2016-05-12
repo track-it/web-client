@@ -1,7 +1,6 @@
 <div class="container">
   <div class="row">
     <div class="{{ proposalCtrl.user ? 'col-md-8' : 'col-md-12' }}">
-
       <h1>
         {{ proposalCtrl.proposal.title }}
       </h1>
@@ -20,7 +19,8 @@
           <span class="label label-primary" >{{ tag.name }}</span>
         </span>
       </div>
-
+      <a ui-sref="proposals/"><span class="fa fa-pencil"></span></a>
+      
       <hr>
       <h2>Description</h2>
       <p ng-bind-html="proposalCtrl.proposal.description">
@@ -129,17 +129,6 @@
               </select>
             </div>
             <button class="btn btn-success btn-block">Approve proposal</button>
-          </div>
-        </div>
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4>Tags</h4>
-          </div>
-          <div class="panel-body">
-            <div class="form-group">
-              <input type="text" class="form-control">
-            </div>
-            <button class="btn btn-default btn-block">Add tag</button>
           </div>
         </div>
       </div>
