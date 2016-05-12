@@ -28,14 +28,6 @@ function CreateProjectCtrl(ProjectService, AttachmentService, $state, proposal, 
       });
   };
 
-  vm.filesCount = () => {
-    var count = [];
-    for (var i = 0; i < vm.files.length + 1; i++) {
-      count.push(i);
-    }
-    return count;
-  }
-
   vm.getClass = index => {
     return vm.selectedTeam == index ? 'active' : '';
   }
@@ -55,7 +47,7 @@ function CreateProjectCtrl(ProjectService, AttachmentService, $state, proposal, 
 
       var formData = new FormData();
       for (var i = 0; i < vm.files.length; i++) {
-        formData.append('files[' + i + ']', vm.files[i]);
+        formData.append('files[' + i + ']', vm.files[i]._file);
       }
       return AttachmentService.store('projects', id, formData)
         .then(data => resolve(data))

@@ -23,6 +23,7 @@ function ngFiles($parse) {
       });
       scope.$apply(function () {
         modelSetter(scope, values);
+        element[0].value = null;
       });
     });
   }

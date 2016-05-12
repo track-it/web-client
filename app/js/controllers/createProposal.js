@@ -12,6 +12,8 @@ function CreateProposalCtrl(ProposalService, AttachmentService, $state) {
   vm.store = () => {
     vm.new.tags = parseTags(vm.tags);
 
+    console.log(vm.files);
+
     ProposalService.store(vm.new)
       .then(res => {
         return uploadFiles(res.data.id);
@@ -36,7 +38,7 @@ function CreateProposalCtrl(ProposalService, AttachmentService, $state) {
 
       var formData = new FormData();
       for (var i = 0; i < vm.files.length; i++) {
-        formData.append('files[' + i + ']', vm.files[i]);
+        formData.append('files[' + i + ']', vm.files[i]._file);
       }
       return AttachmentService.store('proposals', id, formData)
         .then(data => resolve(data))

@@ -36,7 +36,7 @@
             <ul class="attachments">
               <li class="attachment" ng-repeat="file in proposalCtrl.files">
                 <span class="attachment-name">
-                  {{ file.name }}
+                  {{ file.name | limitTo: 22 }} {{ file.name.length > 22 ? '...' : '' }}
                 </span>
                 <span class="attachment-remove" ng-click="proposalCtrl.files.splice($index, 1)">&times;</span>
               </li>
