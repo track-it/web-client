@@ -38,10 +38,14 @@ function AuthService($http, $rootScope, AppSettings) {
     });
   };
 
+  service.register = function(user) {
+    return $http.post(config.api('auth/register'), user);
+  }
+
   service.logout = function () {
       delete $http.defaults.headers.common.Authorization;
       delete window.user;
-      service.isAuthenticated = false; 
+      service.isAuthenticated = false;
   };
 
   return service;

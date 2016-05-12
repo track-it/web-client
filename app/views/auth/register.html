@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4">
+      <h1 class="text-center register-title">Register account</h1>
+      <div class="well register-well" ng-if="!registerCtrl.isRegistered()">
+        <form ng-submit="registerCtrl.register(registerCtrl.user)">
+          <p ng-if="registerCtrl.error" class="text-danger text-center m-b-2">
+            Something went wrong! Please try again.
+          </p>
+          <div class="form-group">
+            <input type="text" class="form-control" ng-model="registerCtrl.user.username" placeholder="Username" autofocus>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" ng-model="registerCtrl.user.email" placeholder="E-mail" autofocus>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" ng-model="registerCtrl.user.displayname" placeholder="Display name" autofocus>
+          </div>
+          <div class="form-group">
+            <input type="password" class="form-control" ng-model="registerCtrl.user.password" placeholder="Password">
+          </div>
+          <div class="form-group">
+            <button class="btn btn-lg btn-primary btn-block" type="submit">
+              Register
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div class="well register-well" ng-if="registerCtrl.isRegistered()">
+        <h2>Welcome {{ registerCtrl.user.displayname }}!</h2>
+        <p>
+          Your account has been registered. Follow the instructions in the e-mail to confirm your account.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
