@@ -5,16 +5,21 @@
       <h1>
         {{ proposalCtrl.proposal.title }}
       </h1>
-      <span class="text-muted">
-        <i class="fa fa-clock-o" aria-hidden="true"></i>
-        <small>Created {{ proposalCtrl.proposal.created_at }}</small>
+      <div class="details text-muted">
         <div>
-          <span class="label label-danger">Proposal</span>
-          <span ng-repeat="tag in proposalCtrl.proposal.tags">
-            <span class="label label-primary" >{{ tag.name }}</span>
-          </span>
+          <i class="fa fa-user" aria-hidden="true"></i>
+          By <code>{{ proposalCtrl.proposal.author.username }}</code>
+        <!-- </div> -->
+        <!-- <div> -->
+          <i class="fa fa-clock-o" aria-hidden="true"></i>
+          Created <code>{{ proposalCtrl.proposal.created_at }}</code>
         </div>
-      </span>
+        <span class="proposal-status label label-success">{{ proposalCtrl.config.getProposalStatus(proposalCtrl.proposal.status) }}</span>
+        <span class="label label-danger">Proposal</span>
+        <span ng-repeat="tag in proposalCtrl.proposal.tags">
+          <span class="label label-primary" >{{ tag.name }}</span>
+        </span>
+      </div>
 
       <hr>
       <h2>Description</h2>
@@ -139,7 +144,7 @@
         </div>
       </div>
 
-      <div ng-if="proposalCtrl.user.role_id == proposalCtrl.config.ROLES.STUDENT && !proposalCtrl.team.users" class="controlpanel">
+      <div ng-if="proposalCtrl.studentCanApply()" class="controlpanel">
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4>Apply</h4>
