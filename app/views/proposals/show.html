@@ -19,8 +19,7 @@
           <span class="label label-primary" >{{ tag.name }}</span>
         </span>
       </div>
-      <a ui-sref="proposals/"><span class="fa fa-pencil"></span></a>
-      
+
       <hr>
       <h2>Description</h2>
       <p ng-bind-html="proposalCtrl.proposal.description">
@@ -114,12 +113,14 @@
     </div>
 
     <div class="col-md-4">
+
       <div ng-if="proposalCtrl.user.role_id == proposalCtrl.config.ROLES.TEACHER" class="controlpanel">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h4>Approve</h4>
+            <h4>Manage Proposal</h4>
           </div>
           <div class="panel-body">
+
             <div class="form-group">
               <label for="course">Select course:</label>
               <select name="course" id="course" class="form-control">
@@ -128,7 +129,13 @@
                 </option>
               </select>
             </div>
-            <button class="btn btn-success btn-block">Approve proposal</button>
+            <button class="btn btn-success btn-block">Approve Proposal</button>
+
+            <hr>
+
+            <a class="btn btn-warning btn-block" ui-sref="editProposal({ id: proposalCtrl.proposal.id })">
+              Edit Proposal
+            </a>
           </div>
         </div>
       </div>
@@ -176,7 +183,7 @@
           </div>
         </div>
       </div>
-    </div>
 
+    </div>
   </div>
 </div>
