@@ -44,7 +44,18 @@
         <nav ng-if="navCtrl.isAuthed()" class="navigation navigation-right">
           <ul class="navigation-list">
             <li class="navigation-item" ng-class="{ active: navCtrl.isActive('login') }">
-              <a ui-sref="account">My account</a>
+              <a ui-sref="account">
+                My account
+
+                <span class="text-muted">
+                  <span ng-if="navCtrl.user.role_id == navCtrl.config.ROLES.CUSTOMER" class="fa fa-user" aria-hidden="true"></span>
+                  <span ng-if="navCtrl.user.role_id == navCtrl.config.ROLES.STUDENT" class="fa fa-graduation-cap" aria-hidden="true"></span>
+                  <span ng-if="navCtrl.user.role_id == navCtrl.config.ROLES.TEACHER" class="fa fa-university" aria-hidden="true"></span>
+                  <span ng-if="navCtrl.user.role_id == navCtrl.config.ROLES.ADMINISTRATOR" class="fa fa-user-plus" aria-hidden="true"></span>
+
+                  {{ navCtrl.user.displayname | limitTo: 20 }} {{ navCtrl.user.displayname.length > 20 ? '...' : ''}}
+                </span>
+              </a>
             </li>
           </ul>
         </nav>
