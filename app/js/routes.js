@@ -98,6 +98,22 @@ const showProject = {
   }
 };
 
+const createProject = {
+  authenticate: false, //true,
+  url: '/proposals/:id/project',
+  controller: 'CreateProjectCtrl as projectCtrl',
+  templateUrl: 'projects/create.html',
+  title: 'Submit proposal',
+  resolve: {
+    proposal: function (ProposalService, $stateParams) {
+      return ProposalService.get($stateParams.id);
+    },
+    teams: function (TeamService, $stateParams) {
+      return TeamService.index($stateParams.id);
+    }
+  }
+};
+
 export default {
   setup: function ($stateProvider) {
     $stateProvider
@@ -109,6 +125,7 @@ export default {
       .state('createProposal', createProposal)
       .state('showProposal', showProposal)
       .state('projects', projects)
-      .state('showProject', showProject);
+      .state('showProject', showProject)
+      .state('createProject', createProject);
   }
 };

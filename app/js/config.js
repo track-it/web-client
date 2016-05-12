@@ -14,10 +14,11 @@ const AppSettings = {
   API_TOKEN: 'api_token',
 
   ROLES: {
-    CUSTOMER:       1,
-    STUDENT:        2,
-    TEACHER:        3,
-    ADMINISTRATOR:  4,
+    GUEST:          1,
+    CUSTOMER:       2,
+    STUDENT:        3,
+    TEACHER:        4,
+    ADMINISTRATOR:  5
   },
 
   PROJECT_ROLES: {

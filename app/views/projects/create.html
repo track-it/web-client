@@ -1,0 +1,53 @@
+<!-- Huvudinnehåll -->
+<div class="container">
+  <h1>Create project</h1>
+
+  <div class="well">
+    <form ng-submit="projectCtrl.store()">
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" id="title" ng-model="projectCtrl.new.title" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="course">Course</label>
+        <select id="course" class="form-control">
+          <option value="1">DA127A</option>
+          <option value="2">DA339A</option>
+          <option value="3">DA343A</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="tags">Tags</label>
+        <tags-input ng-model="projectCtrl.tags"></tags-input>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <text-angular ng-model="projectCtrl.new.description"></text-angular>
+      </div>
+
+      <div class="form-group">
+        <label for="team">Teams</label>
+        <div class="list-group">
+          <a ng-repeat="team in filteredTeams = (projectCtrl.teams | filter: projectCtrl.teamFilter)" ng-class="projectCtrl.getClass($index)" ng-click="projectCtrl.setTeam($index)" class="list-group-item pointer">
+            <h4 class="list-group-item-heading">Team {{ $index + 1 }}</h4>
+            <p class="list-group-item-text">
+              <ul>
+                <li ng-repeat="user in team.users">{{ user.displayname }}</li>
+              </ul>
+            </p>
+          </a>
+          <div class="list-group-item" ng-hide="filteredTeams.length">No teams have applied for this proposal.</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="attachments">Attachments</label>
+        <input type="file" class="btn btn-default" ng-files="projectCtrl.files" ng-repeat="file in projectCtrl.filesCount()">
+      </div>
+      <button class="btn btn-primary btn-lg">Submit</button>
+    </div>
+  </div>
+</div>

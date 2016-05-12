@@ -114,7 +114,7 @@
     </div>
 
     <div class="col-md-4">
-      <div ng-if="proposalCtrl.user.role_id == proposalCtrl.config.ROLES.TEACHER" class="controlpanel">
+      <div ng-if="proposalCtrl.teacherCanApproveProject()" class="controlpanel">
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4>Approve</h4>
@@ -140,6 +140,19 @@
               <input type="text" class="form-control">
             </div>
             <button class="btn btn-default btn-block">Add tag</button>
+          </div>
+        </div>
+      </div>
+
+      <div ng-if="proposalCtrl.teacherCanCreateProject()" class="controlpanel">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4>Create</h4>
+          </div>
+          <div class="panel-body">
+            <div class="form-group">
+              <a ui-sref="createProject({ id: proposalCtrl.proposal.id })">Create project</a>
+            </div>
           </div>
         </div>
       </div>
