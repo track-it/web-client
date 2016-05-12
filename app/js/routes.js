@@ -71,6 +71,19 @@ const createProposal = {
   title: 'Submit proposal'
 };
 
+const editProposal = {
+  authenticate: false, //true,
+
+  url: '/proposals/:id/create',
+  controller: 'EditProposalCtrl as proposalCtrl',
+  templateUrl: 'proposals/edit.html',
+  title: 'Edit proposal'
+  resolve: {
+    proposal: function (ProposalService, $stateParams) {
+      return ProposalService.get($stateParams.id);
+    },
+};
+
 const projects = {
   url: '/projects',
   controller: 'ProjectsCtrl as projectCtrl',
