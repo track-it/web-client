@@ -12,9 +12,7 @@ function ProposalsCtrl(proposals, AppSettings, AccountService) {
 
   AccountService.me()
     .then(me => {
-      console.log(me.proposals);
       vm.user = me;
-      vm.proposals = me.proposals.concat(vm.proposals);
     });
 }
 

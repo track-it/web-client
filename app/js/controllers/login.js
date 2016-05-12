@@ -12,8 +12,6 @@ function LoginCtrl(AuthService, AppSettings, StorageService, $state, $rootScope)
     vm.error = false;
     AuthService.auth(username, password)
       .then(res => {
-        $rootScope.$emit('login-occured');
-
         StorageService.put(config.API_TOKEN, res.data.data.api_token);
         AuthService.initialize(StorageService.get(config.API_TOKEN));
 
