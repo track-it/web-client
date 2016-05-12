@@ -1,23 +1,27 @@
 <div class="container">
-    <h1>
-      {{ projectCtrl.project.title }}
-    </h1>
-    <span class="text-muted">
-      <i class="fa fa-clock-o" aria-hidden="true"></i>
-      <small>Created {{ projectCtrl.project.created_at }}</small>
-      <div>
+  <div class="row">
+    <div class="{{ projectCtrl.user ? 'col-md-8' : 'col-md-12' }}">
+
+      <h1>
+        {{ projectCtrl.project.title }}
+      </h1>
+      <div class="details text-muted">
+        <div>
+          <i class="fa fa-clock-o" aria-hidden="true"></i>
+          Created <code>{{ projectCtrl.project.created_at }}</code>
+        </div>
+        <span class="project-status label label-success">{{ projectCtrl.config.getProjectStatus(projectCtrl.project.status) }}</span>
         <span class="label label-danger">Project</span>
         originating from <a ui-sref="showProposal({ id: projectCtrl.project.proposal_id })">this proposal</a>.
       </div>
-      <div class="alert alert-info project-alert" role="alert" ng-if="projectCtrl.config.PROJECT_STATUSES.COMPLETED == projectCtrl.project.status">
+      <div class="alert alert-info project-alert" role="alert" ng-if="projectCtrl.config.PROJECT_STATUSES.COMPLETED == projectCtrl.project.status && projectCtrl.userIsStudent">
         <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
         Your project is completed. If you wish to publish the project to MUEP you can follow the instructions
         <a href="http://www.mah.se/Bibliotek/Publicering/Studentuppsatser/Publicera-din-uppsats-i-MUEP/" class="alert-link">found here</a>.
       </div>
-    </span>
 
-    <hr>
-    <h2>Description</h2>
+      <hr>
+      <h2>Description</h2>
       <p>
         {{ projectCtrl.project.description }}
 
@@ -26,112 +30,115 @@
         </p>
       </p>
 
-    <hr>
-    <h2>Participants</h2>
-    <ul class="list-group">
-      <!-- Customers -->
-      <a href="#" class="list-group-item list-group-item-info" ng-repeat="projectUser in projectCtrl.project.project_users | orderBy: 'username'" ng-if="projectUser.user.role_id == 1">
-        {{ projectUser.user.username }}
-        <i class="fa fa-user pull-right" title="Customer" aria-hidden="true"></i>
-      </a>
+      <hr>
+      <h2>Participants</h2>
+      <ul class="list-group">
+        <!-- Customers -->
+        <a href="#" class="list-group-item list-group-item-info" ng-repeat="projectUser in projectCtrl.project.project_users | orderBy: 'username'" ng-if="projectUser.user.role_id == 1">
+          {{ projectUser.user.username }}
+          <i class="fa fa-user pull-right" title="Customer" aria-hidden="true"></i>
+        </a>
 
-      <!-- Teachers -->
-      <a href="#" class="list-group-item list-group-item-danger" ng-repeat="projectUser in projectCtrl.project.project_users | orderBy: 'username'" ng-if="projectUser.user.role_id == 3">
-        {{ projectUser.user.username }}
-        <i class="fa fa-university pull-right" title="Teacher" aria-hidden="true"></i>
-      </a>
+        <!-- Teachers -->
+        <a href="#" class="list-group-item list-group-item-danger" ng-repeat="projectUser in projectCtrl.project.project_users | orderBy: 'username'" ng-if="projectUser.user.role_id == 3">
+          {{ projectUser.user.username }}
+          <i class="fa fa-university pull-right" title="Teacher" aria-hidden="true"></i>
+        </a>
 
-      <!-- Students -->
-      <a href="#" class="list-group-item list-group-item-warning" ng-repeat="projectUser in projectCtrl.project.project_users | orderBy: 'username'" ng-if="projectUser.user.role_id == 2">
-        {{ projectUser.user.username }}
-        <i class="fa fa-graduation-cap pull-right" title="Student" aria-hidden="true"></i>
-      </a>
+        <!-- Students -->
+        <a href="#" class="list-group-item list-group-item-warning" ng-repeat="projectUser in projectCtrl.project.project_users | orderBy: 'username'" ng-if="projectUser.user.role_id == 2">
+          {{ projectUser.user.username }}
+          <i class="fa fa-graduation-cap pull-right" title="Student" aria-hidden="true"></i>
+        </a>
 
-      <!-- If there are no participants -->
-      <p class="text-muted" ng-if="projectCtrl.project.team.users == 0 && projectCtrl.project.project_users == 0">
-        There are no participants for this project.
-      </li>
-    </ul>
+        <!-- If there are no participants -->
+        <p class="text-muted" ng-if="projectCtrl.project.team.users == 0 && projectCtrl.project.project_users == 0">
+          There are no participants for this project.
+        </li>
+      </ul>
 
-    <hr>
-    <h2>Attachments</h2>
-    <ul class="list-group">
+      <hr>
+      <h2>Attachments</h2>
+      <ul class="list-group">
 
-      <a href="{{ attachment.url }}?api_token={{ projectCtrl.token }}" class="list-group-item" ng-repeat="attachment in projectCtrl.project.attachments | orderBy: 'attachment.created_at'">
-        {{ attachment.title }}
-        <i class="fa fa-download pull-right" aria-hidden="true"></i>
-      </a>
+        <a href="{{ attachment.url }}?api_token={{ projectCtrl.token }}" class="list-group-item" ng-repeat="attachment in projectCtrl.project.attachments | orderBy: 'attachment.created_at'">
+          {{ attachment.title }}
+          <i class="fa fa-download pull-right" aria-hidden="true"></i>
+        </a>
 
-      <!-- If there are no attachments -->
-      <p class="text-muted" ng-if="projectCtrl.project.attachments.length == 0">
-        There are no attachments for this project.
-      </p>
+        <!-- If there are no attachments -->
+        <p class="text-muted" ng-if="projectCtrl.project.attachments.length == 0">
+          There are no attachments for this project.
+        </p>
 
-    </ul>
+      </ul>
 
-  <div class="comments" ng-if="projectCtrl.isCommentable()">
-    <hr>
-    <h2>Comments</h2>
+      <div class="comments" ng-if="projectCtrl.isCommentable()">
+        <hr>
+        <h2>Comments</h2>
 
-    <div class="row" ng-repeat="comment in projectCtrl.comments">
+        <div class="row" ng-repeat="comment in projectCtrl.comments">
 
-      <div class="col-md-3">
-        <div class="authorbox">
-          <!-- <a href="#"> -->
-            <span>{{ comment.author.username }}</span>
-          <!-- </a> -->
-          <div class="commentRole text-muted">
-            <span ng-if="comment.author.role_id == 1">
-              Customer
-              <span class="fa fa-user" aria-hidden="true"></span>
-            </span>
-            <span ng-if="comment.author.role_id == 2">
-              Student
-              <span class="fa fa-graduation-cap" aria-hidden="true"></span>
-            </span>
-            <span ng-if="comment.author.role_id == 3">
-              Teacher
-              <span class="fa fa-university" aria-hidden="true"></span>
-            </span>
-            <span ng-if="comment.author.role_id == 4">
-              Admin
-              <span class="fa fa-user-plus" aria-hidden="true"></span>
-            </span>
+          <div class="col-md-3">
+            <div class="authorbox">
+              <!-- <a href="#"> -->
+              <span>{{ comment.author.username }}</span>
+              <!-- </a> -->
+              <div class="commentRole text-muted">
+                <span ng-if="comment.author.role_id == 1">
+                  Customer
+                  <span class="fa fa-user" aria-hidden="true"></span>
+                </span>
+                <span ng-if="comment.author.role_id == 2">
+                  Student
+                  <span class="fa fa-graduation-cap" aria-hidden="true"></span>
+                </span>
+                <span ng-if="comment.author.role_id == 3">
+                  Teacher
+                  <span class="fa fa-university" aria-hidden="true"></span>
+                </span>
+                <span ng-if="comment.author.role_id == 4">
+                  Admin
+                  <span class="fa fa-user-plus" aria-hidden="true"></span>
+                </span>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <div class="col-md-9">
-        <div class="dialogbox">
-          <div class="body">
-            <span class="tip"></span>
-              <div class="message" ng-bind-html="comment.body"></div>
+          <div class="col-md-9">
+            <div class="dialogbox">
+              <div class="body">
+                <span class="tip"></span>
+                <div class="message" ng-bind-html="comment.body"></div>
+              </div>
+              <div class="timestamp text-muted">
+                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                <small>{{ comment.created_at }}</small>
+              </div>
+            </div>
           </div>
-          <div class="timestamp text-muted">
-            <i class="fa fa-clock-o" aria-hidden="true"></i>
-            <small>{{ comment.created_at }}</small>
+
+          <div class="row">
+            <div ng-if="!$last" class="col-md-8 col-md-offset-2">
+              <hr>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <div class="row">
-        <div ng-if="!$last" class="col-md-8 col-md-offset-2">
-          <hr>
         </div>
-      </div>
 
+        <p class="text-muted" ng-if="projectCtrl.comments.length == 0">
+          No comments has been posted for this project.
+        </p>
+
+        <form class="inputbox" ng-submit="projectCtrl.postComment()">
+          <div class="form-group">
+            <text-angular ng-model="projectCtrl.comment.body"></text-angular>
+          </div>
+          <button class="btn btn-primary">Post comment</button>
+        </form>
+
+      </div>
     </div>
-
-    <p class="text-muted" ng-if="projectCtrl.comments.length == 0">
-      No comments has been posted for this project.
-    </p>
-
-    <form class="inputbox" ng-submit="projectCtrl.postComment()">
-      <div class="form-group">
-        <text-angular ng-model="projectCtrl.comment.body"></text-angular>
-      </div>
-      <button class="btn btn-primary">Post comment</button>
-    </form>
-
+    <div class="col-md-4"></div>
   </div>
 </div>

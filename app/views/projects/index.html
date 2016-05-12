@@ -15,17 +15,18 @@
 
   <hr>
 
-  <h2>Ongoing projects</h2>
   <table class="table table-striped">
     <thead>
       <th>Project title</th>
       <th>Link to proposal</th>
+      <th>Status</th>
       <th>Created</th>
     </thead>
     <tbody>
       <tr ng-repeat="project in projectCtrl.projects">
         <td><a ui-sref="showProject({ id: project.id })">{{ project.title }}</a></td>
-        <td><a ui-sref="showProposal({ id: project.proposal_id })">link</a></td>
+        <td class="link"><a ui-sref="showProposal({ id: project.proposal_id })">link</a></td>
+        <td class="project-status">{{ projectCtrl.config.getProjectStatus(project.status) }}</td>
         <td>{{ project.created_at }}</td>
       </tr>
       <tr ng-if="projectCtrl.projects.length == 0">

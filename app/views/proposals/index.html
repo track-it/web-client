@@ -14,16 +14,26 @@
   </div>
 
   <hr>
-
-  <h2>Approved proposals</h2>
   <table class="table table-striped">
     <thead>
       <th>Title</th>
+      <th>Author</th>
+      <th>Status</th>
       <th>Created</th>
     </thead>
     <tbody>
       <tr ng-repeat="proposal in proposalCtrl.proposals">
-        <td><a ui-sref="showProposal({ id: proposal.id })">{{ proposal.title }}</a></td>
+        <td>
+          <a ui-sref="showProposal({ id: proposal.id })">{{ proposal.title }}</a>
+          <span ng-if="proposal.author_id == proposalCtrl.user.id" class="owner-indicator text-muted small">
+            <i class="fa fa-universal-access" aria-hidden="true"></i>
+            <span>Your proposal</span>
+          </span>
+        </td>
+        <td>
+          {{ proposal.author.username }}
+        </td>
+        <td class="project-status">{{ proposalCtrl.config.getProposalStatus(proposal.status) }}</td>
         <td>{{ proposal.created_at }}</td>
       </tr>
       <tr ng-if="proposalCtrl.proposals.length == 0">

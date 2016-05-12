@@ -27,8 +27,14 @@ function ProposalCtrl(ProposalService, CommentService, StorageService, UserServi
   };
 
   vm.isCommentable = () => {
-    return true;
+    return (proposal.author_id == vm.user.id || vm.user.role_id > config.PROJECT_ROLES.STUDENT);
   };
+
+  vm.studentCanApply = () => {
+    return (vm.user.role_id == config.ROLES.STUDENT
+      && !vm.team.users
+      && vm.proposal.status == config.PROPOSAL_STATUSES.APPROVED);
+  }
 
   vm.memberCount = () => {
     let indices = [];
