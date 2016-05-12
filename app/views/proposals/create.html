@@ -31,7 +31,19 @@
 
       <div class="form-group">
         <label for="attachments">Attachments</label>
-        <input type="file" class="btn btn-default" ng-files="proposalCtrl.files" ng-repeat="file in proposalCtrl.filesCount()">
+        <div class="row">
+          <div class="col-md-4 col-sm-8">
+            <ul class="attachments">
+              <li class="attachment" ng-repeat="file in proposalCtrl.files">
+                <span class="attachment-name">
+                  {{ file.name }}
+                </span>
+                <span class="attachment-remove" ng-click="proposalCtrl.files.splice($index, 1)">&times;</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <input type="file" class="btn btn-default" ng-files="proposalCtrl.files">
       </div>
       <button class="btn btn-primary btn-lg">Submit</button>
     </div>
