@@ -1,18 +1,21 @@
-function EditProposalCtrl(ProposalService, AttachmentService, $state) {
+function EditProposalCtrl(ProposalService, AttachmentService, proposal, $state) {
   'ngInject';
 
   // ViewModel
   const vm = this;
-
-  vm.new = {};
   vm.title = 'Edit proposal';
-  vm.files = [];
-  vm.tags = [];
 
-  vm.store = () => {
-    vm.new.tags = parseTags(vm.tags);
+  vm.proposal = proposal;
+  vm.deletedFilesIds = [];
+  vm.newFiles = [];
 
-    ProposalService.store(vm.new)
+  vm.update = () => {
+    vm.proposal.tags = parseTags(vm.tags);
+
+    ProposalService.update(vm.new)
+      .then(res => {
+        return deleteFiles(res.data.id);
+      })
       .then(res => {
         return uploadFiles(res.data.id);
       })
@@ -35,7 +38,7 @@ function EditProposalCtrl(ProposalService, AttachmentService, $state) {
         return resolve();
 
       var formData = new FormData();
-      for (var i = 0; i < vm.files.length; i++) {
+      for (var i = 0; i < vm.newFiles.length; i++) {
         formData.append('files[' + i + ']', vm.files[i]);
       }
       return AttachmentService.store('proposals', id, formData)
@@ -44,6 +47,16 @@ function EditProposalCtrl(ProposalService, AttachmentService, $state) {
     });
   }
 
+  const deleteFiles = (id) => {
+    return new Promise((resolve, reject) => {
+      if (vm.deletedFilesIndexes.length <= 0)
+        return resolve();
+
+      return AttachmentService.delete(vm.deletedFilesIds)
+        .then(data => resolve(data))
+        .catch((err, status) => reject(err, status));
+    });
+  }
   const parseTags = tags => {
     var names = [];
     angular.forEach(tags, tag => {
