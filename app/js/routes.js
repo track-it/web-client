@@ -74,14 +74,15 @@ const createProposal = {
 const editProposal = {
   authenticate: false, //true,
 
-  url: '/proposals/:id/create',
+  url: '/proposals/:id/edit',
   controller: 'EditProposalCtrl as proposalCtrl',
   templateUrl: 'proposals/edit.html',
-  title: 'Edit proposal'
+  title: 'Edit proposal',
   resolve: {
     proposal: function (ProposalService, $stateParams) {
       return ProposalService.get($stateParams.id);
-    },
+    }
+  }
 };
 
 const projects = {
@@ -121,6 +122,7 @@ export default {
       .state('proposals', proposals)
       .state('createProposal', createProposal)
       .state('showProposal', showProposal)
+      .state('editProposal', editProposal)
       .state('projects', projects)
       .state('showProject', showProject);
   }
