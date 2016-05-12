@@ -15,7 +15,7 @@
           Created <code>{{ proposalCtrl.proposal.created_at }}</code>
         </div>
         <span class="proposal-status label label-success">{{ proposalCtrl.config.getProposalStatus(proposalCtrl.proposal.status) }}</span>
-        <span class="label label-danger">Proposal</span>
+        <span class="label label-primary">Proposal</span>
         <span ng-repeat="tag in proposalCtrl.proposal.tags">
           <span class="label label-primary" >{{ tag.name }}</span>
         </span>
@@ -57,19 +57,19 @@
                 <span class="username">{{ comment.author.username }}</span>
               <!-- </a> -->
               <div class="commentRole text-muted">
-                <span ng-if="comment.author.role_id == 1">
+                <span ng-if="comment.author.role_id == proposalCtrl.config.ROLES.CUSTOMER">
                   Customer
                   <span class="fa fa-user" aria-hidden="true"></span>
                 </span>
-                <span ng-if="comment.author.role_id == 2">
+                <span ng-if="comment.author.role_id == proposalCtrl.config.ROLES.STUDENT">
                   Student
                   <span class="fa fa-graduation-cap" aria-hidden="true"></span>
                 </span>
-                <span ng-if="comment.author.role_id == 3">
+                <span ng-if="comment.author.role_id == proposalCtrl.config.ROLES.TEACHER">
                   Teacher
                   <span class="fa fa-university" aria-hidden="true"></span>
                 </span>
-                <span ng-if="comment.author.role_id == 4">
+                <span ng-if="comment.author.role_id == proposalCtrl.config.ROLES.ADMINISTRATOR">
                   Admin
                   <span class="fa fa-user-plus" aria-hidden="true"></span>
                 </span>
