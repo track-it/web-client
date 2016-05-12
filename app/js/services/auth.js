@@ -28,6 +28,8 @@ function AuthService($http, $rootScope, AppSettings) {
           window.user = res.data.user;
           service.isAuthenticated = true;
         }
+
+        $rootScope.$emit('login-occured');
       });
   };
 

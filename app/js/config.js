@@ -18,7 +18,15 @@ const AppSettings = {
     CUSTOMER:       2,
     STUDENT:        3,
     TEACHER:        4,
-    ADMINISTRATOR:  5
+    ADMINISTRATOR:  5,
+  },
+
+  ROLE_IDS: {
+    1: 'GUEST',
+    2: 'CUSTOMER',
+    3: 'STUDENT',
+    4: 'TEACHER',
+    5: 'ADMINISTRATOR',
   },
 
   PROJECT_ROLES: {
@@ -34,6 +42,12 @@ const AppSettings = {
     PUBLISHED:      3,
   },
 
+  PROJECT_STATUS_IDS: [
+    'not completed',
+    'completed',
+    'published',
+  ],
+
   PROPOSAL_STATUSES: {
     NOT_REVIEWED:   1,
     UNDER_REVIEW:   2,
@@ -42,25 +56,12 @@ const AppSettings = {
     ARCHIVED:       5,
   },
 
-  ROLE_IDS: {
-    1: 'CUSTOMER',
-    2: 'STUDENT',
-    3: 'TEACHER',
-    4: 'ADMINISTRATOR',
-  },
-
   PROPOSAL_STATUS_IDS: [
     'not reviewed',
     'under review',
     'not approved',
     'approved',
     'archived',
-  ],
-
-  PROJECT_STATUS_IDS: [
-    'not completed',
-    'completed',
-    'published',
   ],
 
   // global helpers
