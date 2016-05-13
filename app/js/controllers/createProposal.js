@@ -10,6 +10,7 @@ function CreateProposalCtrl(ProposalService, AttachmentService, $state) {
   vm.tags = [];
 
   vm.store = () => {
+    console.log("lol");
     vm.new.tags = parseTags(vm.tags);
 
     ProposalService.store(vm.new)
