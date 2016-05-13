@@ -11,6 +11,14 @@ function ProjectService($http, $q, AppSettings) {
         });
   };
 
+  service.store = function (id, payload) {
+    return $http.post(config.api(`proposals/${id}/projects`), payload)
+      .then(res => {
+        console.log(res.data.data);
+        return res.data.data;
+      });
+  }
+
   service.get = function (id) {
     return $http.get(config.api(`projects/${id}`))
       .then(res => {

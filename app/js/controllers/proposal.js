@@ -34,6 +34,18 @@ function ProposalCtrl(ProposalService, CommentService, StorageService, UserServi
       && vm.proposal.status == config.PROPOSAL_STATUSES.APPROVED);
   }
 
+  vm.teacherCanApproveProposal = () => {
+    return (vm.user
+      && vm.user.role_id == config.ROLES.TEACHER
+      && vm.proposal.status != config.PROPOSAL_STATUSES.APPROVED);
+  }
+
+  vm.teacherCanCreateProject = () => {
+    return (vm.user
+      && vm.user.role_id == config.ROLES.TEACHER
+      && vm.proposal.status == config.PROPOSAL_STATUSES.APPROVED);
+  }
+
   vm.memberCount = () => {
     let indices = [];
     for (var i = 0; i < vm.team.length + 1; i++) {
