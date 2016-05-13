@@ -22,7 +22,7 @@ function ProjectCtrl(ProjectService, CommentService, StorageService, AppSettings
   };
 
   vm.isCommentable = () => {
-    return (config.PROJECT_STATUSES.PUBLISHED != project.status);
+    return (config.PROJECT_STATUSES.PUBLISHED != project.status || vm.user.role_id == config.ROLES.ADMINISTRATOR);
   };
 
   vm.userIsStudent = () => {

@@ -1,8 +1,11 @@
-function NavCtrl(AuthService, $state, $rootScope) {
+function NavCtrl(AuthService, AccountService, AppSettings, $state, $rootScope) {
   'ngInject';
 
   // ViewModel
   const vm = this;
+  const config = AppSettings;
+
+  vm.config = config;
 
   vm.isAuthed = function () {
     return AuthService.isAuthed();
@@ -10,6 +13,7 @@ function NavCtrl(AuthService, $state, $rootScope) {
 
   $rootScope.$on('login-occured', () => {
     vm.authed = true;
+    vm.user = window.user;
   })
 
   vm.isActive = function (state) {

@@ -9,7 +9,6 @@ function ngFiles($parse) {
     var modelSetter = model.assign;
     element.bind('change', function () {
       angular.forEach(element[0].files, function (item) {
-        console.log(item);
         var value = {
           // File Name
           name: item.name,
