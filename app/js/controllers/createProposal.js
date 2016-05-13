@@ -12,8 +12,6 @@ function CreateProposalCtrl(ProposalService, AttachmentService, $state) {
   vm.store = () => {
     vm.new.tags = parseTags(vm.tags);
 
-    console.log(vm.files);
-
     ProposalService.store(vm.new)
       .then(res => {
         return uploadFiles(res.data.id);
