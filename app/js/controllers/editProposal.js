@@ -12,12 +12,12 @@ function EditProposalCtrl(ProposalService, AttachmentService, proposal, $state) 
   vm.update = () => {
     vm.proposal.tags = parseTags(vm.tags);
 
-    ProposalService.update(vm.new)
+    ProposalService.update(vm.proposal.id, vm.proposal)
       .then(res => {
-        return deleteFiles(res.data.id);
+        return deleteFiles();
       })
       .then(res => {
-        return uploadFiles(res.data.id);
+        return uploadFiles();
       })
       .then(() => {
         $state.transitionTo('proposals');
@@ -32,24 +32,24 @@ function EditProposalCtrl(ProposalService, AttachmentService, proposal, $state) 
     return count;
   }
 
-  const uploadFiles = (id) => {
+  const uploadFiles = () => {
     return new Promise((resolve, reject) => {
-      if (vm.files.length <= 0)
+      if (vm.newFiles.length <= 0)
         return resolve();
 
       var formData = new FormData();
       for (var i = 0; i < vm.newFiles.length; i++) {
         formData.append('files[' + i + ']', vm.files[i]);
       }
-      return AttachmentService.store('proposals', id, formData)
+      return AttachmentService.store('proposals', vm.proposal.id, formData)
         .then(data => resolve(data))
         .catch((err, status) => reject(err, status));
     });
   }
 
-  const deleteFiles = (id) => {
+  const deleteFiles = () => {
     return new Promise((resolve, reject) => {
-      if (vm.deletedFilesIndexes.length <= 0)
+      if (vm.deletedAttachmentIds.length <= 0)
         return resolve();
 
       return AttachmentService.delete(vm.deletedAttachmentIds)
