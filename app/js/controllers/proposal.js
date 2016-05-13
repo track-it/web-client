@@ -1,4 +1,4 @@
-function ProposalCtrl(ProposalService, CommentService, StorageService, UserService, TeamService, AppSettings, $state, $scope, proposal, comments) {
+function ProposalCtrl(ProposalService, CommentService, StorageService, UserService, TeamService, AppSettings, $state, $scope, proposal) {
   'ngInject';
 
   const config = AppSettings;
@@ -6,15 +6,12 @@ function ProposalCtrl(ProposalService, CommentService, StorageService, UserServi
   const vm = this;
 
   vm.proposal = proposal;
-  vm.comments = comments;
+  vm.comments = [];
   vm.students = [];
   vm.title = proposal.title;
   vm.config = config;
-
   vm.user = window.user;
-
   vm.token = storage.get('api_token');
-
   vm.comment = {};
   vm.team = [];
 
@@ -27,12 +24,25 @@ function ProposalCtrl(ProposalService, CommentService, StorageService, UserServi
   };
 
   vm.isCommentable = () => {
-    return (proposal.author_id == vm.user.id || vm.user.role_id > config.PROJECT_ROLES.STUDENT);
+    return (vm.user && (proposal.author_id == vm.user.id || vm.user.role_id > config.PROJECT_ROLES.STUDENT));
   };
 
   vm.studentCanApply = () => {
-    return (vm.user.role_id == config.ROLES.STUDENT
+    return (vm.user
+      && vm.user.role_id == config.ROLES.STUDENT
       && !vm.team.users
+      && vm.proposal.status == config.PROPOSAL_STATUSES.APPROVED);
+  }
+
+  vm.teacherCanApproveProposal = () => {
+    return (vm.user
+      && vm.user.role_id == config.ROLES.TEACHER
+      && vm.proposal.status != config.PROPOSAL_STATUSES.APPROVED);
+  }
+
+  vm.teacherCanCreateProject = () => {
+    return (vm.user
+      && vm.user.role_id == config.ROLES.TEACHER
       && vm.proposal.status == config.PROPOSAL_STATUSES.APPROVED);
   }
 
@@ -47,23 +57,30 @@ function ProposalCtrl(ProposalService, CommentService, StorageService, UserServi
   vm.sendApplication = () => {
     TeamService.store(vm.proposal.id, {
       'user_ids': vm.team
-    }).then(team => {
+    }).then(() => {
       $state.go($state.current, {}, {reload: true});
     });
   }
 
-  if (vm.user.role_id == config.ROLES.STUDENT) {
-    UserService.index({'role': 'student'})
-      .then(students => {
-        vm.students = students;
+  if (vm.user) {
+    CommentService.get('proposals', vm.proposal.id)
+      .then(comments => {
+        vm.comments = comments;
       });
 
-    TeamService.index(vm.proposal.id, {
-      'user_id': vm.user.id
-    }).then(teams => {
-      if (teams.length == 1)
-        vm.team = teams[0];
-    });
+    if (vm.user.role_id == config.ROLES.STUDENT) {
+      UserService.index({'role': 'student'})
+        .then(students => {
+          vm.students = students;
+        });
+
+      TeamService.index(vm.proposal.id, {
+        'user_id': vm.user.id
+      }).then(teams => {
+        if (teams.length == 1)
+          vm.team = teams[0];
+      });
+    }
   }
 
 }

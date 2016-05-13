@@ -55,9 +55,6 @@ const showProposal = {
   resolve: {
     proposal: function (ProposalService, $stateParams) {
       return ProposalService.get($stateParams.id);
-    },
-    comments: function (CommentService, $stateParams) {
-      return CommentService.get('proposals', $stateParams.id);
     }
   }
 };
@@ -105,9 +102,22 @@ const showProject = {
   resolve: {
     project: function (ProjectService, $stateParams) {
       return ProjectService.get($stateParams.id);
+    }
+  }
+};
+
+const createProject = {
+  authenticate: false, //true,
+  url: '/proposals/:id/project',
+  controller: 'CreateProjectCtrl as projectCtrl',
+  templateUrl: 'projects/create.html',
+  title: 'Submit proposal',
+  resolve: {
+    proposal: function (ProposalService, $stateParams) {
+      return ProposalService.get($stateParams.id);
     },
-    comments: function (CommentService, $stateParams) {
-      return CommentService.get('projects', $stateParams.id);
+    teams: function (TeamService, $stateParams) {
+      return TeamService.index($stateParams.id);
     }
   }
 };
@@ -124,6 +134,7 @@ export default {
       .state('showProposal', showProposal)
       .state('editProposal', editProposal)
       .state('projects', projects)
-      .state('showProject', showProject);
+      .state('showProject', showProject)
+      .state('createProject', createProject);
   }
 };
