@@ -8,6 +8,7 @@ function RegisterCtrl(AuthService, AppSettings, $state, $rootScope) {
   vm.error = false;
   vm.registered = false;
   vm.user = {};
+  vm.config = config;
 
   vm.register = function (user) {
     vm.error = false;

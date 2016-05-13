@@ -3,28 +3,47 @@
     <div class="col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4">
       <h1 class="text-center register-title">Register account</h1>
       <div class="well register-well" ng-if="!registerCtrl.isRegistered()">
-        <form ng-submit="registerCtrl.register(registerCtrl.user)">
+
+        <form name="registerForm" ng-submit="registerCtrl.register(registerCtrl.user)" novalidate>
           <p ng-if="registerCtrl.error" class="text-danger text-center m-b-2">
             Something went wrong! Please try again.
           </p>
-          <div class="form-group">
-            <input type="text" class="form-control" ng-model="registerCtrl.user.username" placeholder="Username" autofocus>
+
+          <!-- Username -->
+          <div class="form-group" show-errors='{ showSuccess: true }'>
+            <input name="username" type="text" class="form-control" ng-model="registerCtrl.user.username" placeholder="Username" ng-pattern="registerCtrl.config.VALIDATION.REGISTRATION.USERNAME"  required ng-maxlength="30" autofocus>
+            <p ng-show="registerForm.username.$error.maxlength" class="help-block">Username too long.</p>
+            <p ng-show="registerForm.username.$error.required && !registerForm.username.$pristine" class="help-block">Username required</p>
           </div>
-          <div class="form-group">
-            <input type="text" class="form-control" ng-model="registerCtrl.user.email" placeholder="E-mail" autofocus>
+
+          <!-- Email -->
+          <div class="form-group" show-errors='{ showSuccess: true }'>
+            <input name="email" type="email" class="form-control" ng-model="registerCtrl.user.email" placeholder="E-mail" required>
+            <p ng-show="registerForm.email.$invalid && !registerForm.email.$pristine" class="help-block">Invalid email address</p>
           </div>
-          <div class="form-group">
-            <input type="text" class="form-control" ng-model="registerCtrl.user.displayname" placeholder="Display name" autofocus>
+
+          <!-- Display name -->
+          <div class="form-group" show-errors='{ showSuccess: true }'>
+            <input name="displayname" type="text" class="form-control" ng-model="registerCtrl.user.displayname" placeholder="Display name" ng-pattern="registerCtrl.config.VALIDATION.REGISTRATION.DISPLAYNAME" ng-maxlength="30" required>
+            <p ng-show="registerForm.displayname.$error.required && !registerForm.displayname.$pristine" class="help-block">Display name required</p>
+            <p ng-show="registerForm.displayname.$error.maxlength && !registerForm.displayname.$pristine" class="help-block">Display name too long</p>
           </div>
-          <div class="form-group">
-            <input type="password" class="form-control" ng-model="registerCtrl.user.password" placeholder="Password">
+
+          <!-- Password -->
+          <div class="form-group" show-errors='{ showSuccess: true }'>
+            <input name="password" type="password" class="form-control" ng-model="registerCtrl.user.password" placeholder="Password" ng-pattern="registerCtrl.config.VALIDATION.REGISTRATION.PASSWORD" autocomplete="off" required>
+            <p ng-show="registerForm.password.$invalid && !registerForm.password.$pristine" class="help-block">Password must be at least 8 characters long and contain one uppercase, one lowercase and one digit.</span>
           </div>
+
+          <!-- Submit -->
           <div class="form-group">
-            <button class="btn btn-lg btn-primary btn-block" type="submit">
+            <button class="btn btn-lg btn-primary btn-block" type="submit" ng-disabled="registerForm.$invalid">
               Register
             </button>
           </div>
+
         </form>
+
       </div>
 
       <div class="well register-well" ng-if="registerCtrl.isRegistered()">
