@@ -6,7 +6,7 @@ function EditProposalCtrl(ProposalService, AttachmentService, proposal, $state) 
   vm.title = 'Edit proposal';
 
   vm.proposal = proposal;
-  vm.deletedFilesIds = [];
+  vm.deletedAttachmentIds = [];
   vm.newFiles = [];
 
   vm.update = () => {
@@ -24,9 +24,9 @@ function EditProposalCtrl(ProposalService, AttachmentService, proposal, $state) 
       });
   };
 
-  vm.filesCount = () => {
+  vm.attachmentCount = () => {
     var count = [];
-    for (var i = 0; i < vm.files.length + 1; i++) {
+    for (var i = 0; i < vm.proposal.attachments.length + 1; i++) {
       count.push(i);
     }
     return count;
@@ -52,11 +52,17 @@ function EditProposalCtrl(ProposalService, AttachmentService, proposal, $state) 
       if (vm.deletedFilesIndexes.length <= 0)
         return resolve();
 
-      return AttachmentService.delete(vm.deletedFilesIds)
+      return AttachmentService.delete(vm.deletedAttachmentIds)
         .then(data => resolve(data))
         .catch((err, status) => reject(err, status));
     });
   }
+
+  vm.deleteOldAttachment = (index) => {
+    vm.deletedAttachmentIds.push(proposal.attachments[index].id);
+    vm.proposal.attachments.splice(index, 1);
+  }
+
   const parseTags = tags => {
     var names = [];
     angular.forEach(tags, tag => {
