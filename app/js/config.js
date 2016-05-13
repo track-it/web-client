@@ -71,6 +71,19 @@ const AppSettings = {
     5:  'ARCHIVED',
   },
 
+  VALIDATION: {
+    REGISTRATION: {
+      // All normal characters
+      USERNAME:     '^[a-zA-ZåäöÅÄÖ0-9]+$',
+
+      // Must start with normal character, max 30 characters
+      DISPLAYNAME:  '^[a-zA-ZåäöÅÄÖ0-9]{1}[a-zA-ZåäöÅÄÖ0-9 -]*$',
+
+      // Must contain one uppercase, one lowercase. Minimum 8 characters.
+      PASSWORD:     '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$',
+    },
+  },
+
   // global helpers
   api: api,
 
