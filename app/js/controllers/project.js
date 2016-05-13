@@ -1,4 +1,4 @@
-function ProjectCtrl(ProjectService, CommentService, StorageService, AppSettings, $state, $scope, $filter, project, comments) {
+function ProjectCtrl(ProjectService, CommentService, StorageService, AppSettings, $state, $scope, $filter, project) {
   'ngInject';
 
   const config = AppSettings;
@@ -6,14 +6,11 @@ function ProjectCtrl(ProjectService, CommentService, StorageService, AppSettings
   const vm = this;
 
   vm.project = project;
-  vm.comments = comments;
+  vm.comments = [];
   vm.title = project.title;
   vm.config = config;
-
   vm.user = window.user;
-
   vm.token = storage.get('api_token');
-
   vm.comment = {};
 
   vm.postComment = () => {
@@ -29,8 +26,15 @@ function ProjectCtrl(ProjectService, CommentService, StorageService, AppSettings
   };
 
   vm.userIsStudent = () => {
-    let projectUser = $filter('filter')(project.project_users, {user_id : vm.user.id})[0];
+    let projectUser = $filter('filter')(project.project_users, { user_id : vm.user.id })[0];
     return (projectUser.project_role_id == config.PROJECT_ROLES.STUDENT);
+  }
+
+  if (vm.user) {
+    CommentService.get('projects', vm.project.id)
+      .then(comments => {
+        vm.comments = comments;
+      })
   }
 }
 
