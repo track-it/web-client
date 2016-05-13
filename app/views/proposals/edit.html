@@ -1,12 +1,12 @@
 <!-- Huvudinnehåll -->
 <div class="container">
-  <h1>Submit proposal</h1>
+  <h1>Edit proposal</h1>
 
   <div class="well">
     <form ng-submit="proposalCtrl.store()">
       <div class="form-group">
         <label for="title">Title</label>
-        <input type="text" id="title" ng-model="proposalCtrl.new.title" class="form-control">
+        <input type="text" id="title" ng-model="proposalCtrl.proposal.title" class="form-control">
       </div>
 
       <div class="form-group">
@@ -20,20 +20,38 @@
 
       <div class="form-group">
         <label for="usr">Tags</label>
-        <tags-input ng-model="proposalCtrl.tags"></tags-input>
+        <tags-input ng-model="proposalCtrl.proposal.tags"></tags-input>
       </div>
 
       <div class="form-group">
         <label for="comment">Description</label>
-        <text-angular ng-model="proposalCtrl.new.description"></text-angular>
+        <text-angular ng-model="proposalCtrl.proposal.description"></text-angular>
         <!-- <textarea class="form-control" rows="5" id="description" ng-model="proposalCtrl.new.description"></textarea> -->
       </div>
 
       <div class="form-group">
         <label for="attachments">Attachments</label>
-        <input type="file" class="btn btn-default" ng-files="proposalCtrl.files" ng-repeat="file in proposalCtrl.filesCount()">
+        <div class="row">
+          <div class="col-md-4 col-sm-8">
+            <ul class="attachments">
+              <li class="attachment" ng-repeat="attachment in proposalCtrl.proposal.attachments">
+                <span class="attachment-name">
+                  {{ attachment.title }}
+                </span>
+                <span class="attachment-remove" ng-click="proposalCtrl.deleteOldAttachment($index)">&times;</span>
+              </li>
+              <li class="attachment" ng-repeat="file in proposalCtrl.newFiles">
+                <span class="attachment-name">
+                  {{ file.name }}
+                </span>
+                <span class="attachment-remove" ng-click="proposalCtrl.newFiles.splice($index, 1)()">&times;</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <input type="file" class="btn btn-default" ng-files="proposalCtrl.newFiles">
       </div>
-      <button class="btn btn-primary btn-lg">Submit</button>
-    </div>
+      <button class="btn btn-primary btn-lg">Save changes</button>
+    </form>
   </div>
 </div>
