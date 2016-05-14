@@ -13,6 +13,8 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, tagsInp
   $urlRouterProvider.otherwise('/');
 
   tagsInputConfigProvider.setDefaults('tagsInput', {
+    displayProperty: 'name',
+    keyProperty: 'name',
     placeholder: 'New tag',
     minLength: 1,
     maxLength: 20,

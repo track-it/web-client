@@ -8,15 +8,14 @@ function CreateProjectCtrl(ProjectService, AttachmentService, $state, proposal, 
   vm.teams = teams;
   vm.new = {
     title: proposal.title,
-    description: proposal.description
+    description: proposal.description,
+    tags: []
   };
   vm.title = 'Submit Project';
   vm.files = [];
-  vm.tags = [];
   vm.selectedTeam = 0;
 
   vm.store = () => {
-    vm.new.tags = parseTags(vm.tags);
     vm.new.team_id = vm.teams[vm.selectedTeam].id;
 
     ProjectService.store(vm.proposal.id, vm.new)
@@ -54,15 +53,6 @@ function CreateProjectCtrl(ProjectService, AttachmentService, $state, proposal, 
         .catch((err, status) => reject(err, status));
     });
   }
-
-  const parseTags = tags => {
-    var names = [];
-    angular.forEach(tags, tag => {
-      names.push(tag.text);
-    });
-    return names;
-  }
-
 }
 
 export default {
