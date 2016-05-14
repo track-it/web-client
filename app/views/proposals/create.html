@@ -3,10 +3,14 @@
   <h1>Submit proposal</h1>
 
   <div class="well">
-    <form ng-submit="proposalCtrl.store()">
-      <div class="form-group">
+    <form name="createProposalForm" ng-submit="proposalCtrl.store()" novalidate>
+
+      <!-- Title -->
+      <div class="form-group" show-errors='{ showSuccess: true }'>
         <label for="title">Title</label>
-        <input type="text" id="title" ng-model="proposalCtrl.new.title" class="form-control">
+        <input type="text" name="title" ng-model="proposalCtrl.new.title" class="form-control" ng-pattern="proposalCtrl.config.VALIDATION.PROPOSAL.TITLE" ng-maxlength="100" autofocus required>
+        <p ng-show="createProposalForm.title.$error.required && !createProposalForm.title.$pristine" class="help-block">Display name required!</p>
+        <p ng-show="createProposalForm.title.$error.maxlength && !createProposalForm.title.$pristine" class="help-block">Title too long!</p>
       </div>
 
       <div class="form-group">
@@ -16,17 +20,18 @@
           <option value="2">Bachelor</option>
           <option value="3">Master</option>
         </select>
+        </div>
+
+      <div class="form-group">
+        <label for="tags">Tags</label>
+        <tags-input name="tags" ng-model="proposalCtrl.tags"></tags-input>
       </div>
 
       <div class="form-group">
-        <label for="usr">Tags</label>
-        <tags-input ng-model="proposalCtrl.new.tags"></tags-input>
-      </div>
-
-      <div class="form-group">
-        <label for="comment">Description</label>
-        <text-angular ng-model="proposalCtrl.new.description"></text-angular>
-        <!-- <textarea class="form-control" rows="5" id="description" ng-model="proposalCtrl.new.description"></textarea> -->
+        <label for="description">Description</label>
+        <text-angular name="description" ng-model="proposalCtrl.new.description" ta-max-text="5" required></text-angular>
+        <p ng-show="createProposalForm.description.$error.taMaxText" class="help-block">Description too long! (Max 5000 characters)</p>
+        <p ng-show="createProposalForm.description.$error.required && !createProposalForm.description.$pristine" class="help-block">Display name required!</p>
       </div>
 
       <div class="form-group">
@@ -45,7 +50,10 @@
         </div>
         <input type="file" class="btn btn-default" ng-files="proposalCtrl.files">
       </div>
-      <button class="btn btn-primary btn-lg">Submit</button>
-    </div>
+
+      <button class="btn btn-primary btn-lg" ng-disabled="createProposalForm.$invalid">Submit</button>
+
+    </form>
+
   </div>
 </div>

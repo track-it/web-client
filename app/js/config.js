@@ -77,11 +77,16 @@ const AppSettings = {
       USERNAME:     '^[a-zA-ZåäöÅÄÖ0-9]+$',
 
       // Must start with normal character, max 30 characters
-      DISPLAYNAME:  '^[a-zA-ZåäöÅÄÖ0-9]{1}[a-zA-ZåäöÅÄÖ0-9 -]*$',
+      DISPLAYNAME:  '^[a-zA-ZåäöÅÄÖ0-9!"#¤%&/()=?`´"]{1}[a-zA-ZåäöÅÄÖ0-9!"#¤%&/()=?`´\\s-]*$',
 
       // Must contain one uppercase, one lowercase. Minimum 8 characters.
       PASSWORD:     '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$',
     },
+
+    PROPOSAL: {
+      TITLE:        '^[a-zA-ZåäöÅÄÖ0-9!"#¤%&/()=?`´\\s]*$',
+    },
+
   },
 
   // global helpers
