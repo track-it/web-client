@@ -1,13 +1,15 @@
-function CreateProposalCtrl(ProposalService, AttachmentService, $state) {
+function CreateProposalCtrl(ProposalService, AttachmentService, AppSettings, $state) {
   'ngInject';
 
   // ViewModel
   const vm = this;
+  const config = AppSettings;
 
   vm.new = {};
   vm.title = 'Submit proposal';
   vm.files = [];
   vm.tags = [];
+  vm.config = config;
 
   vm.store = () => {
     vm.new.tags = parseTags(vm.tags);
