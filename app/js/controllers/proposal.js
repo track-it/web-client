@@ -71,6 +71,13 @@ function ProposalCtrl(ProposalService, CommentService, StorageService, UserServi
     vm.team.splice(index, 1);
   }
 
+  vm.orderByMe = (item) => {
+    if (item.id == vm.user.id)
+      return -1;
+    else
+      return 1;
+  }
+
   vm.sendApplication = () => {
     TeamService.store(vm.proposal.id, {
       'user_ids': vm.team

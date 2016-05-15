@@ -1,4 +1,4 @@
-function ProjectsCtrl(projects, AppSettings) {
+function ProjectsCtrl(projects, AppSettings, AccountService) {
   'ngInject';
 
   // ViewModel
@@ -9,6 +9,21 @@ function ProjectsCtrl(projects, AppSettings) {
   vm.new = {};
   vm.projects = projects;
   vm.config = config;
+  vm.me = null;
+
+  vm.userIsPartOf = (project) => {
+    return vm.me && vm.me.projects.some(p => {
+      return p.id == project.id;
+    });
+  }
+
+  if (window.user) {
+    AccountService.me()
+      .then(me => {
+        vm.me = me;
+      });
+  }
+
 }
 
 export default {
