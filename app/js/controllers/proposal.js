@@ -15,6 +15,15 @@ function ProposalCtrl(ProposalService, CommentService, StorageService, UserServi
   vm.comment = {};
   vm.team = [];
 
+  vm.getStudents = (index) => {
+    return vm.students.filter(function (student) {
+      if (vm.team[index] == student.id)
+        return true;
+      else
+        return (student.id !== vm.user.id && vm.team.indexOf(student.id) == -1);
+    });
+  }
+
   vm.postComment = () => {
     CommentService.store('proposals', vm.proposal.id, vm.comment.body)
       .then(res => {
@@ -52,6 +61,14 @@ function ProposalCtrl(ProposalService, CommentService, StorageService, UserServi
       indices.push(i);
     }
     return indices;
+  }
+
+  vm.memberSelected = (index) => {
+    return vm.team[index] !== undefined;
+  }
+
+  vm.removeMember = (index) => {
+    vm.team.splice(index, 1);
   }
 
   vm.sendApplication = () => {
