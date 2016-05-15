@@ -4,14 +4,13 @@ function CreateProposalCtrl(ProposalService, AttachmentService, $state) {
   // ViewModel
   const vm = this;
 
-  vm.new = {};
+  vm.new = {
+    tags: []
+  };
   vm.title = 'Submit proposal';
   vm.files = [];
-  vm.tags = [];
 
   vm.store = () => {
-    vm.new.tags = parseTags(vm.tags);
-
     ProposalService.store(vm.new)
       .then(res => {
         return uploadFiles(res.data.id);
@@ -43,15 +42,6 @@ function CreateProposalCtrl(ProposalService, AttachmentService, $state) {
         .catch((err, status) => reject(err, status));
     });
   }
-
-  const parseTags = tags => {
-    var names = [];
-    angular.forEach(tags, tag => {
-      names.push(tag.text);
-    });
-    return names;
-  }
-
 }
 
 export default {
