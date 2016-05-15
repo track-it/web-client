@@ -26,7 +26,7 @@
       <tr ng-repeat="project in projectCtrl.projects">
         <td><a ui-sref="showProject({ id: project.id })">{{ project.title }}</a></td>
         <td class="link"><a ui-sref="showProposal({ id: project.proposal_id })">link</a></td>
-        <td class="project-status">{{ projectCtrl.config.getProjectStatus(project.status) }}</td>
+        <td class="project-status">{{ projectCtrl.config.getProjectStatus(project.status) | capitalize}}</td>
         <td>{{ project.created_at }}</td>
       </tr>
       <tr ng-if="projectCtrl.projects.length == 0">
