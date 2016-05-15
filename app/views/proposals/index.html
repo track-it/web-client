@@ -33,7 +33,7 @@
         <td>
           {{ proposal.author.displayname }}
         </td>
-        <td class="project-status">{{ proposalCtrl.config.getProposalStatus(proposal.status) }}</td>
+        <td class="project-status">{{ proposalCtrl.config.getProposalStatus(proposal.status) | capitalize }}</td>
         <td>{{ proposal.created_at }}</td>
       </tr>
       <tr ng-if="proposalCtrl.proposals.length == 0">
