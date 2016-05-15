@@ -27,8 +27,8 @@
     </div>
   </div>
 
-  <h2>Proposals</h2>
-  <table class="table table-striped">
+  <h2>Your Proposals</h2>
+  <table class="table table-striped" ng-show="accountCtrl.me.proposals.length > 0">
     <thead>
       <th>Title</th>
       <th>Status</th>
@@ -42,11 +42,14 @@
       </tr>
     </tbody>
   </table>
+  <p class="text-muted" ng-show="accountCtrl.me.proposals.length == 0">
+      Your have no proposals.
+  </p>
 
   <hr>
 
-  <h2>Projects</h2>
-  <table class="table table-striped">
+  <h2>Your Projects</h2>
+  <table class="table table-striped" ng-show="accountCtrl.me.projects.length > 0">
     <thead>
       <th>Title</th>
       <th class="text-nowrap">Your Role</th>
@@ -62,6 +65,9 @@
       </tr>
     </tbody>
   </table>
+  <p class="text-muted" ng-show="accountCtrl.me.projects.length == 0">
+      Your have no projects.
+  </p>
 
 </div>
 
