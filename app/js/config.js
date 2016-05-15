@@ -36,17 +36,24 @@ const AppSettings = {
     SUPERVISOR:     4,
   },
 
+  PROJECT_ROLE_IDS: {
+    1:  'STAKEHOLDER',
+    2:  'STUDENT',
+    3:  'TEACHER',
+    4:  'SUPERVISOR',
+  },
+
   PROJECT_STATUSES: {
     NOT_COMPLETED:  1,
     COMPLETED:      2,
     PUBLISHED:      3,
   },
 
-  PROJECT_STATUS_IDS: [
-    'not completed',
-    'completed',
-    'published',
-  ],
+  PROJECT_STATUS_IDS: {
+    1:  'NOT COMPLETED',
+    2:  'COMPLETED',
+    3:  'PUBLISHED',
+  },
 
   PROPOSAL_STATUSES: {
     NOT_REVIEWED:   1,
@@ -56,23 +63,28 @@ const AppSettings = {
     ARCHIVED:       5,
   },
 
-  PROPOSAL_STATUS_IDS: [
-    'not reviewed',
-    'under review',
-    'not approved',
-    'approved',
-    'archived',
-  ],
+  PROPOSAL_STATUS_IDS: {
+    1:  'NOT REVIEWED',
+    2:  'UNDER REVIEW',
+    3:  'NOT APPROVED',
+    4:  'APPROVED',
+    5:  'ARCHIVED',
+  },
 
   // global helpers
   api: api,
 
   getProposalStatus: (status_id) => {
-    return AppSettings.PROPOSAL_STATUS_IDS[status_id - 1];
+    return AppSettings.PROPOSAL_STATUS_IDS[status_id];
   },
 
   getProjectStatus: (status_id) => {
-    return AppSettings.PROJECT_STATUS_IDS[status_id - 1];
+    return AppSettings.PROJECT_STATUS_IDS[status_id];
+  },
+
+  getProjectRole: (role_id) => {
+    console.log(role_id);
+    return AppSettings.PROJECT_ROLE_IDS[role_id];
   },
 
 };
