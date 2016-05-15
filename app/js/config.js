@@ -83,7 +83,6 @@ const AppSettings = {
   },
 
   getProjectRole: (role_id) => {
-    console.log(role_id);
     return AppSettings.PROJECT_ROLE_IDS[role_id];
   },
 
