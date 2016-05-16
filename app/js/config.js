@@ -66,7 +66,7 @@ const AppSettings = {
   },
 
   PROJECT_STATUS_IDS: {
-    1:  'NOT COMPLETED',
+    1:  'UNCOMPLETED',
     2:  'COMPLETED',
     3:  'PUBLISHED',
   },
