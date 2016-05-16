@@ -118,6 +118,10 @@ const AppSettings = {
   // global helpers
   api: api,
 
+  getRole: (role_id) => {
+    return AppSettings.ROLE_IDS[role_id];
+  },
+
   getProposalStatus: (status_id) => {
     return AppSettings.PROPOSAL_STATUS_IDS[status_id];
   },
