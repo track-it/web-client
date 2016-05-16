@@ -7,7 +7,7 @@
       <div class="details text-muted">
         <div>
           <i class="fa fa-user" aria-hidden="true"></i>
-          By <code>{{ proposalCtrl.proposal.author.username }}</code>
+          By <code>{{ proposalCtrl.proposal.author.displayname }}</code>
         <!-- </div> -->
         <!-- <div> -->
           <i class="fa fa-clock-o" aria-hidden="true"></i>
@@ -53,7 +53,7 @@
           <div class="col-md-3">
             <div class="authorbox">
               <!-- <a href="#"> -->
-                <span class="username">{{ comment.author.username }}</span>
+                <span class="username">{{ comment.author.displayname }}</span>
               <!-- </a> -->
               <div class="commentRole text-muted">
                 <span ng-if="comment.author.role_id == proposalCtrl.config.ROLES.CUSTOMER">
@@ -109,9 +109,7 @@
         </form>
 
       </div>
-
     </div>
-
     <div class="col-md-4">
       <div ng-if="proposalCtrl.userCanManageProposal()" class="controlpanel">
         <div class="panel panel-default">
@@ -126,30 +124,34 @@
             <a class="btn btn-info btn-block"  ng-class="{disabled: !proposalCtrl.userCanCreateProject()}" ui-sref="createProject({ id: proposalCtrl.proposal.id })">Create project</a>
         </div>
       </div>
-    </div>
-    <div ng-if="proposalCtrl.studentCanApply()" class="controlpanel">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4>Apply</h4>
-        </div>
-        <div class="panel-body">
-          <form ng-submit="proposalCtrl.sendApplication()">
-            <div class="form-group">
-              <label for="search">Add members</label>
-              <div class="memberselect" ng-repeat="index in proposalCtrl.memberCount()">
-                <ol class="nya-bs-select" ng-model="proposalCtrl.team[$index]" data-live-search="true" title="Search...">
-                  <li nya-bs-option="student in proposalCtrl.students" data-value="student.id" >
-                    <a>{{ student.username }}</a>
-                  </li>
-                </ol>
+      </div>
+      <div ng-if="proposalCtrl.studentCanApply()" class="controlpanel">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4>Apply</h4>
+          </div>
+          <div class="panel-body">
+            <form ng-submit="proposalCtrl.sendApplication()">
+              <div class="form-group">
+                <label for="search">Add members</label>
+                <div class="row member-select" ng-repeat="index in proposalCtrl.memberCount()">
+                  <div ng-class="proposalCtrl.memberSelected($index) ? 'col-md-10 col-sm-11 col-xs-10 member-selected' : 'col-md-12 col-sm-12 col-xs-12'">
+                    <ol class="nya-bs-select" ng-model="proposalCtrl.team[$index]" data-live-search="true" title="Search...">
+                      <li nya-bs-option="student in proposalCtrl.getStudents($index)" data-value="student.id">
+                        <a>{{ student.displayname }} <a class="hidden">{{ student.username }}</a></a>
+                      </li>
+                    </ol>
+                  </div>
+                  <div class="col-md-2 col-sm-1 col-xs-2 icon-remove" ng-show="proposalCtrl.memberSelected($index)">
+                    <i class="fa fa-minus-circle fa-2x text-danger" ng-click="proposalCtrl.removeMember($index)" title="Remove" aria-hidden="true"></i>
+                  </div>
+                </div>
               </div>
-            </div>
-            <button class="btn btn-success btn-block">Apply</button>
-          </form>
+              <button class="btn btn-success btn-block">Apply</button>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
-
       <div ng-if="proposalCtrl.user.role_id == proposalCtrl.config.ROLES.STUDENT && proposalCtrl.team.users.length > 0" class="controlpanel">
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -158,8 +160,11 @@
           <div class="panel-body">
             <label for="search">Team members</label>
             <ul class="list-group">
-              <li class="list-group-item list-group-item-warning" ng-repeat="member in proposalCtrl.team.users">
-                {{ member.username }}
+              <li class="list-group-item list-group-item-warning" ng-repeat="member in proposalCtrl.team.users | orderBy: proposalCtrl.orderByMe">
+                <span ng-if="member.id == proposalCtrl.user.id">
+                  <i class="fa fa-universal-access" aria-hidden="true"></i>
+                </span>
+                {{ member.displayname }}
                 <i class="fa fa-graduation-cap pull-right" aria-hidden="true"></i>
               </li>
             </ul>
@@ -170,7 +175,6 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </div>

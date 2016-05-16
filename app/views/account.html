@@ -1,15 +1,19 @@
 <!-- Huvudinnehåll -->
 
 <div class="container">
-  <h1>{{ accountCtrl.me.username }}</h1>
+  <h1>{{ accountCtrl.me.displayname }}</h1>
   <div class="well">
     <div class="row">
 
       <div class="col-md-10">
-         <div>
-           <b>Role: </b>
-           {{ accountCtrl.me.role.name | capitalize }}
-         </div>
+        <div>
+          <b>Username: </b>
+          {{ accountCtrl.me.username }}
+        </div>
+        <div>
+          <b>Role: </b>
+          {{ accountCtrl.me.role.name | capitalize }}
+        </div>
         <span class="label label-primary">{{ accountCtrl.me.proposals.length }} proposals</span>
         <span class="label label-success">{{ accountCtrl.me.projects.length }} projects</span>
       </div>
@@ -23,49 +27,48 @@
     </div>
   </div>
 
-  <div class="row">
+  <h2>Your Proposals</h2>
+  <table class="table table-striped" ng-show="accountCtrl.me.proposals.length > 0">
+    <thead>
+      <th>Title</th>
+      <th>Status</th>
+      <th>Created</th>
+    </thead>
+    <tbody>
+      <tr ng-repeat="proposal in accountCtrl.me.proposals">
+        <td><a ui-sref="showProposal({ id: proposal.id })">{{ proposal.title }}</a></td>
+        <td class="proposal-status text-nowrap">{{ accountCtrl.config.getProposalStatus(proposal.status) | capitalize}}</td>
+        <td class="text-nowrap">{{ proposal.created_at }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="text-muted" ng-show="accountCtrl.me.proposals.length == 0">
+      Your have no proposals.
+  </p>
 
-    <div class="col-md-6">
-        <h2>Proposals</h2>
-          <table class="table table-striped">
-            <thead>
-              <th>Title</th>
-              <th>Status</th>
-              <th>Created</th>
-            </thead>
-            <tbody>
-              <tr ng-repeat="proposal in accountCtrl.me.proposals">
-                <td><a ui-sref="showProposal({ id: proposal.id })">{{ proposal.title }}</a></td>
-                <td class="proposal-status">{{ accountCtrl.config.getProposalStatus(proposal.status) }}</td>
-                <td>{{ proposal.created_at }}</td>
-              </tr>
-              </tr>
-            </tbody>
-          </table>
-    </div>
+  <hr>
 
-    <div class="col-md-6">
-        <h2>Projects</h2>
-          <table class="table table-striped">
-            <thead>
-              <th>Title</th>
-              <th class="text-nowrap">Your Role</th>
-              <th>Status</th>
-              <th>Created</th>
-            </thead>
-            <tbody>
-              <tr ng-repeat="project in accountCtrl.me.projects">
-                <td><a ui-sref="showProject({ id: project.id })">{{ project.title }}</a></td>
-                <td class="project-role">{{ project.my_role }}</td>
-                <td class="project-status">{{ accountCtrl.config.getProjectStatus(project.status) }}</td>
-                <td>{{ project.created_at }}</td>
-              </tr>
-              </tr>
-            </tbody>
-          </table>
-      </div>
+  <h2>Your Projects</h2>
+  <table class="table table-striped" ng-show="accountCtrl.me.projects.length > 0">
+    <thead>
+      <th>Title</th>
+      <th class="text-nowrap">Your Role</th>
+      <th>Status</th>
+      <th>Created</th>
+    </thead>
+    <tbody>
+      <tr ng-repeat="project in accountCtrl.me.projects">
+        <td><a ui-sref="showProject({ id: project.id })">{{ project.title }}</a></td>
+        <td class="project-role">{{ accountCtrl.config.getProjectRole(project.pivot.project_role_id) | capitalize }}</td>
+        <td class="project-status text-nowrap">{{ accountCtrl.config.getProjectStatus(project.status) | capitalize }}</td>
+        <td class="text-nowrap">{{ project.created_at }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="text-muted" ng-show="accountCtrl.me.projects.length == 0">
+      Your have no projects.
+  </p>
 
-  </div>
 </div>
 
 

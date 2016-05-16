@@ -34,25 +34,31 @@
       <h2>Participants</h2>
       <ul class="list-group">
         <!-- Customers -->
-        <a href="#" class="list-group-item list-group-item-info" ng-repeat="projectUser in projectCtrl.project.project_users | orderBy: 'username'" ng-if="projectUser.project_role_id == 1">
-          {{ projectUser.user.username }}
-          <i class="fa fa-user pull-right" title="Customer" aria-hidden="true"></i>
+        <a href="#" class="list-group-item list-group-item-info" ng-repeat="participant in projectCtrl.project.participants | orderBy: 'username'" ng-if="participant.pivot.project_role_id == projectCtrl.config.PROJECT_ROLES.STAKEHOLDER">
+          {{ participant.displayname }}
+          <i class="fa fa-user pull-right" title="Stakeholder" aria-hidden="true"></i>
         </a>
 
         <!-- Teachers -->
-        <a href="#" class="list-group-item list-group-item-success" ng-repeat="projectUser in projectCtrl.project.project_users | orderBy: 'username'" ng-if="projectUser.project_role_id == 3">
-          {{ projectUser.user.username }}
+        <a href="#" class="list-group-item list-group-item-success" ng-repeat="participant in projectCtrl.project.participants | orderBy: 'username'" ng-if="participant.pivot.project_role_id == projectCtrl.config.PROJECT_ROLES.TEACHER">
+          {{ participant.displayname }}
           <i class="fa fa-university pull-right" title="Teacher" aria-hidden="true"></i>
         </a>
 
+        <!-- Supervisors -->
+        <a href="#" class="list-group-item list-group-item-danger" ng-repeat="participant in projectCtrl.project.participants | orderBy: 'username'" ng-if="participant.pivot.project_role_id == projectCtrl.config.PROJECT_ROLES.SUPERVISOR">
+          {{ participant.displayname }}
+          <i class="fa fa-eye pull-right" title="Supervisor" aria-hidden="true"></i>
+        </a>
+
         <!-- Students -->
-        <a href="#" class="list-group-item list-group-item-warning" ng-repeat="projectUser in projectCtrl.project.project_users | orderBy: 'username'" ng-if="projectUser.project_role_id == 2">
-          {{ projectUser.user.username }}
+        <a href="#" class="list-group-item list-group-item-warning" ng-repeat="participant in projectCtrl.project.participants | orderBy: 'username'" ng-if="participant.pivot.project_role_id == projectCtrl.config.PROJECT_ROLES.STUDENT">
+          {{ participant.displayname }}
           <i class="fa fa-graduation-cap pull-right" title="Student" aria-hidden="true"></i>
         </a>
 
         <!-- If there are no participants -->
-        <p class="text-muted" ng-if="projectCtrl.project.team.users == 0 && projectCtrl.project.project_users == 0">
+        <p class="text-muted" ng-if="projectCtrl.project.team.users == 0 && projectCtrl.project.participants == 0">
           There are no participants for this project.
         </li>
       </ul>
@@ -82,7 +88,7 @@
           <div class="col-md-3">
             <div class="authorbox">
               <!-- <a href="#"> -->
-                <span class="username">{{ comment.author.username }}</span>
+                <span class="username">{{ comment.author.displayname }}</span>
               <!-- </a> -->
               <div class="commentRole text-muted">
                 <span ng-if="comment.author.role_id == projectCtrl.config.ROLES.CUSTOMER">
