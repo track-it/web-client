@@ -7,10 +7,8 @@
       </h1>
       <div class="details text-muted">
         <div>
-          <i class="fa fa-user" aria-hidden="true"></i>
-          By <code>{{ proposalCtrl.proposal.author.displayname }}</code>
-        <!-- </div> -->
-        <!-- <div> -->
+          By <i ng-class="proposalCtrl.getAuthorIcon()" aria-hidden="true"></i>
+          <code>{{ proposalCtrl.proposal.author.displayname }}</code>
           <i class="fa fa-clock-o" aria-hidden="true"></i>
           Created <code>{{ proposalCtrl.proposal.created_at }}</code>
         </div>

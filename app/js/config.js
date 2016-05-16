@@ -29,6 +29,14 @@ const AppSettings = {
     5: 'ADMINISTRATOR',
   },
 
+  ROLE_ICON_IDS: {
+    1: 'fa fa-user',
+    2: 'fa fa-user',
+    3: 'fa fa-graduation-cap',
+    4: 'fa fa-university',
+    5: 'fa fa-user-plus',
+  },
+
   PROJECT_ROLES: {
     STAKEHOLDER:    1,
     STUDENT:        2,
@@ -120,6 +128,10 @@ const AppSettings = {
 
   getProjectRole: (role_id) => {
     return AppSettings.PROJECT_ROLE_IDS[role_id];
+  },
+
+  getRoleIcon: (icon_id) => {
+    return AppSettings.ROLE_ICON_IDS[icon_id];
   },
 
 };
