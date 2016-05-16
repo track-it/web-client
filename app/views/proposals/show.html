@@ -54,27 +54,13 @@
 
           <div class="col-md-3">
             <div class="authorbox">
-              <!-- <a href="#"> -->
-                <span class="username">{{ comment.author.displayname }}</span>
-              <!-- </a> -->
+              <span class="username">{{ comment.author.displayname }}</span>
+
               <div class="commentRole text-muted">
-                <span ng-if="comment.author.role_id == proposalCtrl.config.ROLES.CUSTOMER">
-                  Customer
-                  <span class="fa fa-user" aria-hidden="true"></span>
-                </span>
-                <span ng-if="comment.author.role_id == proposalCtrl.config.ROLES.STUDENT">
-                  Student
-                  <span class="fa fa-graduation-cap" aria-hidden="true"></span>
-                </span>
-                <span ng-if="comment.author.role_id == proposalCtrl.config.ROLES.TEACHER">
-                  Teacher
-                  <span class="fa fa-university" aria-hidden="true"></span>
-                </span>
-                <span ng-if="comment.author.role_id == proposalCtrl.config.ROLES.ADMINISTRATOR">
-                  Admin
-                  <span class="fa fa-user-plus" aria-hidden="true"></span>
-                </span>
+                {{ proposalCtrl.config.getRole(comment.author.role_id) }}
+                <span ng-class="proposalCtrl.config.getRoleIcon(comment.author.role_id)" aria-hidden="true"></span>
               </div>
+
             </div>
           </div>
 
