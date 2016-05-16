@@ -55,7 +55,7 @@
             <div class="authorbox">
               <span class="username">{{ comment.author.displayname }}</span>
 
-              <div class="commentRole text-muted">
+              <div ng-class="proposalCtrl.config.getRoleColor(comment.author.role_id)" class="commentRole text-muted ">
                 {{ proposalCtrl.config.getRole(comment.author.role_id) }}
                 <span ng-class="proposalCtrl.config.getRoleIcon(comment.author.role_id)" aria-hidden="true"></span>
               </div>
