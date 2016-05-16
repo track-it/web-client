@@ -14,7 +14,7 @@
           <i class="fa fa-clock-o" aria-hidden="true"></i>
           Created <code>{{ proposalCtrl.proposal.created_at }}</code>
         </div>
-        <span class="proposal-status label label-success">{{ proposalCtrl.config.getProposalStatus(proposalCtrl.proposal.status) }}</span>
+        <span class="proposal-status label label-success">{{ proposalCtrl.config.getProposalStatus(proposalCtrl.proposal.status) | capitalize }}</span>
         <span class="label label-primary">Proposal</span>
         <span ng-repeat="tag in proposalCtrl.proposal.tags">
           <span class="label label-primary" >{{ tag.name }}</span>
@@ -104,8 +104,19 @@
             <h4>Manage Proposal</h4>
           </div>
           <div class="panel-body">
-            <a class="btn btn-success btn-block" ng-class="{disabled: !proposalCtrl.userCanApproveProposal()}">
-            Approve Proposal Does Not Work</a>
+            <div ng-if="proposalCtrl.userCanUpdateStatus()">
+              <form ng-submit="proposalCtrl.updateStatus()">
+                <div class="form-group">
+                  <ol class="nya-bs-select" ng-model="proposalCtrl.status">
+                    <li nya-bs-option="(id, status) in proposalCtrl.config.PROPOSAL_STATUS_IDS" data-value="id">
+                      <a>{{ status | capitalize }}</a>
+                    </li>
+                  </ol>
+                </div>
+                <button class="btn btn-success btn-block" ng-class="{disabled: proposalCtrl.status == proposalCtrl.proposal.status}">Update Status</button>
+              </form>
+              <hr>
+            </div>
             <a class="btn btn-warning btn-block" ng-class="{disabled: !proposalCtrl.userCanEditProposal()}" ui-sref="editProposal({ id: proposalCtrl.proposal.id })">
             Edit Proposal</a>
             <a class="btn btn-info btn-block"  ng-class="{disabled: !proposalCtrl.userCanCreateProject()}" ui-sref="createProject({ id: proposalCtrl.proposal.id })">Create project</a>

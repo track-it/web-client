@@ -6,6 +6,7 @@ function ProposalCtrl(ProposalService, CommentService, StorageService, UserServi
   const vm = this;
 
   vm.proposal = proposal;
+  vm.status = proposal.status;
   vm.comments = [];
   vm.students = [];
   vm.title = proposal.title;
@@ -23,6 +24,11 @@ function ProposalCtrl(ProposalService, CommentService, StorageService, UserServi
         return (student.id !== vm.user.id && vm.team.indexOf(student.id) == -1);
     });
   }
+
+  vm.updateStatus = () => {
+    vm.proposal.status = vm.status;
+    ProposalService.update(vm.proposal.id, vm.proposal);
+  };
 
   vm.postComment = () => {
     CommentService.store('proposals', vm.proposal.id, vm.comment.body)
@@ -44,15 +50,15 @@ function ProposalCtrl(ProposalService, CommentService, StorageService, UserServi
   }
 
   vm.userCanManageProposal = () => {
-    return (vm.userCanApproveProposal()
+    return (vm.userCanUpdateStatus()
       || vm.userCanEditProposal()
       || vm.userCanCreateProject());
   }
 
-  vm.userCanApproveProposal = () => {
+  vm.userCanUpdateStatus = () => {
     return (vm.user
       && (vm.user.role_id == config.ROLES.TEACHER || vm.user.role_id == config.ROLES.ADMINISTRATOR)
-      && vm.proposal.status != config.PROPOSAL_STATUSES.APPROVED);
+    );
   }
 
   vm.userCanEditProposal = () => {
