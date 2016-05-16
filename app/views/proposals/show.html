@@ -109,8 +109,8 @@
             <a class="btn btn-warning btn-block" ng-class="{disabled: !proposalCtrl.userCanEditProposal()}" ui-sref="editProposal({ id: proposalCtrl.proposal.id })">
             Edit Proposal</a>
             <a class="btn btn-info btn-block"  ng-class="{disabled: !proposalCtrl.userCanCreateProject()}" ui-sref="createProject({ id: proposalCtrl.proposal.id })">Create project</a>
+          </div>
         </div>
-      </div>
       </div>
       <div ng-if="proposalCtrl.studentCanApply()" class="controlpanel">
         <div class="panel panel-default">
@@ -134,16 +134,11 @@
                   </div>
                 </div>
               </div>
-            </div>
-            <button class="btn btn-success btn-block">Apply</button>
-          </form>
+            </form>
+          </div>
+          <button class="btn btn-success btn-block">Apply</button>
         </div>
       </div>
-<<<<<<< HEAD
-    </div>
-
-=======
->>>>>>> 5c752ea8bcd2b487ac64781ceeca380940699092
       <div ng-if="proposalCtrl.user.role_id == proposalCtrl.config.ROLES.STUDENT && proposalCtrl.team.users.length > 0" class="controlpanel">
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -167,10 +162,6 @@
           </div>
         </div>
       </div>
-<<<<<<< HEAD
-
-=======
->>>>>>> 5c752ea8bcd2b487ac64781ceeca380940699092
     </div>
   </div>
 </div>
