@@ -1,7 +1,6 @@
 <div class="container">
   <div class="row">
     <div class="{{ proposalCtrl.user ? 'col-md-8' : 'col-md-12' }}">
-
       <h1>
         {{ proposalCtrl.proposal.title }}
       </h1>
@@ -97,53 +96,22 @@
         </form>
 
       </div>
-
     </div>
-
     <div class="col-md-4">
-      <div ng-if="proposalCtrl.teacherCanApproveProject()" class="controlpanel">
+      <div ng-if="proposalCtrl.userCanManageProposal()" class="controlpanel">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h4>Approve</h4>
+            <h4>Manage Proposal</h4>
           </div>
           <div class="panel-body">
-            <div class="form-group">
-              <label for="course">Select course:</label>
-              <select name="course" id="course" class="form-control">
-                <option ng-repeat="course in proposalCtrl.user.courses" value="{{ course.id }}">
-                  {{ course.code }}
-                </option>
-              </select>
-            </div>
-            <button class="btn btn-success btn-block">Approve proposal</button>
-          </div>
-        </div>
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4>Tags</h4>
-          </div>
-          <div class="panel-body">
-            <div class="form-group">
-              <input type="text" class="form-control">
-            </div>
-            <button class="btn btn-default btn-block">Add tag</button>
-          </div>
+            <a class="btn btn-success btn-block" ng-class="{disabled: !proposalCtrl.userCanApproveProposal()}">
+            Approve Proposal Does Not Work</a>
+            <a class="btn btn-warning btn-block" ng-class="{disabled: !proposalCtrl.userCanEditProposal()}" ui-sref="editProposal({ id: proposalCtrl.proposal.id })">
+            Edit Proposal</a>
+            <a class="btn btn-info btn-block"  ng-class="{disabled: !proposalCtrl.userCanCreateProject()}" ui-sref="createProject({ id: proposalCtrl.proposal.id })">Create project</a>
         </div>
       </div>
-
-      <div ng-if="proposalCtrl.teacherCanCreateProject()" class="controlpanel">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4>Create</h4>
-          </div>
-          <div class="panel-body">
-            <div class="form-group">
-              <a ui-sref="createProject({ id: proposalCtrl.proposal.id })">Create project</a>
-            </div>
-          </div>
-        </div>
       </div>
-
       <div ng-if="proposalCtrl.studentCanApply()" class="controlpanel">
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -166,12 +134,16 @@
                   </div>
                 </div>
               </div>
-              <button class="btn btn-success btn-block">Apply</button>
-            </form>
-          </div>
+            </div>
+            <button class="btn btn-success btn-block">Apply</button>
+          </form>
         </div>
       </div>
+<<<<<<< HEAD
+    </div>
 
+=======
+>>>>>>> 5c752ea8bcd2b487ac64781ceeca380940699092
       <div ng-if="proposalCtrl.user.role_id == proposalCtrl.config.ROLES.STUDENT && proposalCtrl.team.users.length > 0" class="controlpanel">
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -195,7 +167,10 @@
           </div>
         </div>
       </div>
-    </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5c752ea8bcd2b487ac64781ceeca380940699092
+    </div>
   </div>
 </div>

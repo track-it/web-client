@@ -43,15 +43,28 @@ function ProposalCtrl(ProposalService, CommentService, StorageService, UserServi
       && vm.proposal.status == config.PROPOSAL_STATUSES.APPROVED);
   }
 
-  vm.teacherCanApproveProposal = () => {
+  vm.userCanManageProposal = () => {
+    return (vm.userCanApproveProposal()
+      || vm.userCanEditProposal()
+      || vm.userCanCreateProject());
+  }
+
+  vm.userCanApproveProposal = () => {
     return (vm.user
-      && vm.user.role_id == config.ROLES.TEACHER
+      && (vm.user.role_id == config.ROLES.TEACHER || vm.user.role_id == config.ROLES.ADMINISTRATOR)
       && vm.proposal.status != config.PROPOSAL_STATUSES.APPROVED);
   }
 
-  vm.teacherCanCreateProject = () => {
+  vm.userCanEditProposal = () => {
     return (vm.user
-      && vm.user.role_id == config.ROLES.TEACHER
+      && (vm.user.role_id == config.ROLES.ADMINISTRATOR
+      || vm.user.id == vm.proposal.author_id)
+      );
+  }
+
+  vm.userCanCreateProject = () => {
+    return (vm.user
+      && (vm.user.role_id == config.ROLES.TEACHER || vm.user.role_id == config.ROLES.ADMINISTRATOR)
       && vm.proposal.status == config.PROPOSAL_STATUSES.APPROVED);
   }
 
