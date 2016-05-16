@@ -19,9 +19,12 @@
       </div>
 
       <div class="col-md-2">
-        <form ng-submit="accountCtrl.logout()">
+        <form ng-submit="accountCtrl.logout()" ng-show="accountCtrl.me.type == 1">
           <button class="btn btn-danger pull-right">Log out</button>
         </form>
+        <a class="btn btn-danger pull-right" ng-show="accountCtrl.me.type == 2" href="{{ accountCtrl.getAdfsLogoutUrl() }}">
+          Log out
+        </a>
       </div>
 
     </div>

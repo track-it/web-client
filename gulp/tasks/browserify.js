@@ -60,9 +60,9 @@ function buildScript(file) {
       .pipe(source(file))
       .pipe(gulpif(shouldCreateSourcemap, buffer()))
       .pipe(gulpif(shouldCreateSourcemap, sourcemaps.init({ loadMaps: true })))
-      .pipe(gulpif(global.isProd, streamify(uglify({
-        compress: { drop_console: true } // eslint-disable-line camelcase
-      }))))
+      //.pipe(gulpif(global.isProd, streamify(uglify({
+      //  compress: { drop_console: true } // eslint-disable-line camelcase
+      //}))))
       .pipe(gulpif(shouldCreateSourcemap, sourcemaps.write(sourceMapLocation)))
       .pipe(gulp.dest(config.scripts.dest))
       .pipe(browserSync.stream());

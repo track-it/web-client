@@ -20,7 +20,7 @@ function AuthService($http, $rootScope, AppSettings) {
   service.initialize = (apiToken) => {
     $http.defaults.headers.common.Authorization = 'Bearer ' + apiToken;
 
-    $http.get(config.api('site'))
+    return $http.get(config.api('site'))
       .then(res => {
         window.sitemap = res.data;
 
@@ -30,6 +30,8 @@ function AuthService($http, $rootScope, AppSettings) {
         }
 
         $rootScope.$emit('login-occured');
+
+        return res.data.user;
       });
   };
 
@@ -45,6 +47,7 @@ function AuthService($http, $rootScope, AppSettings) {
   }
 
   service.logout = function () {
+      StorageService.delete(config.API_TOKEN);
       delete $http.defaults.headers.common.Authorization;
       delete window.user;
       service.isAuthenticated = false;

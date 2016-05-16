@@ -5,6 +5,8 @@
     <div class="col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4">
       <h1 class="text-center login-title">Sign in to TrackIt</h1>
       <div class="well login-well">
+        <a href="{{ loginCtrl.getAdfsUrl() }}" class="btn btn-lg btn-primary btn-block">ADFS</a>
+        <hr>
         <form ng-submit="loginCtrl.auth(loginCtrl.username, loginCtrl.password)">
           <p ng-if="loginCtrl.error" class="text-danger text-center m-b-2">
             Username or password is incorrect. Please try again.
