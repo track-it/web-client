@@ -29,7 +29,7 @@
 
       <div class="form-group">
         <label for="description">Description</label>
-        <text-angular name="description" ng-model="proposalCtrl.new.description" ta-max-text="5" required></text-angular>
+        <text-angular name="description" ng-model="proposalCtrl.new.description" ta-max-text="5000" required></text-angular>
         <p ng-show="createProposalForm.description.$error.taMaxText" class="help-block">Description too long! (Max 5000 characters)</p>
         <p ng-show="createProposalForm.description.$error.required && !createProposalForm.description.$pristine" class="help-block">Display name required!</p>
       </div>
