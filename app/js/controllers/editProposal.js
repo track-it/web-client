@@ -37,8 +37,9 @@ function EditProposalCtrl(ProposalService, AttachmentService, proposal, $state) 
 
       var formData = new FormData();
       for (var i = 0; i < vm.newFiles.length; i++) {
-        formData.append('files[' + i + ']', vm.files[i]);
+        formData.append('files[' + i + ']', vm.newFiles[i]._file);
       }
+
       return AttachmentService.store('proposals', vm.proposal.id, formData)
         .then(data => resolve(data))
         .catch((err, status) => reject(err, status));
