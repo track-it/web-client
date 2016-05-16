@@ -7,6 +7,7 @@ function AccountService($http, $q, AppSettings) {
   service.me = function () {
     return $http.get(config.api(`me`))
       .then(res => {
+        console.log(res.data.data);
         return res.data.data;
       });
   };
