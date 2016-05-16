@@ -29,6 +29,14 @@ const AppSettings = {
     5: 'ADMINISTRATOR',
   },
 
+  ROLE_ICON_IDS: {
+    1: 'fa fa-user',
+    2: 'fa fa-user',
+    3: 'fa fa-graduation-cap',
+    4: 'fa fa-university',
+    5: 'fa fa-user-plus',
+  },
+
   PROJECT_ROLES: {
     STAKEHOLDER:    1,
     STUDENT:        2,
@@ -71,8 +79,48 @@ const AppSettings = {
     5:  'ARCHIVED',
   },
 
+  VALIDATION: {
+    REGISTRATION: {
+      // All normal characters
+      USERNAME:     '^[a-zA-ZåäöÅÄÖ0-9]+$',
+
+      // Must start with normal character, max 30 characters
+      DISPLAYNAME:  '^[a-zA-ZåäöÅÄÖ0-9!"#¤%&/()=?`´"]{1}[a-zA-ZåäöÅÄÖ0-9!"#¤%&/()=?`´\\s-]*$',
+
+      // Must contain one uppercase, one lowercase. Minimum 8 characters.
+      PASSWORD:     '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$',
+    },
+
+    PROPOSAL: {
+      TITLE:        '^[a-zA-ZåäöÅÄÖ0-9!"#¤%&/()=?`´\\s]*$',
+    },
+
+  },
+
+  VALIDATION: {
+    REGISTRATION: {
+      // All normal characters
+      USERNAME:     '^[a-zA-ZåäöÅÄÖ0-9]+$',
+
+      // Must start with normal character, max 30 characters
+      DISPLAYNAME:  '^[a-zA-ZåäöÅÄÖ0-9!"#¤%&/()=?`´"]{1}[a-zA-ZåäöÅÄÖ0-9!"#¤%&/()=?`´\\s-]*$',
+
+      // Must contain one uppercase, one lowercase. Minimum 8 characters.
+      PASSWORD:     '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$',
+    },
+
+    PROPOSAL: {
+      TITLE:        '^[a-zA-ZåäöÅÄÖ0-9!"#¤%&/()=?`´\\s]*$',
+    },
+
+  },
+
   // global helpers
   api: api,
+
+  getRole: (role_id) => {
+    return AppSettings.ROLE_IDS[role_id];
+  },
 
   getProposalStatus: (status_id) => {
     return AppSettings.PROPOSAL_STATUS_IDS[status_id];
@@ -84,6 +132,10 @@ const AppSettings = {
 
   getProjectRole: (role_id) => {
     return AppSettings.PROJECT_ROLE_IDS[role_id];
+  },
+
+  getRoleIcon: (icon_id) => {
+    return AppSettings.ROLE_ICON_IDS[icon_id];
   },
 
 };

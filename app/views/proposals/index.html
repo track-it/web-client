@@ -43,5 +43,5 @@
 
   <hr>
 
-  <a ui-sref="createProposal" class="btn btn-success">Submit new proposal</a>
+  <a ui-sref="createProposal" ng-if="proposalCtrl.user" class="btn btn-success">Submit new proposal</a>
 </div>

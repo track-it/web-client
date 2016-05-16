@@ -53,7 +53,7 @@
                   <span ng-if="navCtrl.user.role_id == navCtrl.config.ROLES.TEACHER" class="fa fa-university" aria-hidden="true"></span>
                   <span ng-if="navCtrl.user.role_id == navCtrl.config.ROLES.ADMINISTRATOR" class="fa fa-user-plus" aria-hidden="true"></span>
 
-                  {{ navCtrl.user.displayname | limitTo: 20 }} {{ navCtrl.user.displayname.length > 20 ? '...' : ''}}
+                  <span class="hidden-sm">{{ navCtrl.user.displayname | limitTo: 20 }} {{ navCtrl.user.displayname.length > 20 ? '...' : ''}}</span>
                 </span>
               </a>
             </li>
