@@ -10,8 +10,6 @@ function EditProposalCtrl(ProposalService, AttachmentService, proposal, $state) 
   vm.newFiles = [];
 
   vm.update = () => {
-    vm.proposal.tags = parseTags(vm.tags);
-
     ProposalService.update(vm.proposal.id, vm.proposal)
       .then(res => {
         return deleteFiles();
