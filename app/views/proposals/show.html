@@ -7,10 +7,9 @@
       <div class="details text-muted">
         <div>
           By
-          <code>
-            <i ng-class="proposalCtrl.getAuthorIcon()" aria-hidden="true"></i>
-            {{ proposalCtrl.proposal.author.displayname }}
-          </code>
+            <code ng-attr-title='{{ proposalCtrl.config.getRole(proposalCtrl.proposal.author.role_id) | capitalize }}'>
+              <span ng-class="proposalCtrl.config.getRoleIcon(proposalCtrl.proposal.author.role_id)" aria-hidden="true"></span>
+            {{ proposalCtrl.proposal.author.displayname }}</code>
           <i class="fa fa-clock-o" aria-hidden="true"></i>
           Created <code>{{ proposalCtrl.proposal.created_at }}</code>
         </div>
