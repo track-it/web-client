@@ -8,8 +8,11 @@ function AccountCtrl(me, AppSettings, StorageService, AuthService, $state, $cont
   vm.me = me;
   vm.config = config;
 
+  vm.getAdfsLogoutUrl = function () {
+    return config.API_URL + 'logout?callback=' + $state.href('adfsLogout', {}, { absolute: true }) + '&api_token=' + me.api_token;
+  }
+
   vm.logout = function () {
-    StorageService.delete(config.API_TOKEN);
     AuthService.logout();
     $state.transitionTo('login');
   };

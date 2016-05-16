@@ -8,6 +8,10 @@ function LoginCtrl(AuthService, AppSettings, StorageService, $state, $rootScope)
   vm.title = 'Authenticate';
   vm.error = false;
 
+  vm.getAdfsUrl = function () {
+    return config.API_URL + 'login?callback=https://trackit.albertkaaman.se/adfs/login';
+  }
+
   vm.auth = function (username, password) {
     vm.error = false;
     AuthService.auth(username, password)

@@ -23,6 +23,25 @@ const register = {
   title: 'Register'
 };
 
+const adfsLogin = {
+  guest: true,
+
+  url: '/adfs/login?:api_token',
+  controller: 'AdfsLoginCtrl as adfsLoginCtrl',
+  resolve: {
+    me: function (AuthService, $stateParams) {
+      return AuthService.initialize($stateParams.api_token);
+    }
+  }
+}
+
+const adfsLogout = {
+  guest: true,
+
+  url: '/adfs/logout',
+  controller: 'AdfsLogoutCtrl as adfsLogoutCtrl'
+}
+
 const account = {
   url: '/account',
   controller: 'AccountCtrl as accountCtrl',
@@ -128,6 +147,8 @@ export default {
       .state('home', home)
       .state('login', login)
       .state('register', register)
+      .state('adfsLogin', adfsLogin)
+      .state('adfsLogout', adfsLogout)
       .state('account', account)
       .state('proposals', proposals)
       .state('createProposal', createProposal)
