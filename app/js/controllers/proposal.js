@@ -86,10 +86,6 @@ function ProposalCtrl(ProposalService, CommentService, StorageService, UserServi
     });
   }
 
-  vm.getAuthorIcon = () => {
-    return config.getRoleIcon(proposal.author.role_id);
-  }
-
   if (vm.user) {
     CommentService.get('proposals', vm.proposal.id)
       .then(comments => {
