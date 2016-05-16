@@ -59,7 +59,7 @@
     <tbody>
       <tr ng-repeat="project in accountCtrl.me.projects">
         <td><a ui-sref="showProject({ id: project.id })">{{ project.title }}</a></td>
-        <td class="project-role">{{ project.my_role | capitalize }}</td>
+        <td class="project-role">{{ accountCtrl.config.getProjectRole(project.pivot.project_role_id) | capitalize }}</td>
         <td class="project-status text-nowrap">{{ accountCtrl.config.getProjectStatus(project.status) | capitalize }}</td>
         <td class="text-nowrap">{{ project.created_at }}</td>
       </tr>
