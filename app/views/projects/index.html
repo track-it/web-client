@@ -1,13 +1,20 @@
 <div class="container">
   <h1>{{ projectCtrl.title }}</h1>
   <div class="well">
-    <form action="#">
+    <form ng-submit="projectCtrl.search()">
       <div class="row">
-        <div class="col-sm-10">
-          <input type="text" name="search" id="search" class="form-control input-search" placeholder="Enter keywords to search">
+        <div class="col-sm-8">
+          <input type="text" name="search" id="search" ng-model="projectCtrl.searchInput" class="form-control input-search" placeholder="Enter keywords to search" focus-if="projectCtrl.hasSearched">
         </div>
-        <div class="col-sm-2">
-          <button class="btn btn-default btn-block">Search</button>
+        <div class="col-sm-4">
+          <div class="row">
+            <div class="col-sm-6" ng-show="projectCtrl.hasSearched">
+              <button class="btn btn-danger-outline btn-block" type="button" ng-click="projectCtrl.clear()">Clear</button>
+            </div>
+            <div class="{{ projectCtrl.hasSearched ? 'col-sm-6' : 'col-sm-12' }}">
+              <button class="btn btn-block btn-danger" type="submit" ng-disabled="!projectCtrl.searchInput">Search</button>
+            </div>
+          </div>
         </div>
       </div>
     </form>
