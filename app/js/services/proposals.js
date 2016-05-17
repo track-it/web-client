@@ -11,6 +11,18 @@ function ProposalService($http, $q, AppSettings) {
         });
   };
 
+  service.search = function(searchInput) {
+    return $http({
+      url: config.api('proposals'),
+      method: 'GET',
+      params: {
+        search: searchInput
+      }
+    }).then(res => {
+      return res.data.data;
+    });
+  }
+
   service.get = function (id) {
     return $http.get(config.api(`proposals/${id}`))
       .then(res => {

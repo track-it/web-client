@@ -10,6 +10,7 @@ import 'textangular/dist/textAngular-sanitize';
 import textAngular from 'textangular';
 import 'nya-bootstrap-select';
 import 'angular-bootstrap-show-errors';
+import 'ng-focus-if';
 import './templates';
 import './filters';
 import './controllers';
@@ -29,7 +30,8 @@ const requires = [
   'ngTagsInput',
   textAngular,
   'nya.bootstrap.select',
-  'ui.bootstrap.showErrors'
+  'ui.bootstrap.showErrors',
+  'focus-if'
 ];
 
 // mount on window for testing
