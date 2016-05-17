@@ -22,12 +22,11 @@
 
       <hr>
       <h2>Description</h2>
-      <p>
+      <div class="well">
         {{ projectCtrl.project.description }}
-
-        <p class="text-muted" ng-if="!projectCtrl.project.description">
-          No description.
-        </p>
+      </div>
+      <p class="text-muted" ng-if="!projectCtrl.project.description">
+        No description.
       </p>
 
       <hr>
