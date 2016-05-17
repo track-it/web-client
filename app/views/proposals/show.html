@@ -22,12 +22,11 @@
 
       <hr>
       <h2>Description</h2>
-      <p ng-bind-html="proposalCtrl.proposal.description">
-        <!-- {{ proposalCtrl.proposal.description }} -->
-
-        <p class="text-muted" ng-if="!proposalCtrl.proposal.description">
-          No description.
-        </p>
+      <div class="well">
+        <p ng-bind-html="proposalCtrl.proposal.description">
+      </div>
+      <p class="text-muted" ng-if="!proposalCtrl.proposal.description">
+        No description.
       </p>
 
       <hr>
