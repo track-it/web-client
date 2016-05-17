@@ -8,6 +8,10 @@ function AccountCtrl(me, AppSettings, StorageService, AuthService, $state, $cont
   vm.me = me;
   vm.config = config;
 
+  vm.isStudent = () => {
+    return vm.me.role_id == vm.config.ROLES.STUDENT;
+  }
+
   vm.logout = function () {
     StorageService.delete(config.API_TOKEN);
     AuthService.logout();

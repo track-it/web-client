@@ -1,73 +1,55 @@
 <!-- Huvudinnehåll -->
 
 <div class="container">
-  <h1>{{ accountCtrl.me.displayname }}</h1>
-  <p>
-    <span class="label label-danger">
-      <ng-pluralize count="accountCtrl.me.teams.length"
-                    when="{'0': 'No applications',
-                      'one': '{} application',
-                      'other': '{} applications'}">
-      </ng-pluralize>
-    </span>&nbsp;
-    <span class="label label-primary">
-      <ng-pluralize count="accountCtrl.me.proposals.length"
-                    when="{'0': 'No proposals',
-                      'one': '{} proposal',
-                      'other': '{} proposals'}">
-      </ng-pluralize>
-    </span>&nbsp;
-    <span class="label label-success">
-      <ng-pluralize count="accountCtrl.me.projects.length"
-                      when="{'0': 'No projects',
-                        'one': '{} project',
-                        'other': '{} projects'}">
-      </ng-pluralize>
-    </span>
-  </p>
-  <div class="well">
-    <div class="row">
-
-      <div class="col-md-10">
-        <div>
-          <b>Username: </b>
-          {{ accountCtrl.me.username }}
-        </div>
-        <div>
-          <b>Role: </b>
-          {{ accountCtrl.me.role.name | capitalize }}
-        </div>
-      </div>
-
-      <div class="col-md-2">
-        <form ng-submit="accountCtrl.logout()">
-          <button class="btn btn-danger pull-right">Log out</button>
-        </form>
-      </div>
-
+  <div class="row">
+    <div class="col-md-6 col-sm-9 col-xs-12">
+      <h1>{{ accountCtrl.me.displayname }}</h1>
+    </div>
+    <div class="col-md-2 col-md-offset-4 col-sm-offset-0 col-sm-3 hidden-xs text-right">
+      <form ng-submit="accountCtrl.logout()"><button class="btn btn-danger btn-logout">Log out</button></form>
     </div>
   </div>
-
-  <h3>Your Applications</h2>
-  <table class="table table-striped" ng-show="accountCtrl.me.teams.length > 0">
-    <thead>
-      <th>Title</th>
-      <th class="text-right">Applied</th>
-    </thead>
-    <tbody>
-      <tr ng-repeat="team in accountCtrl.me.teams">
-        <td><a ui-sref="showProposal({ id: team.proposal.id })">{{ team.proposal.title }}</a></td>
-        <td class="text-nowrap text-right">{{ team.created_at }}</td>
-      </tr>
-    </tbody>
-  </table>
-  <p class="text-muted" ng-show="accountCtrl.me.teams.length == 0">
-      Your have no applications.
+  <p>
+    <span class="label label-default">{{ accountCtrl.me.username }}</span>
+    <code ng-attr-title='{{ accountCtrl.config.getRole(accountCtrl.me.role_id) | capitalize }}'>
+              <span ng-class="accountCtrl.config.getRoleIcon(accountCtrl.me.role_id)" aria-hidden="true"></span>
+            {{ accountCtrl.config.getRole(accountCtrl.me.role_id) }}</code>
+    <span class="label label-danger" ng-show="accountCtrl.isStudent()"><ng-pluralize count="accountCtrl.me.teams.length"
+                    when="{'0': 'NO APPLICATIONS',
+                      'one': '{} APPLICATION',
+                      'other': '{} APPLICATIONS'}"></ng-pluralize></span>
+    <span class="label label-primary"><ng-pluralize count="accountCtrl.me.proposals.length"
+                    when="{'0': 'NO PROPOSALS',
+                      'one': '{} PROPOSAL',
+                      'other': '{} PROPOSALS'}"></ng-pluralize></span>
+    <span class="label label-success"><ng-pluralize count="accountCtrl.me.projects.length"
+                      when="{'0': 'NO PROJECTS',
+                        'one': '{} PROJECT',
+                        'other': '{} PROJECTS'}"></ng-pluralize></span>
   </p>
 
-  <hr>
+  <div ng-show="accountCtrl.isStudent()">
+    <h3>Your Applications</h3>
+    <table class="table table-striped" ng-show="accountCtrl.me.teams.length > 0">
+      <thead>
+        <th>Title</th>
+        <th class="text-right">Applied</th>
+      </thead>
+      <tbody>
+        <tr ng-repeat="team in accountCtrl.me.teams">
+          <td><a ui-sref="showProposal({ id: team.proposal.id })">{{ team.proposal.title }}</a></td>
+          <td class="text-nowrap text-right">{{ team.created_at }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="text-muted" ng-show="accountCtrl.me.teams.length == 0">
+        Your have no applications.
+    </p>
 
-  <h3>Your Proposals</h2>
+    <hr>
+  </div>
+
+  <h3>Your Proposals</h3>
   <table class="table table-striped" ng-show="accountCtrl.me.proposals.length > 0">
     <thead>
       <th>Title</th>
@@ -88,7 +70,7 @@
 
   <hr>
 
-  <h3>Your Projects</h2>
+  <h3>Your Projects</h3>
   <table class="table table-striped" ng-show="accountCtrl.me.projects.length > 0">
     <thead>
       <th>Title</th>
@@ -101,13 +83,17 @@
         <td><a ui-sref="showProject({ id: project.id })">{{ project.title }}</a></td>
         <td class="project-role text-right">{{ accountCtrl.config.getProjectRole(project.pivot.project_role_id) | capitalize }}</td>
         <td class="project-status text-nowrap text-right">{{ accountCtrl.config.getProjectStatus(project.status) | capitalize }}</td>
-        <td class="text-nowrap text-right">{{ project.created_at }}</td>
+        <td class="text-right">{{ project.created_at }}</td>
       </tr>
     </tbody>
   </table>
   <p class="text-muted" ng-show="accountCtrl.me.projects.length == 0">
       Your have no projects.
   </p>
+
+  <div class="hidden-sm hidden-md hidden-lg">
+    <form ng-submit="accountCtrl.logout()"><button class="btn btn-danger btn-logout btn-block">Log out</button></form>
+  </div>
 
 </div>
 
