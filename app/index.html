@@ -34,14 +34,14 @@
             </li>
           </ul>
         </nav>
-        <nav ng-if="!navCtrl.isAuthed()" class="navigation navigation-right">
+        <nav ng-show="!navCtrl.isAuthed()" class="navigation navigation-right">
           <ul class="navigation-list">
             <li class="navigation-item" ng-class="{ active: navCtrl.isActive('login') }">
               <a ui-sref="login">Login</a>
             </li>
           </ul>
         </nav>
-        <nav ng-if="navCtrl.isAuthed()" class="navigation navigation-right">
+        <nav ng-hide="!navCtrl.isAuthed()" class="navigation navigation-right" ng-cloak>
           <ul class="navigation-list">
             <li class="navigation-item" ng-class="{ active: navCtrl.isActive('login') }">
               <a ui-sref="account">
