@@ -26,11 +26,11 @@
         </a>
         <nav class="navigation">
           <ul class="navigation-list">
-            <li class="navigation-item" ng-class="{ active: navCtrl.isActive('proposals') }">
-              <a ui-sref="proposals">Proposals</a>
+            <li class="navigation-item" ng-class="{ active: navCtrl.isActive('proposals') }" ui-sref="proposals">
+              <a>Proposals</a>
             </li>
-            <li class="navigation-item" ng-class="{ active: navCtrl.isActive('projects') }">
-              <a ui-sref="projects">Projects</a>
+            <li class="navigation-item" ng-class="{ active: navCtrl.isActive('projects') }" ui-sref="projects">
+              <a>Projects</a>
             </li>
           </ul>
         </nav>
@@ -43,8 +43,8 @@
         </nav>
         <nav ng-if="navCtrl.isAuthed()" class="navigation navigation-right">
           <ul class="navigation-list">
-            <li class="navigation-item" ng-class="{ active: navCtrl.isActive('login') }">
-              <a ui-sref="account">
+            <li class="navigation-item" ng-class="{ active: navCtrl.isActive('account') }" ui-sref="account">
+              <a>
                 My account
 
                 <span class="text-muted">
@@ -53,7 +53,7 @@
                   <span ng-if="navCtrl.user.role_id == navCtrl.config.ROLES.TEACHER" class="fa fa-university" aria-hidden="true"></span>
                   <span ng-if="navCtrl.user.role_id == navCtrl.config.ROLES.ADMINISTRATOR" class="fa fa-user-plus" aria-hidden="true"></span>
 
-                  <span class="hidden-sm">{{ navCtrl.user.displayname | limitTo: 20 }} {{ navCtrl.user.displayname.length > 20 ? '...' : ''}}</span>
+                  <span class="hidden-sm hidden-xs">{{ navCtrl.user.displayname | limitTo: 20 }} {{ navCtrl.user.displayname.length > 20 ? '...' : ''}}</span>
                 </span>
               </a>
             </li>
