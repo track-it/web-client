@@ -2,6 +2,29 @@
 
 <div class="container">
   <h1>{{ accountCtrl.me.displayname }}</h1>
+  <p>
+    <span class="label label-danger">
+      <ng-pluralize count="accountCtrl.me.teams.length"
+                    when="{'0': 'No applications',
+                      'one': '{} application',
+                      'other': '{} applications'}">
+      </ng-pluralize>
+    </span>&nbsp;
+    <span class="label label-primary">
+      <ng-pluralize count="accountCtrl.me.proposals.length"
+                    when="{'0': 'No proposals',
+                      'one': '{} proposal',
+                      'other': '{} proposals'}">
+      </ng-pluralize>
+    </span>&nbsp;
+    <span class="label label-success">
+      <ng-pluralize count="accountCtrl.me.projects.length"
+                      when="{'0': 'No projects',
+                        'one': '{} project',
+                        'other': '{} projects'}">
+      </ng-pluralize>
+    </span>
+  </p>
   <div class="well">
     <div class="row">
 
@@ -14,8 +37,6 @@
           <b>Role: </b>
           {{ accountCtrl.me.role.name | capitalize }}
         </div>
-        <span class="label label-primary">{{ accountCtrl.me.proposals.length }} proposals</span>
-        <span class="label label-success">{{ accountCtrl.me.projects.length }} projects</span>
       </div>
 
       <div class="col-md-2">
@@ -27,18 +48,37 @@
     </div>
   </div>
 
-  <h2>Your Proposals</h2>
+  <h3>Your Applications</h2>
+  <table class="table table-striped" ng-show="accountCtrl.me.teams.length > 0">
+    <thead>
+      <th>Title</th>
+      <th class="text-right">Applied</th>
+    </thead>
+    <tbody>
+      <tr ng-repeat="team in accountCtrl.me.teams">
+        <td><a ui-sref="showProposal({ id: team.proposal.id })">{{ team.proposal.title }}</a></td>
+        <td class="text-nowrap text-right">{{ team.created_at }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="text-muted" ng-show="accountCtrl.me.teams.length == 0">
+      Your have no applications.
+  </p>
+
+  <hr>
+
+  <h3>Your Proposals</h2>
   <table class="table table-striped" ng-show="accountCtrl.me.proposals.length > 0">
     <thead>
       <th>Title</th>
-      <th>Status</th>
-      <th>Created</th>
+      <th class="text-right">Status</th>
+      <th class="text-right">Created</th>
     </thead>
     <tbody>
       <tr ng-repeat="proposal in accountCtrl.me.proposals">
         <td><a ui-sref="showProposal({ id: proposal.id })">{{ proposal.title }}</a></td>
-        <td class="proposal-status text-nowrap">{{ accountCtrl.config.getProposalStatus(proposal.status) | capitalize}}</td>
-        <td class="text-nowrap">{{ proposal.created_at }}</td>
+        <td class="proposal-status text-nowrap text-right">{{ accountCtrl.config.getProposalStatus(proposal.status) | capitalize}}</td>
+        <td class="text-nowrap text-right">{{ proposal.created_at }}</td>
       </tr>
     </tbody>
   </table>
@@ -48,20 +88,20 @@
 
   <hr>
 
-  <h2>Your Projects</h2>
+  <h3>Your Projects</h2>
   <table class="table table-striped" ng-show="accountCtrl.me.projects.length > 0">
     <thead>
       <th>Title</th>
-      <th class="text-nowrap">Your Role</th>
-      <th>Status</th>
-      <th>Created</th>
+      <th class="text-nowrap text-right">Your Role</th>
+      <th class="text-right">Status</th>
+      <th class="text-right">Created</th>
     </thead>
     <tbody>
       <tr ng-repeat="project in accountCtrl.me.projects">
         <td><a ui-sref="showProject({ id: project.id })">{{ project.title }}</a></td>
-        <td class="project-role">{{ accountCtrl.config.getProjectRole(project.pivot.project_role_id) | capitalize }}</td>
-        <td class="project-status text-nowrap">{{ accountCtrl.config.getProjectStatus(project.status) | capitalize }}</td>
-        <td class="text-nowrap">{{ project.created_at }}</td>
+        <td class="project-role text-right">{{ accountCtrl.config.getProjectRole(project.pivot.project_role_id) | capitalize }}</td>
+        <td class="project-status text-nowrap text-right">{{ accountCtrl.config.getProjectStatus(project.status) | capitalize }}</td>
+        <td class="text-nowrap text-right">{{ project.created_at }}</td>
       </tr>
     </tbody>
   </table>
