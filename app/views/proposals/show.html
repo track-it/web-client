@@ -145,9 +145,9 @@
                   </div>
                 </div>
               </div>
+              <button class="btn btn-success btn-block">Apply</button>
             </form>
           </div>
-          <button class="btn btn-success btn-block">Apply</button>
         </div>
       </div>
       <div ng-if="proposalCtrl.user.role_id == proposalCtrl.config.ROLES.STUDENT && proposalCtrl.team.users.length > 0" class="controlpanel">
@@ -167,7 +167,7 @@
               </li>
             </ul>
             <div class="text-muted">
-              <small>Application sent at {{ proposalCtrl.team.created_at }}</small>
+              <small>  {{ proposalCtrl.team.created_at }}</small>
               <i class="fa fa-clock-o" aria-hidden="true"></i>
             </div>
           </div>
