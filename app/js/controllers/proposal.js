@@ -14,7 +14,7 @@ function ProposalCtrl(ProposalService, CommentService, StorageService, UserServi
   vm.user = window.user;
   vm.token = storage.get('api_token');
   vm.comment = {};
-  vm.team = [];
+  vm.team = {};
 
   vm.getStudents = (index) => {
     return vm.students.filter(function (student) {
@@ -74,6 +74,13 @@ function ProposalCtrl(ProposalService, CommentService, StorageService, UserServi
       && vm.proposal.status == config.PROPOSAL_STATUSES.APPROVED);
   }
 
+  vm.userHasApplied = () => {
+    return (vm.user
+      && vm.user.role_id == config.ROLES.STUDENT
+      && vm.team.users
+      && vm.team.users.length > 0);
+  }
+
   vm.memberCount = () => {
     let indices = [];
     for (var i = 0; i < vm.team.length + 1; i++) {
@@ -95,6 +102,18 @@ function ProposalCtrl(ProposalService, CommentService, StorageService, UserServi
       return -1;
     else
       return 1;
+  }
+
+  vm.getAvailableStatuses = () => {
+    let statuses = {};
+
+    for (var key in config.PROPOSAL_STATUS_IDS) {
+      if (config.PROPOSAL_STATUS_IDS.hasOwnProperty(key) && key != vm.proposal.status) {
+        statuses[key] = config.PROPOSAL_STATUS_IDS[key];
+      }
+    }
+    console.log(statuses);
+    return statuses;
   }
 
   vm.sendApplication = () => {
