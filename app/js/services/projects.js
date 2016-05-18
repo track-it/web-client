@@ -5,7 +5,7 @@ function ProjectService($http, $q, AppSettings) {
   const service = {};
 
   service.index = function (page) {
-    let url = page ? `proposals?page=${page}` : 'proposals';
+    let url = page ? `projects?page=${page}` : 'projects';
     return $http.get(config.api(url))
         .then(res => {
           return res.data;

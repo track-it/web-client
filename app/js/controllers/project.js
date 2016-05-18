@@ -26,9 +26,13 @@ function ProjectCtrl(ProjectService, CommentService, StorageService, AppSettings
   };
 
   vm.userIsStudent = () => {
-    let projectUser = $filter('filter')(project.project_users, { user_id : vm.user.id })[0];
-    return (projectUser.project_role_id == config.PROJECT_ROLES.STUDENT);
-  }
+    let projectUser = $filter('filter')(project.participants, { id : vm.user.id })[0];
+    return (projectUser.pivot.project_role_id == config.PROJECT_ROLES.STUDENT);
+  };
+
+  vm.projectIsCompleted = () => {
+    return project.status == config.PROJECT_STATUSES.COMPLETED;
+  };
 
   if (vm.user) {
     CommentService.get('projects', vm.project.id)
