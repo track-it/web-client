@@ -39,11 +39,10 @@ function ProposalService($http, $q, AppSettings) {
   };
 
   service.update = function (id, payload) {
-    return new Promise((resolve, reject) => {
-      $http.put(config.api(`proposals/${id}`), payload)
-        .success((data) => resolve(data))
-        .error((err, status) => reject(err, status));
-    });
+    return $http.put(config.api(`proposals/${id}`), payload)
+      .then(res => {
+        return res.data.data;
+      });
   };
 
   return service;
