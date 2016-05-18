@@ -22,12 +22,11 @@
 
       <hr>
       <h2>Description</h2>
-      <p>
+      <div class="well">
         {{ projectCtrl.project.description }}
-
-        <p class="text-muted" ng-if="!projectCtrl.project.description">
-          No description.
-        </p>
+      </div>
+      <p class="text-muted" ng-if="!projectCtrl.project.description">
+        No description.
       </p>
 
       <hr>
@@ -89,7 +88,7 @@
             <div class="authorbox">
               <span class="username">{{ comment.author.displayname }}</span>
 
-              <div class="commentRole text-muted">
+              <div ng-class="projectCtrl.config.getRoleColor(comment.author.role_id)" class="commentRole text-muted ">
                 {{ projectCtrl.config.getRole(comment.author.role_id) }}
                 <span ng-class="projectCtrl.config.getRoleIcon(comment.author.role_id)" aria-hidden="true"></span>
               </div>

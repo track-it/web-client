@@ -29,6 +29,14 @@ const AppSettings = {
     5: 'ADMINISTRATOR',
   },
 
+  ROLE_COLOR_IDS: {
+    1: 'text-default',
+    2: 'text-primary',
+    3: 'text-warning',
+    4: 'text-success',
+    5: 'text-danger',
+  },
+
   ROLE_ICON_IDS: {
     1: 'fa fa-user',
     2: 'fa fa-user',
@@ -58,7 +66,7 @@ const AppSettings = {
   },
 
   PROJECT_STATUS_IDS: {
-    1:  'NOT COMPLETED',
+    1:  'UNCOMPLETED',
     2:  'COMPLETED',
     3:  'PUBLISHED',
   },
@@ -137,6 +145,10 @@ const AppSettings = {
   getRoleIcon: (icon_id) => {
     return AppSettings.ROLE_ICON_IDS[icon_id];
   },
+
+  getRoleColor: (color_id) => {
+    return AppSettings.ROLE_COLOR_IDS[color_id];
+  }
 
 };
 

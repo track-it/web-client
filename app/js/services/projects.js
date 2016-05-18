@@ -11,6 +11,18 @@ function ProjectService($http, $q, AppSettings) {
         });
   };
 
+  service.search = function(searchInput) {
+    return $http({
+      url: config.api('projects'),
+      method: 'GET',
+      params: {
+        search: searchInput
+      }
+    }).then(res => {
+      return res.data.data;
+    });
+  }
+
   service.store = function (id, payload) {
     return $http.post(config.api(`proposals/${id}/projects`), payload)
       .then(res => {

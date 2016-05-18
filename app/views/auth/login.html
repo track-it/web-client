@@ -3,7 +3,7 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4">
-      <h1 class="text-center login-title">Sign in to TrackIt</h1>
+      <h1 class="text-center login-title">Sign in</h1>
       <div class="well login-well">
         <form ng-submit="loginCtrl.auth(loginCtrl.username, loginCtrl.password)">
           <p ng-if="loginCtrl.error" class="text-danger text-center m-b-2">
@@ -20,25 +20,31 @@
               Sign in
             </button>
           </div>
-          <br>
+          <!--
           <div class="form-group">
-            <div class="row">
-              <div class="col-md-6">
-                <label for="remember">
-                  <input type="checkbox" id="remember">
-                  Remember me
-                </label>
-              </div>
-              <div class="col-md-6">
-                <a href="#" class="pull-right need-help">Need help?</a>
-              </div>
+            <button class="btn btn-lg btn-default btn-block" ui-sref="register">
+              Create account
+            </button>
+          </div>
+          -->
+          <!-- Not used at the moment
+          <div class="row">
+            <div class="col-md-6">
+              <label for="remember" class="text-nowrap">
+                <input type="checkbox" id="remember">
+                Remember me
+              </label>
+            </div>
+            <div class="col-md-6">
+              <a href="#" class="need-help">Need help?</a>
             </div>
           </div>
+          -->
         </form>
       </div>
-      <p class="text-center">
-        <a ui-sref="register">Create an account</a>
-      </p>
+      <button class="btn btn-lg btn-default btn-block" ui-sref="register">
+        Create an account
+      </button>
     </div>
   </div>
 </div>

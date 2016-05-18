@@ -6,6 +6,7 @@ function ProposalCtrl(ProposalService, CommentService, StorageService, UserServi
   const vm = this;
 
   vm.proposal = proposal;
+  vm.status = proposal.status;
   vm.comments = [];
   vm.students = [];
   vm.title = proposal.title;
@@ -23,6 +24,11 @@ function ProposalCtrl(ProposalService, CommentService, StorageService, UserServi
         return (student.id !== vm.user.id && vm.team.indexOf(student.id) == -1);
     });
   }
+
+  vm.updateStatus = () => {
+    vm.proposal.status = vm.status;
+    ProposalService.update(vm.proposal.id, vm.proposal);
+  };
 
   vm.postComment = () => {
     CommentService.store('proposals', vm.proposal.id, vm.comment.body)
@@ -43,16 +49,36 @@ function ProposalCtrl(ProposalService, CommentService, StorageService, UserServi
       && vm.proposal.status == config.PROPOSAL_STATUSES.APPROVED);
   }
 
-  vm.teacherCanApproveProposal = () => {
-    return (vm.user
-      && vm.user.role_id == config.ROLES.TEACHER
-      && vm.proposal.status != config.PROPOSAL_STATUSES.APPROVED);
+  vm.userCanManageProposal = () => {
+    return (vm.userCanUpdateStatus()
+      || vm.userCanEditProposal()
+      || vm.userCanCreateProject());
   }
 
-  vm.teacherCanCreateProject = () => {
+  vm.userCanUpdateStatus = () => {
     return (vm.user
-      && vm.user.role_id == config.ROLES.TEACHER
+      && (vm.user.role_id == config.ROLES.TEACHER || vm.user.role_id == config.ROLES.ADMINISTRATOR)
+    );
+  }
+
+  vm.userCanEditProposal = () => {
+    return (vm.user
+      && (vm.user.role_id == config.ROLES.ADMINISTRATOR
+      || vm.user.id == vm.proposal.author_id)
+      );
+  }
+
+  vm.userCanCreateProject = () => {
+    return (vm.user
+      && (vm.user.role_id == config.ROLES.TEACHER || vm.user.role_id == config.ROLES.ADMINISTRATOR)
       && vm.proposal.status == config.PROPOSAL_STATUSES.APPROVED);
+  }
+
+  vm.userHasApplied = () => {
+    return (vm.user
+      && vm.user.role_id == config.ROLES.STUDENT
+      && vm.team.users
+      && vm.team.users.length > 0);
   }
 
   vm.memberCount = () => {
@@ -76,6 +102,18 @@ function ProposalCtrl(ProposalService, CommentService, StorageService, UserServi
       return -1;
     else
       return 1;
+  }
+
+  vm.getAvailableStatuses = () => {
+    let statuses = {};
+
+    for (var key in config.PROPOSAL_STATUS_IDS) {
+      if (config.PROPOSAL_STATUS_IDS.hasOwnProperty(key) && key != vm.proposal.status) {
+        statuses[key] = config.PROPOSAL_STATUS_IDS[key];
+      }
+    }
+    console.log(statuses);
+    return statuses;
   }
 
   vm.sendApplication = () => {

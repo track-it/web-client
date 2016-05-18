@@ -1,4 +1,4 @@
-function ProjectsCtrl(projects, AppSettings, AccountService) {
+function ProjectsCtrl(AppSettings, AccountService, ProjectService, projects) {
   'ngInject';
 
   // ViewModel
@@ -6,10 +6,31 @@ function ProjectsCtrl(projects, AppSettings, AccountService) {
   const config = AppSettings;
 
   vm.title = 'Projects';
-  vm.new = {};
   vm.projects = projects;
   vm.config = config;
   vm.me = null;
+  vm.searchInput = '';
+  vm.hasSearched = false;
+
+  vm.search = () => {
+    if (vm.searchInput) {
+      ProjectService.search(vm.searchInput)
+        .then(result => {
+          vm.projects = result;
+          vm.hasSearched = true;
+        });
+    }
+  }
+
+  vm.clear = () => {
+    ProjectService.index()
+      .then(result => {
+        vm.projects = result;
+        vm.hasSearched = false;
+        vm.searchInput = '';
+      });
+  }
+
 
   vm.userIsPartOf = (project) => {
     return vm.me && vm.me.projects.some(p => {

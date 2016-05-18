@@ -1,21 +1,19 @@
 <div class="container">
   <div class="row">
     <div class="{{ proposalCtrl.user ? 'col-md-8' : 'col-md-12' }}">
-
       <h1>
         {{ proposalCtrl.proposal.title }}
       </h1>
       <div class="details text-muted">
         <div>
           By
-          <code>
-            <i ng-class="proposalCtrl.getAuthorIcon()" aria-hidden="true"></i>
-            {{ proposalCtrl.proposal.author.displayname }}
-          </code>
+            <code ng-attr-title='{{ proposalCtrl.config.getRole(proposalCtrl.proposal.author.role_id) | capitalize }}'>
+              <span ng-class="proposalCtrl.config.getRoleIcon(proposalCtrl.proposal.author.role_id)" aria-hidden="true"></span>
+            {{ proposalCtrl.proposal.author.displayname }}</code>
           <i class="fa fa-clock-o" aria-hidden="true"></i>
           Created <code>{{ proposalCtrl.proposal.created_at }}</code>
         </div>
-        <span class="proposal-status label label-success">{{ proposalCtrl.config.getProposalStatus(proposalCtrl.proposal.status) }}</span>
+        <span class="proposal-status label label-success">{{ proposalCtrl.config.getProposalStatus(proposalCtrl.proposal.status) | capitalize }}</span>
         <span class="label label-primary">Proposal</span>
         <span ng-repeat="tag in proposalCtrl.proposal.tags">
           <span class="label label-primary" >{{ tag.name }}</span>
@@ -24,12 +22,11 @@
 
       <hr>
       <h2>Description</h2>
-      <p ng-bind-html="proposalCtrl.proposal.description">
-        <!-- {{ proposalCtrl.proposal.description }} -->
-
-        <p class="text-muted" ng-if="!proposalCtrl.proposal.description">
-          No description.
-        </p>
+      <div class="well">
+        <p ng-bind-html="proposalCtrl.proposal.description">
+      </div>
+      <p class="text-muted" ng-if="!proposalCtrl.proposal.description">
+        No description.
       </p>
 
       <hr>
@@ -56,7 +53,7 @@
             <div class="authorbox">
               <span class="username">{{ comment.author.displayname }}</span>
 
-              <div class="commentRole text-muted">
+              <div ng-class="proposalCtrl.config.getRoleColor(comment.author.role_id)" class="commentRole text-muted ">
                 {{ proposalCtrl.config.getRole(comment.author.role_id) }}
                 <span ng-class="proposalCtrl.config.getRoleIcon(comment.author.role_id)" aria-hidden="true"></span>
               </div>
@@ -97,54 +94,42 @@
         </form>
 
       </div>
-
     </div>
-
     <div class="col-md-4">
-      <div ng-if="proposalCtrl.teacherCanApproveProject()" class="controlpanel">
+      <div ng-if="proposalCtrl.userCanManageProposal()" class="controlpanel">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h4>Approve</h4>
+            <h4>Manage Proposal</h4>
           </div>
           <div class="panel-body">
-            <div class="form-group">
-              <label for="course">Select course:</label>
-              <select name="course" id="course" class="form-control">
-                <option ng-repeat="course in proposalCtrl.user.courses" value="{{ course.id }}">
-                  {{ course.code }}
-                </option>
-              </select>
+            <div ng-show="proposalCtrl.userCanUpdateStatus()">
+              <form ng-submit="proposalCtrl.updateStatus()">
+                <div class="form-group">
+                  <ol class="nya-bs-select" ng-model="proposalCtrl.status">
+                    <li nya-bs-option="(id, status) in proposalCtrl.getAvailableStatuses()" data-value="id">
+                      <a>{{ status | capitalize }}</a>
+                    </li>
+                  </ol>
+                </div>
+                <button class="btn btn-success btn-block" ng-class="{disabled: proposalCtrl.status == proposalCtrl.proposal.status}">Update Status</button>
+              </form>
             </div>
-            <button class="btn btn-success btn-block">Approve proposal</button>
-          </div>
-        </div>
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4>Tags</h4>
-          </div>
-          <div class="panel-body">
-            <div class="form-group">
-              <input type="text" class="form-control">
+            <div ng-show="proposalCtrl.userCanEditProposal()">
+              <hr ng-hide="!proposalCtrl.userCanUpdateStatus()">
+              <a class="btn btn-warning btn-block" ui-sref="editProposal({ id: proposalCtrl.proposal.id })">
+                Edit Proposal
+              </a>
             </div>
-            <button class="btn btn-default btn-block">Add tag</button>
-          </div>
-        </div>
-      </div>
-
-      <div ng-if="proposalCtrl.teacherCanCreateProject()" class="controlpanel">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4>Create</h4>
-          </div>
-          <div class="panel-body">
-            <div class="form-group">
-              <a ui-sref="createProject({ id: proposalCtrl.proposal.id })">Create project</a>
+            <div ng-show="proposalCtrl.userCanCreateProject()">
+              <hr>
+              <a class="btn btn-info btn-block" ui-sref="createProject({ id: proposalCtrl.proposal.id })">
+                Create project
+              </a>
             </div>
           </div>
         </div>
       </div>
-
-      <div ng-if="proposalCtrl.studentCanApply()" class="controlpanel">
+      <div ng-show="proposalCtrl.studentCanApply()" class="controlpanel" ng-cloak>
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4>Apply</h4>
@@ -171,8 +156,7 @@
           </div>
         </div>
       </div>
-
-      <div ng-if="proposalCtrl.user.role_id == proposalCtrl.config.ROLES.STUDENT && proposalCtrl.team.users.length > 0" class="controlpanel">
+      <div ng-show="proposalCtrl.userHasApplied()" class="controlpanel" ng-cloak>
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4>Application</h4>
@@ -188,14 +172,13 @@
                 <i class="fa fa-graduation-cap pull-right" aria-hidden="true"></i>
               </li>
             </ul>
-            <div class="text-muted">
-              <small>Application sent at {{ proposalCtrl.team.created_at }}</small>
+            <div class="text-muted pull-right">
               <i class="fa fa-clock-o" aria-hidden="true"></i>
+              <small>Applied at {{ proposalCtrl.team.created_at }}</small>
             </div>
           </div>
         </div>
       </div>
     </div>
-
   </div>
 </div>

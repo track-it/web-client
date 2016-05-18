@@ -1,6 +1,6 @@
 .header
   margin: 2rem 0
-  font-family: $font-heading
+  font-family: $font-heading-bold
   border-bottom: 4px solid $primary
   overflow: auto
 
@@ -8,6 +8,7 @@
     float: left
     @media (max-width: $sm)
       clear: both
+      width: 100%
 
     &-toggler
       display: none
@@ -45,8 +46,9 @@
       line-height: 420%
       transition: all 100ms
       &:hover, &.active
-        transform: scale(1.1)
+        cursor: pointer
         a
+          transform: scale(1.1)
           color: darken($primary, 10%)
       a
         text-transform: uppercase
@@ -54,6 +56,9 @@
         color: black
         &:hover, &:active, &:focus
           text-decoration: none
+
+      @media(max-width: $sm)
+        text-align: right
 
     &-right
       float: right

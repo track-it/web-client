@@ -1,0 +1,56 @@
+<!-- Huvudinnehåll -->
+<div class="container">
+  <h1>Edit proposal</h1>
+
+  <div class="well">
+    <form ng-submit="proposalCtrl.update()">
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" id="title" ng-model="proposalCtrl.proposal.title" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="category">Category</label>
+        <select name="category" id="category" class="form-control">
+          <option value="1">Project</option>
+          <option value="2">Bachelor</option>
+          <option value="3">Master</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="usr">Tags</label>
+        <tags-input display-property="name" ng-model="proposalCtrl.proposal.tags"></tags-input>
+      </div>
+
+      <div class="form-group">
+        <label for="comment">Description</label>
+        <text-angular ng-model="proposalCtrl.proposal.description"></text-angular>
+      </div>
+
+      <div class="form-group">
+        <label for="attachments">Attachments</label>
+        <div class="row">
+          <div class="col-md-4 col-sm-8">
+            <ul class="attachments">
+              <li class="attachment" ng-repeat="attachment in proposalCtrl.proposal.attachments">
+                <span class="attachment-name">
+                  {{ attachment.title }}
+                </span>
+                <span class="attachment-remove" ng-click="proposalCtrl.deleteOldAttachment($index)">&times;</span>
+              </li>
+              <li class="attachment" ng-repeat="file in proposalCtrl.newFiles">
+                <span class="attachment-name">
+                  {{ file.name }}
+                </span>
+                <span class="attachment-remove" ng-click="proposalCtrl.newFiles.splice($index, 1)()">&times;</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <input type="file" class="btn btn-default" ng-files="proposalCtrl.newFiles">
+      </div>
+      <button class="btn btn-primary btn-lg">Save changes</button>
+    </form>
+  </div>
+</div>
