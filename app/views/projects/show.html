@@ -14,7 +14,7 @@
         <span class="label label-warning">Project</span>
         originating from <a ui-sref="showProposal({ id: projectCtrl.project.proposal_id })">this proposal</a>.
       </div>
-      <div class="alert alert-info project-alert" role="alert" ng-if="projectCtrl.config.PROJECT_STATUSES.COMPLETED == projectCtrl.project.status && projectCtrl.userIsStudent">
+      <div class="alert alert-info project-alert" role="alert" ng-if="projectCtrl.projectIsCompleted() && projectCtrl.userIsStudent()">
         <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
         Your project is completed. If you wish to publish the project to MUEP you can follow the instructions
         <a href="http://www.mah.se/Bibliotek/Publicering/Studentuppsatser/Publicera-din-uppsats-i-MUEP/" class="alert-link">found here</a>.
