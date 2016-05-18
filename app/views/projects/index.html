@@ -21,7 +21,7 @@
   </div>
 
   <div class="table-responsive">
-    <table class="table table-striped" ng-show="projectCtrl.projects.length > 0">
+    <table class="table table-striped" ng-show="projectCtrl.projects.data.length > 0">
       <thead>
         <th>Title</th>
         <th>Proposal</th>
@@ -29,7 +29,7 @@
         <th>Created</th>
       </thead>
       <tbody>
-        <tr ng-repeat="project in projectCtrl.projects">
+        <tr ng-repeat="project in projectCtrl.projects.data">
           <td>
             <a ui-sref="showProject({ id: project.id })">{{ project.title }}</a>
             <span ng-show="projectCtrl.userIsPartOf(project)" class="owner-indicator text-muted small">
@@ -44,7 +44,18 @@
       </tbody>
     </table>
   </div>
-  <p class="text-muted" ng-show="projectCtrl.projects.length == 0">
+
+  <p class="text-muted" ng-show="projectCtrl.projects.data.length == 0">
       No projects could be found.
   </p>
+
+  <div class="row">
+    <div class="col-md-2 col-sm-2 col-xs-5">
+      <button class="btn btn-default" ng-click="projectCtrl.previousPage()" ng-show="projectCtrl.projects.prev_page_url">Previous page</button>
+    </div>
+    <div class="col-md-2 col-md-offset-8 col-sm-2 col-sm-offset-8 col-xs-5 col-xs-offset-2">
+      <button class="btn btn-default" ng-click="projectCtrl.nextPage()" ng-show="projectCtrl.projects.next_page_url">Next page</button>
+    </div>
+  </div>
+
 </div>

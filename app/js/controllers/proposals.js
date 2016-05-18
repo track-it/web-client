@@ -30,6 +30,22 @@ function ProposalsCtrl(AppSettings, AccountService, ProposalService, proposals) 
       });
   }
 
+  vm.nextPage = () => {
+    ProposalService.index(vm.proposals.current_page + 1)
+      .then(proposals => {
+        vm.proposals = proposals;
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
+      });
+  }
+
+  vm.previousPage = () => {
+    ProposalService.index(vm.proposals.current_page - 1)
+      .then(proposals => {
+        vm.proposals = proposals;
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
+      });
+  }
+
   AccountService.me()
     .then(me => {
       vm.user = me;

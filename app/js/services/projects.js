@@ -4,10 +4,11 @@ function ProjectService($http, $q, AppSettings) {
   const config = AppSettings;
   const service = {};
 
-  service.index = function () {
-    return $http.get(config.api('projects'))
+  service.index = function (page) {
+    let url = page ? `proposals?page=${page}` : 'proposals';
+    return $http.get(config.api(url))
         .then(res => {
-          return res.data.data;
+          return res.data;
         });
   };
 
@@ -19,7 +20,7 @@ function ProjectService($http, $q, AppSettings) {
         search: searchInput
       }
     }).then(res => {
-      return res.data.data;
+      return res.data;
     });
   }
 
