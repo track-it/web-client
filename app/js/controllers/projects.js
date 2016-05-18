@@ -25,7 +25,7 @@ function ProjectsCtrl(AppSettings, AccountService, ProjectService, projects) {
   vm.clear = () => {
     ProjectService.index()
       .then(result => {
-        vm.proposals = result;
+        vm.projects = result;
         vm.hasSearched = false;
         vm.searchInput = '';
       });
