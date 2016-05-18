@@ -1,4 +1,4 @@
-function AuthService($http, $rootScope, AppSettings) {
+function AuthService(StorageService, AppSettings, $http, $rootScope) {
   'ngInject';
 
   const config = AppSettings;
