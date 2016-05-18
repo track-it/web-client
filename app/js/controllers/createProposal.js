@@ -10,7 +10,6 @@ function CreateProposalCtrl(ProposalService, AttachmentService, AppSettings, $st
   };
   vm.title = 'Submit proposal';
   vm.files = [];
-  vm.tags = [];
   vm.config = config;
 
   vm.store = () => {
