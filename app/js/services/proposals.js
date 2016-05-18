@@ -4,10 +4,11 @@ function ProposalService($http, $q, AppSettings) {
   const config = AppSettings;
   const service = {};
 
-  service.index = function () {
-    return $http.get(config.api('proposals'))
+  service.index = function (page) {
+    let url = page ? `proposals?page=${page}` : 'proposals';
+    return $http.get(config.api(url))
         .then(res => {
-          return res.data.data;
+          return res.data;
         });
   };
 
@@ -19,7 +20,7 @@ function ProposalService($http, $q, AppSettings) {
         search: searchInput
       }
     }).then(res => {
-      return res.data.data;
+      return res.data;
     });
   }
 
@@ -39,11 +40,10 @@ function ProposalService($http, $q, AppSettings) {
   };
 
   service.update = function (id, payload) {
-    return new Promise((resolve, reject) => {
-      $http.put(config.api(`proposals/${id}`), payload)
-        .success((data) => resolve(data))
-        .error((err, status) => reject(err, status));
-    });
+    return $http.put(config.api(`proposals/${id}`), payload)
+      .then(res => {
+        return res.data.data;
+      });
   };
 
   return service;

@@ -26,8 +26,13 @@ function ProposalCtrl(ProposalService, CommentService, StorageService, UserServi
   }
 
   vm.updateStatus = () => {
-    vm.proposal.status = vm.status;
-    ProposalService.update(vm.proposal.id, vm.proposal);
+    var payload = {
+      status: vm.status
+    };
+    ProposalService.update(vm.proposal.id, payload)
+      .then(proposal => {
+        vm.proposal = proposal;
+      })
   };
 
   vm.postComment = () => {

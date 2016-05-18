@@ -31,7 +31,7 @@
       <div class="form-group">
         <label for="team">Teams</label>
         <div class="list-group">
-          <a ng-repeat="team in filteredTeams = (projectCtrl.teams | filter: projectCtrl.teamFilter)" ng-class="projectCtrl.getClass($index)" ng-click="projectCtrl.setTeam($index)" class="list-group-item pointer">
+          <a ng-repeat="team in filteredTeams = (projectCtrl.teams | filter: projectCtrl.teamFilter)" ng-class="projectCtrl.getClass(team.id)" ng-click="projectCtrl.setTeam(team.id)" class="list-group-item pointer">
             <h4 class="list-group-item-heading">Team {{ $index + 1 }}</h4>
             <p class="list-group-item-text">
               <ul>
@@ -39,7 +39,7 @@
               </ul>
             </p>
           </a>
-          <div class="list-group-item" ng-hide="filteredTeams.length">No teams have applied for this proposal.</div>
+          <div class="list-group-item list-group-item-danger" ng-hide="filteredTeams.length">No teams have applied for this proposal.</div>
         </div>
       </div>
 
@@ -60,7 +60,7 @@
         <input type="file" class="btn btn-default" ng-files="projectCtrl.files">
       </div>
 
-      <button class="btn btn-primary btn-lg">Submit</button>
+      <button class="btn btn-primary btn-lg" ng-disabled="projectCtrl.selectedTeam <= 0">Submit</button>
 
     </div>
   </div>

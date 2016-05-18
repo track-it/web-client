@@ -20,29 +20,42 @@
     </form>
   </div>
 
-  <table class="table table-striped" ng-show="projectCtrl.projects.length > 0">
-    <thead>
-      <th>Title</th>
-      <th>Proposal</th>
-      <th>Status</th>
-      <th>Created</th>
-    </thead>
-    <tbody>
-      <tr ng-repeat="project in projectCtrl.projects">
-        <td>
-          <a ui-sref="showProject({ id: project.id })">{{ project.title }}</a>
-          <span ng-show="projectCtrl.userIsPartOf(project)" class="owner-indicator text-muted small">
-            <i class="fa fa-universal-access" aria-hidden="true"></i>
-            <span>Your project</span>
-          </span>
-        </td>
-        <td class="link"><a ui-sref="showProposal({ id: project.proposal_id })">link</a></td>
-        <td class="project-status">{{ projectCtrl.config.getProjectStatus(project.status) | capitalize}}</td>
-        <td>{{ project.created_at }}</td>
-      </tr>
-    </tbody>
-  </table>
-  <p class="text-muted" ng-show="projectCtrl.projects.length == 0">
+  <div class="table-responsive">
+    <table class="table table-striped" ng-show="projectCtrl.projects.data.length > 0">
+      <thead>
+        <th>Title</th>
+        <th>Proposal</th>
+        <th>Status</th>
+        <th>Created</th>
+      </thead>
+      <tbody>
+        <tr ng-repeat="project in projectCtrl.projects.data">
+          <td>
+            <a ui-sref="showProject({ id: project.id })">{{ project.title }}</a>
+            <span ng-show="projectCtrl.userIsPartOf(project)" class="owner-indicator text-muted small">
+              <i class="fa fa-universal-access" aria-hidden="true"></i>
+              <span>Your project</span>
+            </span>
+          </td>
+          <td class="link"><a ui-sref="showProposal({ id: project.proposal_id })">link</a></td>
+          <td class="project-status">{{ projectCtrl.config.getProjectStatus(project.status) | capitalize}}</td>
+          <td>{{ project.created_at }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="text-muted" ng-show="projectCtrl.projects.data.length == 0">
       No projects could be found.
   </p>
+
+  <div class="row">
+    <div class="col-xs-6 col-md-6">
+      <button class="btn btn-default" ng-click="projectCtrl.previousPage()" ng-show="projectCtrl.projects.prev_page_url">Previous page</button>
+    </div>
+    <div class="col-xs-6 col-md-6">
+      <button class="btn btn-default pull-right" ng-click="projectCtrl.nextPage()" ng-show="projectCtrl.projects.next_page_url">Next page</button>
+    </div>
+  </div>
+
 </div>

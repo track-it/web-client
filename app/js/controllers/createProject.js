@@ -16,7 +16,7 @@ function CreateProjectCtrl(ProjectService, AttachmentService, $state, proposal, 
   vm.selectedTeam = 0;
 
   vm.store = () => {
-    vm.new.team_id = vm.teams[vm.selectedTeam].id;
+    vm.new.team_id = vm.selectedTeam;
 
     ProjectService.store(vm.proposal.id, vm.new)
       .then(project => {
@@ -27,12 +27,12 @@ function CreateProjectCtrl(ProjectService, AttachmentService, $state, proposal, 
       });
   };
 
-  vm.getClass = index => {
-    return vm.selectedTeam == index ? 'active' : '';
+  vm.getClass = teamId => {
+    return vm.selectedTeam == teamId ? 'active' : '';
   }
 
-  vm.setTeam = index => {
-    vm.selectedTeam = index;
+  vm.setTeam = teamId => {
+    vm.selectedTeam = teamId;
   }
 
   vm.teamFilter = item => {
