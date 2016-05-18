@@ -4,10 +4,11 @@ function ProposalService($http, $q, AppSettings) {
   const config = AppSettings;
   const service = {};
 
-  service.index = function () {
-    return $http.get(config.api('proposals'))
+  service.index = function (page) {
+    let url = page ? `proposals?page=${page}` : 'proposals';
+    return $http.get(config.api(url))
         .then(res => {
-          return res.data.data;
+          return res.data;
         });
   };
 
@@ -19,7 +20,7 @@ function ProposalService($http, $q, AppSettings) {
         search: searchInput
       }
     }).then(res => {
-      return res.data.data;
+      return res.data;
     });
   }
 

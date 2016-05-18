@@ -31,6 +31,22 @@ function ProjectsCtrl(AppSettings, AccountService, ProjectService, projects) {
       });
   }
 
+  vm.nextPage = () => {
+    console.log("ASD");
+    ProjectService.index(vm.projects.current_page + 1)
+      .then(projects => {
+        vm.projects = projects;
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
+      });
+  }
+
+  vm.previousPage = () => {
+    ProjectService.index(vm.projects.current_page - 1)
+      .then(projects => {
+        vm.projects = projects;
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
+      });
+  }
 
   vm.userIsPartOf = (project) => {
     return vm.me && vm.me.projects.some(p => {
