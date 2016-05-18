@@ -10,7 +10,7 @@
           <i class="fa fa-clock-o" aria-hidden="true"></i>
           Created <code>{{ projectCtrl.project.created_at }}</code>
         </div>
-        <span class="project-status label label-success">{{ projectCtrl.config.getProjectStatus(projectCtrl.project.status) }}</span>
+        <span class="project-status label label-success">{{ projectCtrl.config.getProjectStatus(projectCtrl.project.status) | capitalize }}</span>
         <span class="label label-warning">Project</span>
         originating from <a ui-sref="showProposal({ id: projectCtrl.project.proposal_id })">this proposal</a>.
       </div>
@@ -23,7 +23,7 @@
       <hr>
       <h2>Description</h2>
       <div class="well">
-        {{ projectCtrl.project.description }}
+        <p ng-bind-html="projectCtrl.project.description">
       </div>
       <p class="text-muted" ng-if="!projectCtrl.project.description">
         No description.
