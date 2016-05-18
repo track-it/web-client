@@ -14,7 +14,7 @@ function ProposalCtrl(ProposalService, CommentService, StorageService, UserServi
   vm.user = window.user;
   vm.token = storage.get('api_token');
   vm.comment = {};
-  vm.team = {};
+  vm.team = [];
 
   vm.getStudents = (index) => {
     return vm.students.filter(function (student) {
