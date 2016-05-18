@@ -13,19 +13,19 @@
     <span class="label label-default">{{ accountCtrl.me.username }}</span>
     <code ng-attr-title='{{ accountCtrl.config.getRole(accountCtrl.me.role_id) | capitalize }}'>
               <span ng-class="accountCtrl.config.getRoleIcon(accountCtrl.me.role_id)" aria-hidden="true"></span>
-            {{ accountCtrl.config.getRole(accountCtrl.me.role_id) }}</code>
+            {{ accountCtrl.config.getRole(accountCtrl.me.role_id) | capitalize }}</code>
     <span class="label label-danger" ng-show="accountCtrl.isStudent()"><ng-pluralize count="accountCtrl.me.teams.length"
-                    when="{'0': 'NO APPLICATIONS',
-                      'one': '{} APPLICATION',
-                      'other': '{} APPLICATIONS'}"></ng-pluralize></span>
+                    when="{'0': 'No applications',
+                      'one': '{} application',
+                      'other': '{} applications'}"></ng-pluralize></span>
     <span class="label label-primary"><ng-pluralize count="accountCtrl.me.proposals.length"
-                    when="{'0': 'NO PROPOSALS',
-                      'one': '{} PROPOSAL',
-                      'other': '{} PROPOSALS'}"></ng-pluralize></span>
+                    when="{'0': 'No proposals',
+                      'one': '{} proposal',
+                      'other': '{} proposals'}"></ng-pluralize></span>
     <span class="label label-success"><ng-pluralize count="accountCtrl.me.projects.length"
-                      when="{'0': 'NO PROJECTS',
-                        'one': '{} PROJECT',
-                        'other': '{} PROJECTS'}"></ng-pluralize></span>
+                      when="{'0': 'No projects',
+                        'one': '{} project',
+                        'other': '{} projects'}"></ng-pluralize></span>
   </p>
 
   <div ng-show="accountCtrl.isStudent()">
