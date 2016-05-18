@@ -30,18 +30,21 @@
 
   <div ng-show="accountCtrl.isStudent()">
     <h3>Your Applications</h3>
-    <table class="table table-striped" ng-show="accountCtrl.me.teams.length > 0">
-      <thead>
-        <th>Title</th>
-        <th class="text-right">Applied</th>
-      </thead>
-      <tbody>
-        <tr ng-repeat="team in accountCtrl.me.teams">
-          <td><a ui-sref="showProposal({ id: team.proposal.id })">{{ team.proposal.title }}</a></td>
-          <td class="text-nowrap text-right">{{ team.created_at }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-responsive">
+      <table class="table table-striped" ng-show="accountCtrl.me.teams.length > 0">
+        <thead>
+          <th>Title</th>
+          <th class="text-right">Applied</th>
+        </thead>
+        <tbody>
+          <tr ng-repeat="team in accountCtrl.me.teams">
+            <td><a ui-sref="showProposal({ id: team.proposal.id })">{{ team.proposal.title }}</a></td>
+            <td class="text-right">{{ team.created_at }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
     <p class="text-muted" ng-show="accountCtrl.me.teams.length == 0">
         Your have no applications.
     </p>
@@ -50,20 +53,23 @@
   </div>
 
   <h3>Your Proposals</h3>
-  <table class="table table-striped" ng-show="accountCtrl.me.proposals.length > 0">
-    <thead>
-      <th>Title</th>
-      <th class="text-right">Status</th>
-      <th class="text-right">Created</th>
-    </thead>
-    <tbody>
-      <tr ng-repeat="proposal in accountCtrl.me.proposals">
-        <td><a ui-sref="showProposal({ id: proposal.id })">{{ proposal.title }}</a></td>
-        <td class="proposal-status text-nowrap text-right">{{ accountCtrl.config.getProposalStatus(proposal.status) | capitalize}}</td>
-        <td class="text-nowrap text-right">{{ proposal.created_at }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-responsive">
+    <table class="table table-striped" ng-show="accountCtrl.me.proposals.length > 0">
+      <thead>
+        <th>Title</th>
+        <th class="text-right">Status</th>
+        <th class="text-right">Created</th>
+      </thead>
+      <tbody>
+        <tr ng-repeat="proposal in accountCtrl.me.proposals">
+          <td><a ui-sref="showProposal({ id: proposal.id })">{{ proposal.title }}</a></td>
+          <td class="proposal-status text-right">{{ accountCtrl.config.getProposalStatus(proposal.status) | capitalize}}</td>
+          <td class="text-right">{{ proposal.created_at }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
   <p class="text-muted" ng-show="accountCtrl.me.proposals.length == 0">
       Your have no proposals.
   </p>
@@ -71,27 +77,31 @@
   <hr>
 
   <h3>Your Projects</h3>
-  <table class="table table-striped" ng-show="accountCtrl.me.projects.length > 0">
-    <thead>
-      <th>Title</th>
-      <th class="text-nowrap text-right">Your Role</th>
-      <th class="text-right">Status</th>
-      <th class="text-right">Created</th>
-    </thead>
-    <tbody>
-      <tr ng-repeat="project in accountCtrl.me.projects">
-        <td><a ui-sref="showProject({ id: project.id })">{{ project.title }}</a></td>
-        <td class="project-role text-right">{{ accountCtrl.config.getProjectRole(project.pivot.project_role_id) | capitalize }}</td>
-        <td class="project-status text-nowrap text-right">{{ accountCtrl.config.getProjectStatus(project.status) | capitalize }}</td>
-        <td class="text-right">{{ project.created_at }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-responsive">
+    <table class="table table-striped" ng-show="accountCtrl.me.projects.length > 0">
+      <thead>
+        <th>Title</th>
+        <th class="text-right">Your Role</th>
+        <th class="text-right">Status</th>
+        <th class="text-right">Created</th>
+      </thead>
+      <tbody>
+        <tr ng-repeat="project in accountCtrl.me.projects">
+          <td><a ui-sref="showProject({ id: project.id })">{{ project.title }}</a></td>
+          <td class="project-role text-right">{{ accountCtrl.config.getProjectRole(project.pivot.project_role_id) | capitalize }}</td>
+          <td class="project-status text-right">{{ accountCtrl.config.getProjectStatus(project.status) | capitalize }}</td>
+          <td class="text-right">{{ project.created_at }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
   <p class="text-muted" ng-show="accountCtrl.me.projects.length == 0">
       Your have no projects.
   </p>
 
   <div class="hidden-sm hidden-md hidden-lg">
+    <hr>
     <form ng-submit="accountCtrl.logout()"><button class="btn btn-danger btn-logout btn-block">Log out</button></form>
   </div>
 
