@@ -12,6 +12,10 @@ function AccountCtrl(me, AppSettings, StorageService, AuthService, $state, $cont
     return config.API_URL + 'logout?callback=' + $state.href('adfsLogout', {}, { absolute: true }) + '&api_token=' + me.api_token;
   }
 
+  vm.isStudent = () => {
+    return vm.me.role_id == vm.config.ROLES.STUDENT;
+  }
+
   vm.logout = function () {
     AuthService.logout();
     $state.transitionTo('login');
