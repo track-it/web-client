@@ -102,26 +102,34 @@
             <h4>Manage Proposal</h4>
           </div>
           <div class="panel-body">
-            <div ng-if="proposalCtrl.userCanUpdateStatus()">
+            <div ng-show="proposalCtrl.userCanUpdateStatus()">
               <form ng-submit="proposalCtrl.updateStatus()">
                 <div class="form-group">
                   <ol class="nya-bs-select" ng-model="proposalCtrl.status">
-                    <li nya-bs-option="(id, status) in proposalCtrl.config.PROPOSAL_STATUS_IDS" data-value="id">
+                    <li nya-bs-option="(id, status) in proposalCtrl.getAvailableStatuses()" data-value="id">
                       <a>{{ status | capitalize }}</a>
                     </li>
                   </ol>
                 </div>
                 <button class="btn btn-success btn-block" ng-class="{disabled: proposalCtrl.status == proposalCtrl.proposal.status}">Update Status</button>
               </form>
-              <hr>
             </div>
-            <a class="btn btn-warning btn-block" ng-class="{disabled: !proposalCtrl.userCanEditProposal()}" ui-sref="editProposal({ id: proposalCtrl.proposal.id })">
-            Edit Proposal</a>
-            <a class="btn btn-info btn-block"  ng-class="{disabled: !proposalCtrl.userCanCreateProject()}" ui-sref="createProject({ id: proposalCtrl.proposal.id })">Create project</a>
+            <div ng-show="proposalCtrl.userCanEditProposal()">
+              <hr ng-hide="!proposalCtrl.userCanUpdateStatus()">
+              <a class="btn btn-warning btn-block" ui-sref="editProposal({ id: proposalCtrl.proposal.id })">
+                Edit Proposal
+              </a>
+            </div>
+            <div ng-show="proposalCtrl.userCanCreateProject()">
+              <hr>
+              <a class="btn btn-info btn-block" ui-sref="createProject({ id: proposalCtrl.proposal.id })">
+                Create project
+              </a>
+            </div>
           </div>
         </div>
       </div>
-      <div ng-if="proposalCtrl.studentCanApply()" class="controlpanel">
+      <div ng-show="proposalCtrl.studentCanApply()" class="controlpanel" ng-cloak>
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4>Apply</h4>
@@ -148,7 +156,7 @@
           </div>
         </div>
       </div>
-      <div ng-if="proposalCtrl.user.role_id == proposalCtrl.config.ROLES.STUDENT && proposalCtrl.team.users.length > 0" class="controlpanel">
+      <div ng-show="proposalCtrl.userHasApplied()" class="controlpanel" ng-cloak>
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4>Application</h4>
@@ -164,9 +172,9 @@
                 <i class="fa fa-graduation-cap pull-right" aria-hidden="true"></i>
               </li>
             </ul>
-            <div class="text-muted">
-              <small>  {{ proposalCtrl.team.created_at }}</small>
+            <div class="text-muted pull-right">
               <i class="fa fa-clock-o" aria-hidden="true"></i>
+              <small>Applied at {{ proposalCtrl.team.created_at }}</small>
             </div>
           </div>
         </div>
