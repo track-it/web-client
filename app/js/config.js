@@ -87,6 +87,18 @@ const AppSettings = {
     5:  'ARCHIVED',
   },
 
+  CATEGORIES: {
+    PROJECT:          1,
+    BACHELOR:         2,
+    MASTER:           3
+  },
+
+  CATEGORY_IDS: {
+    1: 'PROJECT',
+    2: 'BACHELOR',
+    3: 'STUDENT'
+  },
+
   VALIDATION: {
     REGISTRATION: {
       // All normal characters
@@ -148,6 +160,10 @@ const AppSettings = {
 
   getRoleColor: (color_id) => {
     return AppSettings.ROLE_COLOR_IDS[color_id];
+  },
+
+  getCategory: (category_id) => {
+    return AppSettings.CATEGORY_IDS[category_id];
   }
 
 };

@@ -14,6 +14,7 @@
           Created <code>{{ proposalCtrl.proposal.created_at }}</code>
         </div>
         <span class="proposal-status label label-success">{{ proposalCtrl.config.getProposalStatus(proposalCtrl.proposal.status) | capitalize }}</span>
+        <span class="label label-primary label-danger">{{ proposalCtrl.config.getCategory(proposalCtrl.proposal.category) | capitalize }}</span>
         <span class="label label-primary">Proposal</span>
         <span ng-repeat="tag in proposalCtrl.proposal.tags">
           <span class="label label-primary" >{{ tag.name }}</span>
