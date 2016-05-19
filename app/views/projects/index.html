@@ -24,9 +24,9 @@
     <table class="table table-striped" ng-show="projectCtrl.projects.data.length > 0">
       <thead>
         <th>Title</th>
-        <th>Proposal</th>
-        <th>Status</th>
-        <th>Created</th>
+        <th class="text-right">Proposal</th>
+        <th class="text-right">Status</th>
+        <th class="text-right">Created</th>
       </thead>
       <tbody>
         <tr ng-repeat="project in projectCtrl.projects.data">
@@ -37,9 +37,9 @@
               <span>Your project</span>
             </span>
           </td>
-          <td class="link"><a ui-sref="showProposal({ id: project.proposal_id })">link</a></td>
-          <td class="project-status">{{ projectCtrl.config.getProjectStatus(project.status) | capitalize}}</td>
-          <td>{{ project.created_at }}</td>
+          <td class="link text-right"><a ui-sref="showProposal({ id: project.proposal_id })">link</a></td>
+          <td class="project-status text-right">{{ projectCtrl.config.getProjectStatus(project.status) | capitalize}}</td>
+          <td class="text-right">{{ project.created_at }}</td>
         </tr>
       </tbody>
     </table>

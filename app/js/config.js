@@ -96,7 +96,7 @@ const AppSettings = {
   CATEGORY_IDS: {
     1: 'PROJECT',
     2: 'BACHELOR',
-    3: 'STUDENT'
+    3: 'MASTER'
   },
 
   VALIDATION: {
