@@ -1,5 +1,6 @@
 <div class="container">
   <div class="row">
+
     <div class="{{ projectCtrl.user ? 'col-md-8' : 'col-md-12' }}">
 
       <h1>
@@ -14,7 +15,11 @@
         <span class="label label-warning">Project</span>
         originating from <a ui-sref="showProposal({ id: projectCtrl.project.proposal_id })">this proposal</a>.
       </div>
-      <div class="alert alert-info project-alert" role="alert" ng-if="projectCtrl.projectIsCompleted() && projectCtrl.userIsStudent()">
+        <span ng-repeat="tag in projectCtrl.project.tags">
+          <span class="label label-primary" >{{ tag.name }}</span>
+        </span>
+
+      <div class="alert alert-info project-alert" role="alert" ng-if="projectCtrl.userCanPublish()">
         <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
         Your project is completed. If you wish to publish the project to MUEP you can follow the instructions
         <a href="http://www.mah.se/Bibliotek/Publicering/Studentuppsatser/Publicera-din-uppsats-i-MUEP/" class="alert-link">found here</a>.
@@ -130,6 +135,54 @@
 
       </div>
     </div>
-    <div class="col-md-4"></div>
+
+    <!-- Manage -->
+    <div class="col-md-4">
+
+      <!-- Manage -->
+      <div ng-if="projectCtrl.userCanManageProject()" class="controlpanel">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4>Manage Project</h4>
+          </div>
+          <div class="panel-body">
+            <div ng-if="projectCtrl.userCanEditProject()">
+              <form ng-submit="projectCtrl.updateStatus()">
+                <div class="form-group">
+                  <ol class="nya-bs-select" ng-model="projectCtrl.status">
+                    <li nya-bs-option="(id, status) in projectCtrl.getAvailableStatuses()" data-value="id">
+                      <a>{{ status | capitalize }}</a>
+                    </li>
+                  </ol>
+                </div>
+                <button class="btn btn-success btn-block">Update Status</button>
+              </form>
+
+              <hr>
+              <a class="btn btn-warning btn-block" ui-sref="editProject({ id: projectCtrl.project.id })">
+                Edit Project
+              </a>
+            </div>
+
+            <hr ng-if="">
+
+            <!-- Publish -->
+            <div ng-show="projectCtrl.userCanPublish()" ng-cloak>
+              <form ng-show="!projectCtrl.isPublished()" ng-submit="projectCtrl.publish(true)">
+                  <button class="btn btn-success btn-block">Publish on TrackIt</button>
+              </form>
+              <form ng-show="projectCtrl.isPublished()" ng-submit="projectCtrl.publish(false)">
+                  <button class="btn btn-danger btn-block">Unpublish on TrackIt</button>
+              </form>
+            </div>
+
+          </div>
+
+
+        </div>
+      </div>
+
+    </div>
+
   </div>
 </div>
