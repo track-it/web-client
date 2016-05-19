@@ -61,15 +61,6 @@ function EditProjectCtrl(ProjectService, AttachmentService, project, $state) {
     vm.deletedAttachmentIds.push(project.attachments[index].id);
     vm.project.attachments.splice(index, 1);
   }
-
-  const parseTags = tags => {
-    var names = [];
-    angular.forEach(tags, tag => {
-      names.push(tag.text);
-    });
-    return names;
-  }
-
 }
 
 export default {
