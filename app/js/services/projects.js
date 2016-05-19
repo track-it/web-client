@@ -8,7 +8,6 @@ function ProjectService($http, $q, AppSettings) {
     let url = page ? `projects?page=${page}` : 'projects';
     return $http.get(config.api(url))
         .then(res => {
-          console.log(res.data);
           return res.data;
         });
   };
@@ -28,7 +27,6 @@ function ProjectService($http, $q, AppSettings) {
   service.store = function (id, payload) {
     return $http.post(config.api(`proposals/${id}/projects`), payload)
       .then(res => {
-        console.log(res.data.data);
         return res.data.data;
       });
   }
@@ -36,7 +34,6 @@ function ProjectService($http, $q, AppSettings) {
   service.get = function (id) {
     return $http.get(config.api(`projects/${id}`))
       .then(res => {
-        console.log(res.data.data);
         return res.data.data;
       });
   };

@@ -31,24 +31,20 @@ function ProjectCtrl(ProjectService, CommentService, StorageService, AppSettings
   };
 
   vm.userIs = (role) => {
-    console.log("userIs(" + role + "): " + (vm.user.role_id == role));
     return vm.user.role_id == role;
   };
 
   vm.userCanPublish = () => {
     if (vm.project.status == config.PROJECT_STATUSES.COMPLETED || vm.project.status == config.PROJECT_STATUSES.PUBLISHED) {
       if (vm.userIs(config.ROLES.ADMINISTRATOR)) {
-        console.log("USER---CAN---PUBLISH: " + true);
         return true;
       } else if (project.participants) {
           let projectUser = $filter('filter')(vm.project.participants, { id : vm.user.id })[0];
           if (projectUser) {
-            console.log("USER---CAN---PUBLISH: " + true);
             return projectUser.pivot.project_role_id == config.PROJECT_ROLES.STUDENT;
           }
         }
       }
-    console.log("USER---CAN---PUBLISH: " + false);
     return false;
   }
 
@@ -71,7 +67,6 @@ function ProjectCtrl(ProjectService, CommentService, StorageService, AppSettings
   vm.userCanManageProject = () => {
     let canEdit = vm.userCanEditProject();
     let canPublish = vm.userCanPublish();
-    console.log("userCanManageProject: " + (canEdit || canPublish));
 
     return (canEdit || canPublish);
   };
@@ -91,7 +86,6 @@ function ProjectCtrl(ProjectService, CommentService, StorageService, AppSettings
   };
 
   vm.isPublished = () => {
-    console.log("isPublished: "  + (vm.project.status == vm.config.PROJECT_STATUSES.PUBLISHED));
     return vm.project.status == vm.config.PROJECT_STATUSES.PUBLISHED;
   };
 
