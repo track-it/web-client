@@ -30,13 +30,19 @@ function ProjectCtrl(ProjectService, CommentService, StorageService, AppSettings
     return vm.user.role_id == config.PROJECT_ROLES.TEACHER;
   };
 
-  vm.userIs = (role) => {
-    return vm.user.role_id == role;
+  vm.userIsStudentInFinishedProject = () => {
+    let projectUser = $filter('filter')(project.participants, { id : vm.user.id })[0];
+    if (projectUser) {
+      let userIsStudent = projectUser.pivot.project_role_id == config.PROJECT_ROLES.STUDENT;
+      let projectIsFinished = (vm.project.status >= config.PROJECT_STATUSES.COMPLETED);
+      return userIsStudent && projectIsFinished;
+    }
+    return false;
   };
 
   vm.userCanPublish = () => {
-    if (vm.project.status == config.PROJECT_STATUSES.COMPLETED || vm.project.status == config.PROJECT_STATUSES.PUBLISHED) {
-      if (vm.userIs(config.ROLES.ADMINISTRATOR)) {
+    if (vm.project.status >= config.PROJECT_STATUSES.COMPLETED) {
+      if (vm.user.role_id == config.ROLES.ADMINISTRATOR) {
         return true;
       } else if (project.participants) {
           let projectUser = $filter('filter')(vm.project.participants, { id : vm.user.id })[0];
@@ -50,7 +56,7 @@ function ProjectCtrl(ProjectService, CommentService, StorageService, AppSettings
 
   vm.userCanEditProject = () => {
     if (vm.project.status != config.PROJECT_STATUSES.PUBLISHED) {
-      if (vm.userIs(config.ROLES.ADMINISTRATOR)) {
+      if (vm.user.role_id == config.ROLES.ADMINISTRATOR) {
         return true;
       } else {
         let projectUser = $filter('filter')(project.participants, { id : vm.user.id })[0];

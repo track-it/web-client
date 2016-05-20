@@ -19,7 +19,7 @@
           <span class="label label-primary" >{{ tag.name }}</span>
         </span>
 
-      <div class="alert alert-info project-alert" role="alert" ng-show="projectCtrl.userCanPublish()">
+      <div class="alert alert-info project-alert" role="alert" ng-show="projectCtrl.userIsStudentInFinishedProject()">
         <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
         Your project is completed. If you wish to publish the project to MUEP you can follow the instructions
         <a href="http://www.mah.se/Bibliotek/Publicering/Studentuppsatser/Publicera-din-uppsats-i-MUEP/" class="alert-link">found here</a>.
