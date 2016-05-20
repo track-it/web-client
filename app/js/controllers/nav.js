@@ -12,9 +12,12 @@ function NavCtrl(AuthService, AccountService, AppSettings, $state, $rootScope) {
   };
 
   $rootScope.$on('login-occured', () => {
-    vm.authed = true;
     vm.user = window.user;
   })
+
+  $rootScope.$on('logout-occured', () => {
+    vm.user = undefined;
+  });
 
   vm.isActive = function (state) {
     return $state.is(state);

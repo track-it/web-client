@@ -47,10 +47,13 @@ function AuthService(StorageService, AppSettings, $http, $rootScope) {
   }
 
   service.logout = function () {
-      StorageService.delete(config.API_TOKEN);
-      delete $http.defaults.headers.common.Authorization;
-      delete window.user;
-      service.isAuthenticated = false;
+    StorageService.delete(config.API_TOKEN);
+    delete $http.defaults.headers.common.Authorization;
+    delete window.user;
+    delete window.sitemap;
+    service.isAuthenticated = false;
+
+    $rootScope.$emit('logout-occured');
   };
 
   return service;

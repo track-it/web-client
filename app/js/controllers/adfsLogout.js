@@ -1,11 +1,9 @@
 function AdfsLogoutCtrl(AuthService, $state) {
   'ngInject';
 
-  if (AuthService.isAuthed()) {
-  	AuthService.logout();
-  }
+  AuthService.logout();
 
-  $state.transitionTo('home');
+  $state.go('login');
 }
 
 export default {
