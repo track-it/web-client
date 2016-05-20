@@ -24,7 +24,7 @@
 
       <div class="form-group">
         <label for="tags">Tags</label>
-        <tags-input name="tags" ng-model="proposalCtrl.tags"></tags-input>
+        <tags-input name="tags" ng-model="proposalCtrl.new.tags"></tags-input>
       </div>
 
       <div class="form-group">
@@ -50,7 +50,7 @@
         </div>
         <input type="file" class="btn btn-default" ng-files="proposalCtrl.files">
       </div>
-      
+
       <button class="btn btn-primary btn-lg" ng-disabled="createProposalForm.$invalid">Submit</button>
     </form>
   </div>

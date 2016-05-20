@@ -1,5 +1,6 @@
 <div class="container">
   <div class="row">
+
     <div class="{{ projectCtrl.user ? 'col-md-8' : 'col-md-12' }}">
 
       <h1>
@@ -14,7 +15,11 @@
         <span class="label label-warning">Project</span>
         originating from <a ui-sref="showProposal({ id: projectCtrl.project.proposal_id })">this proposal</a>.
       </div>
-      <div class="alert alert-info project-alert" role="alert" ng-if="projectCtrl.config.PROJECT_STATUSES.COMPLETED == projectCtrl.project.status && projectCtrl.userIsStudent">
+        <span ng-repeat="tag in projectCtrl.project.tags">
+          <span class="label label-primary" >{{ tag.name }}</span>
+        </span>
+
+      <div class="alert alert-info project-alert" role="alert" ng-show="projectCtrl.userIsStudentInFinishedProject()">
         <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
         Your project is completed. If you wish to publish the project to MUEP you can follow the instructions
         <a href="http://www.mah.se/Bibliotek/Publicering/Studentuppsatser/Publicera-din-uppsats-i-MUEP/" class="alert-link">found here</a>.
@@ -25,7 +30,7 @@
       <div class="well">
         <p ng-bind-html="projectCtrl.project.description">
       </div>
-      <p class="text-muted" ng-if="!projectCtrl.project.description">
+      <p class="text-muted" ng-show="!projectCtrl.project.description">
         No description.
       </p>
 
@@ -33,31 +38,31 @@
       <h2>Participants</h2>
       <ul class="list-group">
         <!-- Customers -->
-        <a href="#" class="list-group-item list-group-item-info" ng-repeat="participant in projectCtrl.project.participants | orderBy: 'username'" ng-if="participant.pivot.project_role_id == projectCtrl.config.PROJECT_ROLES.STAKEHOLDER">
+        <a href="#" class="list-group-item list-group-item-info" ng-repeat="participant in projectCtrl.project.participants | orderBy: 'username'" ng-show="participant.pivot.project_role_id == projectCtrl.config.PROJECT_ROLES.STAKEHOLDER">
           {{ participant.displayname }}
           <i class="fa fa-user pull-right" title="Stakeholder" aria-hidden="true"></i>
         </a>
 
         <!-- Teachers -->
-        <a href="#" class="list-group-item list-group-item-success" ng-repeat="participant in projectCtrl.project.participants | orderBy: 'username'" ng-if="participant.pivot.project_role_id == projectCtrl.config.PROJECT_ROLES.TEACHER">
+        <a href="#" class="list-group-item list-group-item-success" ng-repeat="participant in projectCtrl.project.participants | orderBy: 'username'" ng-show="participant.pivot.project_role_id == projectCtrl.config.PROJECT_ROLES.TEACHER">
           {{ participant.displayname }}
           <i class="fa fa-university pull-right" title="Teacher" aria-hidden="true"></i>
         </a>
 
         <!-- Supervisors -->
-        <a href="#" class="list-group-item list-group-item-danger" ng-repeat="participant in projectCtrl.project.participants | orderBy: 'username'" ng-if="participant.pivot.project_role_id == projectCtrl.config.PROJECT_ROLES.SUPERVISOR">
+        <a href="#" class="list-group-item list-group-item-danger" ng-repeat="participant in projectCtrl.project.participants | orderBy: 'username'" ng-show="participant.pivot.project_role_id == projectCtrl.config.PROJECT_ROLES.SUPERVISOR">
           {{ participant.displayname }}
           <i class="fa fa-eye pull-right" title="Supervisor" aria-hidden="true"></i>
         </a>
 
         <!-- Students -->
-        <a href="#" class="list-group-item list-group-item-warning" ng-repeat="participant in projectCtrl.project.participants | orderBy: 'username'" ng-if="participant.pivot.project_role_id == projectCtrl.config.PROJECT_ROLES.STUDENT">
+        <a href="#" class="list-group-item list-group-item-warning" ng-repeat="participant in projectCtrl.project.participants | orderBy: 'username'" ng-show="participant.pivot.project_role_id == projectCtrl.config.PROJECT_ROLES.STUDENT">
           {{ participant.displayname }}
           <i class="fa fa-graduation-cap pull-right" title="Student" aria-hidden="true"></i>
         </a>
 
         <!-- If there are no participants -->
-        <p class="text-muted" ng-if="projectCtrl.project.team.users == 0 && projectCtrl.project.participants == 0">
+        <p class="text-muted" ng-show="projectCtrl.project.team.users == 0 && projectCtrl.project.participants == 0">
           There are no participants for this project.
         </li>
       </ul>
@@ -72,13 +77,13 @@
         </a>
 
         <!-- If there are no attachments -->
-        <p class="text-muted" ng-if="projectCtrl.project.attachments.length == 0">
+        <p class="text-muted" ng-show="projectCtrl.project.attachments.length == 0">
           There are no attachments for this project.
         </p>
 
       </ul>
 
-      <div class="comments" ng-if="projectCtrl.isCommentable()">
+      <div class="comments" ng-show="projectCtrl.isCommentable()">
         <hr>
         <h2>Comments</h2>
 
@@ -110,14 +115,14 @@
           </div>
 
           <div class="row">
-            <div ng-if="!$last" class="col-md-8 col-md-offset-2">
+            <div ng-show="!$last" class="col-md-8 col-md-offset-2">
               <hr>
             </div>
           </div>
 
         </div>
 
-        <p class="text-muted" ng-if="projectCtrl.comments.length == 0">
+        <p class="text-muted" ng-show="projectCtrl.comments.length == 0">
           No comments has been posted for this project.
         </p>
 
@@ -130,6 +135,54 @@
 
       </div>
     </div>
-    <div class="col-md-4"></div>
+
+    <!-- Manage -->
+    <div class="col-md-4">
+
+      <!-- Manage -->
+      <div ng-show="projectCtrl.userCanManageProject()" class="controlpanel">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4>Manage Project</h4>
+          </div>
+          <div class="panel-body">
+            <div ng-show="projectCtrl.userCanEditProject()">
+              <div ng-show="!projectCtrl.isCompleted()" class="form-group">
+                <form ng-submit="projectCtrl.updateStatus(projectCtrl.config.PROJECT_STATUSES.COMPLETED)">
+                  <button class="btn btn-success btn-block">Set as Completed</button>
+                </form>
+              </div>
+              <div ng-show="projectCtrl.isCompleted()" class="form-group">
+                <form ng-submit="projectCtrl.updateStatus(projectCtrl.config.PROJECT_STATUSES.UNCOMPLETED)">
+                  <button class="btn btn-danger btn-block">Set as Uncompleted</button>
+                </form>
+              </div>
+
+              <hr>
+              <a class="btn btn-warning btn-block" ui-sref="editProject({ id: projectCtrl.project.id })">
+                Edit Project
+              </a>
+            </div>
+
+            <hr ng-show="projectCtrl.userCanEditProject() && projectCtrl.userCanPublish()">
+
+            <!-- Publish -->
+            <div ng-show="projectCtrl.userCanPublish()">
+              <form ng-show="!projectCtrl.isPublished()" ng-submit="projectCtrl.publish(true)">
+                <button class="btn btn-success btn-block">Publish on TrackIt</button>
+              </form>
+              <form ng-show="projectCtrl.isPublished()" ng-submit="projectCtrl.publish(false)">
+                <button class="btn btn-danger btn-block">Unpublish on TrackIt</button>
+              </form>
+            </div>
+
+          </div>
+
+
+        </div>
+      </div>
+
+    </div>
+
   </div>
 </div>

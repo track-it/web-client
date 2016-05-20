@@ -1,6 +1,8 @@
 <div class="container">
   <div class="row">
+
     <div class="{{ proposalCtrl.user ? 'col-md-8' : 'col-md-12' }}">
+
       <h1>
         {{ proposalCtrl.proposal.title }}
       </h1>
@@ -32,7 +34,7 @@
       <hr>
       <h2>Attachments</h2>
       <ul class="list-group">
-        <a href="{{ attachment.url }}?api_token={{ proposalCtrl.token }}" target="_blank" class="list-group-item" ng-repeat="attachment in proposalCtrl.proposal.attachments | orderBy: 'attachment.created_at'">
+        <a href="{{ attachment.url }}" target="_blank" class="list-group-item" ng-repeat="attachment in proposalCtrl.proposal.attachments | orderBy: 'attachment.created_at'">
           {{ attachment.title }}
           <i class="fa fa-download pull-right" aria-hidden="true"></i>
         </a>
@@ -95,7 +97,11 @@
 
       </div>
     </div>
+
+    <!-- Manage -->
     <div class="col-md-4">
+
+      <!-- Manage -->
       <div ng-if="proposalCtrl.userCanManageProposal()" class="controlpanel">
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -129,6 +135,8 @@
           </div>
         </div>
       </div>
+
+      <!-- Apply -->
       <div ng-show="proposalCtrl.studentCanApply()" class="controlpanel" ng-cloak>
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -156,6 +164,8 @@
           </div>
         </div>
       </div>
+
+      <!-- Application -->
       <div ng-show="proposalCtrl.userHasApplied()" class="controlpanel" ng-cloak>
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -179,6 +189,8 @@
           </div>
         </div>
       </div>
+
     </div>
+
   </div>
 </div>
