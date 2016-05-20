@@ -13,8 +13,12 @@ function AttachmentService($http, AppSettings) {
   };
 
   service.delete = (attachmentIds) => {
-    //Right now backend does not support one DELETE request with multiple attachments. So this won't work.
-    return $http.delete(config.api(`attachments/`), { 'attachment_ids': attachmentIds }, httpConfig);
+    return $http({
+      method: 'DELETE',
+      url: config.api('attachments'),
+      data: { attachment_ids: attachmentIds },
+      headers: { "Content-Type": "application/json;charset=utf-8" }
+    });
   };
 
   return service;
