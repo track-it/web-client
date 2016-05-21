@@ -4,7 +4,7 @@
     <form ng-submit="projectCtrl.search()">
       <div class="row">
         <div class="{{ projectCtrl.hasSearched ? 'col-xs-7 col-md-8 col-sm-7 search-box' : 'col-xs-8 col-md-9 col-sm-8 search-box' }}">
-          <input type="text" name="search" id="search" ng-model="projectCtrl.searchInput" class="form-control input-search" placeholder="Enter keywords to search" focus-if="projectCtrl.hasSearched">
+          <input type="text" name="search" id="search" ng-model="projectCtrl.searchInput" class="form-control input-search" placeholder="Enter keywords" focus-if="projectCtrl.hasSearched">
         </div>
         <div class="col-sm-2 col-md-2 search-btn-clear hidden-xs" ng-show="projectCtrl.hasSearched">
           <button class="btn btn-danger-outline btn-block" type="button" ng-click="projectCtrl.clear()">
