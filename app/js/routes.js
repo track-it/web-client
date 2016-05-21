@@ -35,13 +35,6 @@ const adfsLogin = {
   }
 }
 
-const adfsLogout = {
-  guest: true,
-
-  url: '/adfs/logout',
-  controller: 'AdfsLogoutCtrl as adfsLogoutCtrl'
-}
-
 const account = {
   url: '/account',
   controller: 'AccountCtrl as accountCtrl',
@@ -162,7 +155,6 @@ export default {
       .state('login', login)
       .state('register', register)
       .state('adfsLogin', adfsLogin)
-      .state('adfsLogout', adfsLogout)
       .state('account', account)
       .state('proposals', proposals)
       .state('createProposal', createProposal)
