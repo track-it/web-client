@@ -4,6 +4,11 @@ html
 .about
   margin-bottom: 4rem
 
+hr
+  @media (max-width: $xs)
+    margin-top: 10px
+    margin-bottom: 10px
+
 /*
   Allow angular.js to be loaded in body, hiding cloaked elements until
   templates compile.  The !important is important given that there may be
