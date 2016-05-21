@@ -122,6 +122,20 @@ const createProject = {
   }
 };
 
+const editProject = {
+  authenticate: false, //true,
+
+  url: '/projects/:id/edit',
+  controller: 'EditProjectCtrl as projectCtrl',
+  templateUrl: 'projects/edit.html',
+  title: 'Edit project',
+  resolve: {
+    project: function (ProjectService, $stateParams) {
+      return ProjectService.get($stateParams.id);
+    }
+  }
+};
+
 export default {
   setup: function ($stateProvider) {
     $stateProvider
@@ -135,6 +149,7 @@ export default {
       .state('editProposal', editProposal)
       .state('projects', projects)
       .state('showProject', showProject)
-      .state('createProject', createProject);
+      .state('createProject', createProject)
+      .state('editProject', editProject);
   }
 };

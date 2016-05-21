@@ -1,5 +1,6 @@
 <div class="container">
   <div class="row">
+
     <div class="{{ proposalCtrl.user ? 'col-md-8' : 'col-md-12' }}">
       <h1 class="title">
         {{ proposalCtrl.proposal.title }}
@@ -95,7 +96,11 @@
 
       </div>
     </div>
+
+    <!-- Manage -->
     <div class="col-md-4">
+
+      <!-- Manage -->
       <div ng-if="proposalCtrl.userCanManageProposal()" class="controlpanel">
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -129,6 +134,8 @@
           </div>
         </div>
       </div>
+
+      <!-- Apply -->
       <div ng-show="proposalCtrl.studentCanApply()" class="controlpanel" ng-cloak>
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -156,6 +163,8 @@
           </div>
         </div>
       </div>
+
+      <!-- Application -->
       <div ng-show="proposalCtrl.userHasApplied()" class="controlpanel" ng-cloak>
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -179,6 +188,8 @@
           </div>
         </div>
       </div>
+
     </div>
+
   </div>
 </div>

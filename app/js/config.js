@@ -60,7 +60,7 @@ const AppSettings = {
   },
 
   PROJECT_STATUSES: {
-    NOT_COMPLETED:  1,
+    UNCOMPLETED:    1,
     COMPLETED:      2,
     PUBLISHED:      3,
   },
