@@ -1,5 +1,9 @@
-function ProjectCtrl(ProjectService, CommentService, StorageService, AppSettings, $state, $scope, $filter, project) {
+function ProjectCtrl(ProjectService, CommentService, StorageService, AppSettings, $state, $scope, $rootScope, $filter, project) {
   'ngInject';
+
+  $rootScope.$on('$stateChangeSuccess', function() {
+     document.body.scrollTop = document.documentElement.scrollTop = 0;
+  });
 
   const config = AppSettings;
   const storage = StorageService;
