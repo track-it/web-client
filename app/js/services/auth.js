@@ -22,10 +22,9 @@ function AuthService(StorageService, AppSettings, $http, $rootScope) {
 
     return $http.get(config.api('site'))
       .then(res => {
-        window.sitemap = res.data;
 
         if (res.data.user) {
-          window.user = res.data.user;
+          StorageService.put(config.USER, res.data.user);
           service.isAuthenticated = true;
         }
 
@@ -48,9 +47,8 @@ function AuthService(StorageService, AppSettings, $http, $rootScope) {
 
   service.logout = function () {
     StorageService.delete(config.API_TOKEN);
+    StorageService.delete(config.USER);
     delete $http.defaults.headers.common.Authorization;
-    delete window.user;
-    delete window.sitemap;
     service.isAuthenticated = false;
 
     $rootScope.$emit('logout-occured');

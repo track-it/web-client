@@ -1,4 +1,4 @@
-function ProjectsCtrl(AppSettings, AccountService, ProjectService, projects) {
+function ProjectsCtrl(AppSettings, AccountService, ProjectService, StorageService, projects) {
   'ngInject';
 
   // ViewModel
@@ -54,7 +54,7 @@ function ProjectsCtrl(AppSettings, AccountService, ProjectService, projects) {
     });
   }
 
-  if (window.user) {
+  if (StorageService.exists(config.USER)) {
     AccountService.me()
       .then(me => {
         vm.me = me;
