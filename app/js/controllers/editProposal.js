@@ -18,7 +18,7 @@ function EditProposalCtrl(ProposalService, AttachmentService, proposal, $state) 
         return uploadFiles();
       })
       .then(() => {
-        $state.transitionTo('proposals');
+        $state.transitionTo('showProposal', { id: vm.proposal.id });
       });
   };
 
