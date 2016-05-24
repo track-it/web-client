@@ -42,8 +42,8 @@
           <div class="proposal-status label label-success">
             {{ accountCtrl.config.getProposalStatus(team.proposal.status) | capitalize }}
           </div>
+          <span class="label label-danger">{{ accountCtrl.config.getCategory(team.proposal.category) | capitalize }}</span>
           <div class="text-right text-muted text-nowrap">
-            <span class="label label-danger">{{ accountCtrl.config.getCategory(team.proposal.category) | capitalize }}</span>
             <i class="fa fa-clock-o" aria-hidden="true"></i>
             {{ team.proposal.created_at }}
           </div>
@@ -84,8 +84,8 @@
         <div class="proposal-status label label-success">
           {{ accountCtrl.config.getProposalStatus(proposal.status) | capitalize }}
         </div>
+        <span class="label label-danger">{{ accountCtrl.config.getCategory(proposal.category) | capitalize }}</span>
         <div class="text-right text-muted text-nowrap">
-          <span class="label label-danger">{{ accountCtrl.config.getCategory(proposal.category) | capitalize }}</span>
           <i class="fa fa-clock-o" aria-hidden="true"></i>
           {{ proposal.created_at }}
         </div>
@@ -127,8 +127,8 @@
         <div class="project-status label label-success">
           {{ accountCtrl.config.getProjectStatus(project.status) | capitalize }}
         </div>
+        <span class="label label-danger">{{ accountCtrl.config.getCategory(project.category) | capitalize }}</span>
         <div class="text-right text-muted text-nowrap">
-          <span class="label label-danger">{{ accountCtrl.config.getCategory(project.category) | capitalize }}</span>
           <i class="fa fa-clock-o" aria-hidden="true"></i>
           {{ project.created_at }}
         </div>

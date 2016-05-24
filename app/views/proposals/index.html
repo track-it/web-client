@@ -39,9 +39,12 @@
         <div class="proposal-status label label-success">
           {{ proposalCtrl.config.getProposalStatus(proposal.status) | capitalize }}
         </div>
+        <span class="label label-danger">{{ proposalCtrl.config.getCategory(proposal.category) | capitalize }}</span>
+        <span ng-if="proposal.author_id == proposalCtrl.user.id" class="owner-indicator text-muted small">
+          <i class="fa fa-universal-access" aria-hidden="true"></i>
+        </span>
         <div class="text-right text-muted text-nowrap">
           <div>{{ proposal.author.displayname }}</div>
-          <span class="label label-danger">{{ proposalCtrl.config.getCategory(proposal.category) | capitalize }}</span>
           <i class="fa fa-clock-o" aria-hidden="true"></i>
           {{ proposal.created_at }}
         </div>

@@ -39,6 +39,10 @@
         <div class="project-status label label-success">
           {{ projectCtrl.config.getProjectStatus(project.status) | capitalize }}
         </div>
+        <span class="label label-danger">Project</span>
+        <span ng-show="projectCtrl.userIsPartOf(project)" class="owner-indicator text-muted small">
+          <i class="fa fa-universal-access" aria-hidden="true"></i>
+        </span>
         <div class="text-right text-muted text-nowrap">
           <span class="label label-danger">{{ projectCtrl.config.getCategory(project.category) | capitalize }}</span>
           <i class="fa fa-clock-o" aria-hidden="true"></i>
