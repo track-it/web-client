@@ -48,7 +48,7 @@ function ProposalCtrl(ProposalService, CommentService, StorageService, UserServi
   };
 
   vm.isCommentable = () => {
-    return (vm.user && (proposal.author_id == vm.user.id || vm.user.role_id > config.PROJECT_ROLES.STUDENT));
+    return (vm.user && (proposal.author_id == vm.user.id || vm.user.role_id > config.ROLES.STUDENT));
   };
 
   vm.studentCanApply = () => {
