@@ -29,6 +29,10 @@ function ProposalCtrl(ProposalService, CommentService, StorageService, UserServi
     });
   }
 
+  vm.getAttachmentUrl = (url) => {
+    return url + '?api_token=' + vm.token;
+  }
+
   vm.updateStatus = () => {
     var payload = {
       status: vm.status
