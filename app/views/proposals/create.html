@@ -15,10 +15,8 @@
 
       <div class="form-group">
         <label for="category">Category</label>
-        <select name="category" id="category" class="form-control">
-          <option value="1">Project</option>
-          <option value="2">Bachelor</option>
-          <option value="3">Master</option>
+        <select name="category" id="category" class="form-control" ng-model="proposalCtrl.new.category">
+          <option ng-repeat="(index, name) in proposalCtrl.config.CATEGORY_IDS" value="{{ index }}">{{ name | capitalize }}</option>
         </select>
         </div>
 
