@@ -13,8 +13,8 @@ function ProjectCtrl(ProjectService, CommentService, StorageService, AppSettings
   vm.comments = [];
   vm.title = project.title;
   vm.config = config;
-  vm.user = window.user;
-  vm.token = storage.get('api_token');
+  vm.user = storage.get(config.USER);
+  vm.token = storage.get(config.API_TOKEN);
   vm.comment = {};
   vm.status = project.status;
 

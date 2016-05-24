@@ -1,4 +1,4 @@
-function AuthService($http, $rootScope, AppSettings) {
+function AuthService(StorageService, AppSettings, $http, $rootScope) {
   'ngInject';
 
   const config = AppSettings;
@@ -20,16 +20,17 @@ function AuthService($http, $rootScope, AppSettings) {
   service.initialize = (apiToken) => {
     $http.defaults.headers.common.Authorization = 'Bearer ' + apiToken;
 
-    $http.get(config.api('site'))
+    return $http.get(config.api('site'))
       .then(res => {
-        window.sitemap = res.data;
 
         if (res.data.user) {
-          window.user = res.data.user;
+          StorageService.put(config.USER, res.data.user);
           service.isAuthenticated = true;
         }
 
         $rootScope.$emit('login-occured');
+
+        return res.data.user;
       });
   };
 
@@ -45,9 +46,12 @@ function AuthService($http, $rootScope, AppSettings) {
   }
 
   service.logout = function () {
-      delete $http.defaults.headers.common.Authorization;
-      delete window.user;
-      service.isAuthenticated = false;
+    StorageService.delete(config.API_TOKEN);
+    StorageService.delete(config.USER);
+    delete $http.defaults.headers.common.Authorization;
+    service.isAuthenticated = false;
+
+    $rootScope.$emit('logout-occured');
   };
 
   return service;

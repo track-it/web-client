@@ -6,7 +6,9 @@
       <h1>{{ accountCtrl.me.displayname }}</h1>
     </div>
     <div class="col-md-2 col-md-offset-4 col-sm-offset-0 col-sm-3 hidden-xs text-right">
-      <form ng-submit="accountCtrl.logout()"><button class="btn btn-danger btn-logout">Log out</button></form>
+      <form ng-submit="accountCtrl.logout()">
+        <button class="btn btn-danger btn-logout pull-right" type="submit">Log out</button>
+      </form>
     </div>
   </div>
   <p>
@@ -65,7 +67,7 @@
     </div>
 
     <p class="text-muted" ng-show="accountCtrl.me.teams.length == 0">
-        Your have no applications.
+      Your have no applications.
     </p>
 
     <hr>
@@ -109,7 +111,7 @@
   </div>
 
   <p class="text-muted" ng-show="accountCtrl.me.proposals.length == 0">
-      Your have no proposals.
+    Your have no proposals.
   </p>
 
   <hr>
@@ -154,12 +156,14 @@
   </div>
 
   <p class="text-muted" ng-show="accountCtrl.me.projects.length == 0">
-      Your have no projects.
+    Your have no projects.
   </p>
 
   <div class="hidden-sm hidden-md hidden-lg">
     <hr>
-    <form ng-submit="accountCtrl.logout()"><button class="btn btn-danger btn-logout btn-block">Log out</button></form>
+    <form ng-submit="accountCtrl.logout()">
+      <button class="btn btn-danger btn-block" type="submit">Log out</button>
+    </form>
   </div>
 
 </div>

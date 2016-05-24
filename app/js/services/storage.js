@@ -9,10 +9,17 @@ function StorageService() {
   };
 
   service.get = function(key) {
-    return storage[key];
+    try {
+      return JSON.parse(storage[key]);
+    } catch (e) {
+      return storage[key];
+    }
   };
 
   service.put = function (key, value) {
+    if (typeof value === 'object')
+      value = JSON.stringify(value);
+
     storage[key] = value;
   };
 

@@ -10,8 +10,14 @@ const AppSettings = {
   // constants
   APP_NAME: 'TrackIt',
 
-  API_URL: 'http://trackit.dev/',
+  API_URL: 'https://trackit.albertkaaman.se:1234/',
   API_TOKEN: 'api_token',
+  USER: 'user',
+
+  USER_TYPES: {
+    LOCAL:    1,
+    ADFS:     2
+  },
 
   ROLES: {
     GUEST:          1,
