@@ -1,16 +1,16 @@
-function EditProposalCtrl(ProposalService, AttachmentService, proposal, $state) {
+function EditProjectCtrl(ProjectService, AttachmentService, project, $state) {
   'ngInject';
 
   // ViewModel
   const vm = this;
-  vm.title = 'Edit proposal';
+  vm.title = 'Edit project';
 
-  vm.proposal = proposal;
+  vm.project = project;
   vm.deletedAttachmentIds = [];
   vm.newFiles = [];
 
   vm.update = () => {
-    ProposalService.update(vm.proposal.id, vm.proposal)
+    ProjectService.update(vm.project.id, vm.project)
       .then(res => {
         return deleteFiles();
       })
@@ -18,13 +18,13 @@ function EditProposalCtrl(ProposalService, AttachmentService, proposal, $state) 
         return uploadFiles();
       })
       .then(() => {
-        $state.transitionTo('showProposal', { id: vm.proposal.id });
+        $state.transitionTo('showProject', { id: vm.project.id });
       });
   };
 
   vm.attachmentCount = () => {
     var count = [];
-    for (var i = 0; i < vm.proposal.attachments.length + 1; i++) {
+    for (var i = 0; i < vm.project.attachments.length + 1; i++) {
       count.push(i);
     }
     return count;
@@ -40,7 +40,7 @@ function EditProposalCtrl(ProposalService, AttachmentService, proposal, $state) 
         formData.append('files[' + i + ']', vm.newFiles[i]._file);
       }
 
-      return AttachmentService.store('proposals', vm.proposal.id, formData)
+      return AttachmentService.store('projects', vm.project.id, formData)
         .then(data => resolve(data))
         .catch((err, status) => reject(err, status));
     });
@@ -58,21 +58,12 @@ function EditProposalCtrl(ProposalService, AttachmentService, proposal, $state) 
   }
 
   vm.deleteOldAttachment = (index) => {
-    vm.deletedAttachmentIds.push(proposal.attachments[index].id);
-    vm.proposal.attachments.splice(index, 1);
+    vm.deletedAttachmentIds.push(project.attachments[index].id);
+    vm.project.attachments.splice(index, 1);
   }
-
-  const parseTags = tags => {
-    var names = [];
-    angular.forEach(tags, tag => {
-      names.push(tag.text);
-    });
-    return names;
-  }
-
 }
 
 export default {
-  name: 'EditProposalCtrl',
-  fn: EditProposalCtrl
+  name: 'EditProjectCtrl',
+  fn: EditProjectCtrl
 };

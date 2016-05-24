@@ -27,7 +27,6 @@ function ProjectService($http, $q, AppSettings) {
   service.store = function (id, payload) {
     return $http.post(config.api(`proposals/${id}/projects`), payload)
       .then(res => {
-        console.log(res.data.data);
         return res.data.data;
       });
   }
@@ -35,10 +34,24 @@ function ProjectService($http, $q, AppSettings) {
   service.get = function (id) {
     return $http.get(config.api(`projects/${id}`))
       .then(res => {
-        console.log(res.data.data);
         return res.data.data;
       });
   };
+
+  service.update = function (id, payload) {
+    return $http.put(config.api(`projects/${id}`), payload)
+      .then(res => {
+        return res.data.data;
+      });
+  };
+
+  service.publish = function (id, shouldPublish) {
+    return $http.post(config.api(`projects/${id}/publish`), {publish: shouldPublish})
+      .then(res => {
+        return res.data.data;
+      });
+  };
+
 
   return service;
 

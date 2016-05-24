@@ -43,13 +43,22 @@
                 </span>
                 <span class="attachment-remove" ng-click="proposalCtrl.files.splice($index, 1)">&times;</span>
               </li>
+
+              <li class="attachment attachment-empty" ng-show="proposalCtrl.files.length == 0">
+                No attachments selected.
+              </li>
             </ul>
           </div>
         </div>
-        <input type="file" class="btn btn-default" ng-files="proposalCtrl.files">
+        <label class="btn btn-default btn-file">
+          Upload file
+          <input type="file" ng-files="proposalCtrl.files">
+        </label>
       </div>
 
-      <button class="btn btn-primary btn-lg" ng-disabled="createProposalForm.$invalid">Submit</button>
+      <hr>
+
+      <button class="btn btn-primary btn-lg btn-submit" ng-disabled="createProposalForm.$invalid">Submit</button>
     </form>
   </div>
 </div>

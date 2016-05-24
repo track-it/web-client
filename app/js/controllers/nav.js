@@ -1,4 +1,4 @@
-function NavCtrl(AuthService, AccountService, AppSettings, $state, $rootScope) {
+function NavCtrl(StorageService, AuthService, AccountService, AppSettings, $state, $rootScope) {
   'ngInject';
 
   // ViewModel
@@ -12,9 +12,12 @@ function NavCtrl(AuthService, AccountService, AppSettings, $state, $rootScope) {
   };
 
   $rootScope.$on('login-occured', () => {
-    vm.authed = true;
-    vm.user = window.user;
+    vm.user = StorageService.get(config.USER);
   })
+
+  $rootScope.$on('logout-occured', () => {
+    vm.user = undefined;
+  });
 
   vm.isActive = function (state) {
     return $state.is(state);

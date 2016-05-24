@@ -6,7 +6,7 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
       <title ng-bind="pageTitle"></title>
       <meta name="description" content="">
-      <meta name="viewport" content="width=device-width">
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
       <base href="/">
 
@@ -48,10 +48,10 @@
                 My account
 
                 <span class="text-muted">
-                  <span ng-if="navCtrl.user.role_id == navCtrl.config.ROLES.CUSTOMER" class="fa fa-user" aria-hidden="true"></span>
-                  <span ng-if="navCtrl.user.role_id == navCtrl.config.ROLES.STUDENT" class="fa fa-graduation-cap" aria-hidden="true"></span>
-                  <span ng-if="navCtrl.user.role_id == navCtrl.config.ROLES.TEACHER" class="fa fa-university" aria-hidden="true"></span>
-                  <span ng-if="navCtrl.user.role_id == navCtrl.config.ROLES.ADMINISTRATOR" class="fa fa-user-plus" aria-hidden="true"></span>
+                  <span ng-show="navCtrl.user.role_id == navCtrl.config.ROLES.CUSTOMER" class="fa fa-user" aria-hidden="true"></span>
+                  <span ng-show="navCtrl.user.role_id == navCtrl.config.ROLES.STUDENT" class="fa fa-graduation-cap" aria-hidden="true"></span>
+                  <span ng-show="navCtrl.user.role_id == navCtrl.config.ROLES.TEACHER" class="fa fa-university" aria-hidden="true"></span>
+                  <span ng-show="navCtrl.user.role_id == navCtrl.config.ROLES.ADMINISTRATOR" class="fa fa-user-plus" aria-hidden="true"></span>
 
                   <span class="hidden-sm hidden-xs">{{ navCtrl.user.displayname | limitTo: 20 }} {{ navCtrl.user.displayname.length > 20 ? '...' : ''}}</span>
                 </span>

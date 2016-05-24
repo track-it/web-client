@@ -1,48 +1,78 @@
 <div class="container">
   <h1>{{ projectCtrl.title }}</h1>
-  <div class="well">
+  <div class="well search-well">
     <form ng-submit="projectCtrl.search()">
       <div class="row">
-        <div class="col-sm-8">
-          <input type="text" name="search" id="search" ng-model="projectCtrl.searchInput" class="form-control input-search" placeholder="Enter keywords to search" focus-if="projectCtrl.hasSearched">
+        <div class="{{ projectCtrl.hasSearched ? 'col-xs-7 col-md-8 col-sm-7 search-box' : 'col-xs-8 col-md-9 col-sm-8 search-box' }}">
+          <input type="text" name="search" id="search" ng-model="projectCtrl.searchInput" class="form-control input-search" placeholder="Enter keywords" focus-if="projectCtrl.hasSearched">
         </div>
-        <div class="col-sm-4">
-          <div class="row">
-            <div class="col-sm-6" ng-show="projectCtrl.hasSearched">
-              <button class="btn btn-danger-outline btn-block" type="button" ng-click="projectCtrl.clear()">Clear</button>
-            </div>
-            <div class="{{ projectCtrl.hasSearched ? 'col-sm-6' : 'col-sm-12' }}">
-              <button class="btn btn-block btn-danger" type="submit" ng-disabled="!projectCtrl.searchInput">Search</button>
-            </div>
-          </div>
+        <div class="col-sm-2 col-md-2 search-btn-clear hidden-xs" ng-show="projectCtrl.hasSearched">
+          <button class="btn btn-danger-outline btn-block" type="button" ng-click="projectCtrl.clear()">
+            Clear
+          </button>
+        </div>
+        <div class="col-xs-2 search-btn-clear visible-xs-block" ng-show="projectCtrl.hasSearched">
+          <button class="btn btn-danger-outline btn-block" type="button" ng-click="projectCtrl.clear()">
+            <i class="fa fa-times" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="{{ projectCtrl.hasSearched ? 'col-md-2 col-sm-3 search-btn hidden-xs' : 'col-md-3 col-sm-4 search-btn hidden-xs' }}">
+          <button class="btn btn-danger btn-block" type="submit" ng-disabled="!projectCtrl.searchInput">
+            Search
+          </button>
+        </div>
+        <div class="{{ projectCtrl.hasSearched ? 'col-xs-3 search-btn visible-xs-block' : 'col-xs-4 search-btn visible-xs-block' }}">
+          <button class="btn btn-danger btn-block" type="submit" ng-disabled="!projectCtrl.searchInput">
+            <i class="fa fa-search" aria-hidden="true"></i>
+          </button>
         </div>
       </div>
     </form>
   </div>
 
-  <div class="table-responsive">
-    <table class="table table-striped" ng-show="projectCtrl.projects.data.length > 0">
-      <thead>
-        <th>Title</th>
-        <th class="text-right">Proposal</th>
-        <th class="text-right">Status</th>
-        <th class="text-right">Created</th>
-      </thead>
-      <tbody>
-        <tr ng-repeat="project in projectCtrl.projects.data">
-          <td>
-            <a ui-sref="showProject({ id: project.id })">{{ project.title }}</a>
-            <span ng-show="projectCtrl.userIsPartOf(project)" class="owner-indicator text-muted small">
-              <i class="fa fa-universal-access" aria-hidden="true"></i>
-              <span>Your project</span>
-            </span>
-          </td>
-          <td class="link text-right"><a ui-sref="showProposal({ id: project.proposal_id })">link</a></td>
-          <td class="project-status text-right">{{ projectCtrl.config.getProjectStatus(project.status) | capitalize}}</td>
-          <td class="text-right">{{ project.created_at }}</td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="visible-xs-block">
+    <div class="panel panel-default card" ng-repeat="project in projectCtrl.projects.data" ui-sref="showProject({ id: project.id })">
+      <div class="panel-body">
+        <h4 class="panel-title title">
+          {{ project.title }}
+        </h4>
+        <div class="project-status label label-success">
+          {{ projectCtrl.config.getProjectStatus(project.status) | capitalize }}
+        </div>
+        <div class="text-right text-muted text-nowrap">
+          <span class="label label-danger">{{ projectCtrl.config.getCategory(project.category) | capitalize }}</span>
+          <i class="fa fa-clock-o" aria-hidden="true"></i>
+          {{ project.created_at }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hidden-xs">
+    <div class="table-responsive">
+      <table class="table table-striped" ng-show="projectCtrl.projects.data.length > 0">
+        <thead>
+          <th>Title</th>
+          <th>Proposal</th>
+          <th>Status</th>
+          <th>Created</th>
+        </thead>
+        <tbody>
+          <tr ng-repeat="project in projectCtrl.projects.data">
+            <td>
+              <a ui-sref="showProject({ id: project.id })">{{ project.title }}</a>
+              <span ng-show="projectCtrl.userIsPartOf(project)" class="owner-indicator text-muted small">
+                <i class="fa fa-universal-access" aria-hidden="true"></i>
+                <span>Your project</span>
+              </span>
+            </td>
+            <td class="link"><a ui-sref="showProposal({ id: project.proposal_id })">link</a></td>
+            <td class="project-status">{{ projectCtrl.config.getProjectStatus(project.status) | capitalize}}</td>
+            <td>{{ project.created_at }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <p class="text-muted" ng-show="projectCtrl.projects.data.length == 0">

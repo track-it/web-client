@@ -1,12 +1,12 @@
 <!-- Huvudinnehåll -->
 <div class="container">
-  <h1>Edit proposal</h1>
+  <h1>Edit project</h1>
 
   <div class="well">
-    <form ng-submit="proposalCtrl.update()">
+    <form ng-submit="projectCtrl.update()">
       <div class="form-group">
         <label for="title">Title</label>
-        <input type="text" id="title" ng-model="proposalCtrl.proposal.title" class="form-control">
+        <input type="text" id="title" ng-model="projectCtrl.project.title" class="form-control">
       </div>
 
       <div class="form-group">
@@ -20,12 +20,12 @@
 
       <div class="form-group">
         <label for="usr">Tags</label>
-        <tags-input display-property="name" ng-model="proposalCtrl.proposal.tags"></tags-input>
+        <tags-input display-property="name" ng-model="projectCtrl.project.tags"></tags-input>
       </div>
 
       <div class="form-group">
         <label for="comment">Description</label>
-        <text-angular ng-model="proposalCtrl.proposal.description"></text-angular>
+        <text-angular ng-model="projectCtrl.project.description"></text-angular>
       </div>
 
       <div class="form-group">
@@ -33,20 +33,20 @@
         <div class="row">
           <div class="col-md-4 col-sm-8">
             <ul class="attachments">
-              <li class="attachment" ng-repeat="attachment in proposalCtrl.proposal.attachments">
+              <li class="attachment" ng-repeat="attachment in projectCtrl.project.attachments">
                 <span class="attachment-name">
                   {{ attachment.title }}
                 </span>
-                <span class="attachment-remove" ng-click="proposalCtrl.deleteOldAttachment($index)">&times;</span>
+                <span class="attachment-remove" ng-click="projectCtrl.deleteOldAttachment($index)">&times;</span>
               </li>
-              <li class="attachment" ng-repeat="file in proposalCtrl.newFiles">
+              <li class="attachment" ng-repeat="file in projectCtrl.newFiles">
                 <span class="attachment-name">
                   {{ file.name }}
                 </span>
-                <span class="attachment-remove" ng-click="proposalCtrl.newFiles.splice($index, 1)()">&times;</span>
+                <span class="attachment-remove" ng-click="projectCtrl.newFiles.splice($index, 1)()">&times;</span>
               </li>
 
-              <li class="attachment attachment-empty" ng-show="proposalCtrl.proposal.attachments.length == 0 && proposalCtrl.newFiles.length == 0">
+              <li class="attachment attachment-empty" ng-show="projectCtrl.project.attachments.length == 0 && projectCtrl.newFiles.length == 0">
                 No attachments.
               </li>
             </ul>
@@ -54,7 +54,7 @@
         </div>
         <label class="btn btn-default btn-file">
           Upload file
-          <input type="file" ng-files="proposalCtrl.newFiles">
+          <input type="file" ng-files="projectCtrl.newFiles">
         </label>
       </div>
       <button class="btn btn-primary btn-lg">Save changes</button>

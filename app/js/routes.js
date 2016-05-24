@@ -23,15 +23,27 @@ const register = {
   title: 'Register'
 };
 
+const adfsLogin = {
+  guest: true,
+
+  url: '/adfs/login?:api_token',
+  controller: 'AdfsLoginCtrl as adfsLoginCtrl',
+  resolve: {
+    me: ['AuthService', '$stateParams', function (AuthService, $stateParams) {
+      return AuthService.initialize($stateParams.api_token);
+    }]
+  }
+}
+
 const account = {
   url: '/account',
   controller: 'AccountCtrl as accountCtrl',
   templateUrl: 'account.html',
   title: 'Account',
   resolve: {
-    me: function (AccountService) {
+    me: ['AccountService', function (AccountService) {
       return AccountService.me();
-    }
+    }]
   }
 };
 
@@ -41,9 +53,9 @@ const proposals = {
   templateUrl: 'proposals/index.html',
   title: 'Proposals',
   resolve: {
-    proposals: function (ProposalService) {
+    proposals: ['ProposalService', function (ProposalService) {
       return ProposalService.index();
-    }
+    }]
   }
 };
 
@@ -53,9 +65,9 @@ const showProposal = {
   templateUrl: 'proposals/show.html',
   title: 'Proposal',
   resolve: {
-    proposal: function (ProposalService, $stateParams) {
+    proposal: ['ProposalService', '$stateParams', function (ProposalService, $stateParams) {
       return ProposalService.get($stateParams.id);
-    }
+    }]
   }
 };
 
@@ -76,9 +88,9 @@ const editProposal = {
   templateUrl: 'proposals/edit.html',
   title: 'Edit proposal',
   resolve: {
-    proposal: function (ProposalService, $stateParams) {
+    proposal: ['ProposalService', '$stateParams', function (ProposalService, $stateParams) {
       return ProposalService.get($stateParams.id);
-    }
+    }]
   }
 };
 
@@ -88,9 +100,9 @@ const projects = {
   templateUrl: 'projects/index.html',
   title: 'Projects',
   resolve: {
-    projects: function (ProjectService) {
+    projects: ['ProjectService', function (ProjectService) {
       return ProjectService.index();
-    }
+    }]
   }
 };
 
@@ -100,9 +112,9 @@ const showProject = {
   templateUrl: 'projects/show.html',
   title: 'Project',
   resolve: {
-    project: function (ProjectService, $stateParams) {
+    project: ['ProjectService', '$stateParams', function (ProjectService, $stateParams) {
       return ProjectService.get($stateParams.id);
-    }
+    }]
   }
 };
 
@@ -113,12 +125,26 @@ const createProject = {
   templateUrl: 'projects/create.html',
   title: 'Submit proposal',
   resolve: {
-    proposal: function (ProposalService, $stateParams) {
+    proposal: ['ProposalService', '$stateParams', function (ProposalService, $stateParams) {
       return ProposalService.get($stateParams.id);
-    },
-    teams: function (TeamService, $stateParams) {
+    }],
+    teams: ['TeamService', '$stateParams', function (TeamService, $stateParams) {
       return TeamService.index($stateParams.id);
-    }
+    }]
+  }
+};
+
+const editProject = {
+  authenticate: false, //true,
+
+  url: '/projects/:id/edit',
+  controller: 'EditProjectCtrl as projectCtrl',
+  templateUrl: 'projects/edit.html',
+  title: 'Edit project',
+  resolve: {
+    project: ['ProjectService', '$stateParams', function (ProjectService, $stateParams) {
+      return ProjectService.get($stateParams.id);
+    }]
   }
 };
 
@@ -128,6 +154,7 @@ export default {
       .state('home', home)
       .state('login', login)
       .state('register', register)
+      .state('adfsLogin', adfsLogin)
       .state('account', account)
       .state('proposals', proposals)
       .state('createProposal', createProposal)
@@ -135,6 +162,7 @@ export default {
       .state('editProposal', editProposal)
       .state('projects', projects)
       .state('showProject', showProject)
-      .state('createProject', createProject);
+      .state('createProject', createProject)
+      .state('editProject', editProject);
   }
 };
