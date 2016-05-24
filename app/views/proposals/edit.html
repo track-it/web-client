@@ -35,13 +35,13 @@
             <ul class="attachments">
               <li class="attachment" ng-repeat="attachment in proposalCtrl.proposal.attachments">
                 <span class="attachment-name">
-                  {{ attachment.title }}
+                  {{ attachment.title | limitTo: 20 }} {{ attachment.title.length > 0 ? '...' : '' }}
                 </span>
                 <span class="attachment-remove" ng-click="proposalCtrl.deleteOldAttachment($index)">&times;</span>
               </li>
               <li class="attachment" ng-repeat="file in proposalCtrl.newFiles">
                 <span class="attachment-name">
-                  {{ file.name }}
+                  {{ file.name | limitTo: 20 }} {{ file.name.length > 20 ? '...' : '' }}
                 </span>
                 <span class="attachment-remove" ng-click="proposalCtrl.newFiles.splice($index, 1)()">&times;</span>
               </li>
