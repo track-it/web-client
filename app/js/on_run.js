@@ -17,7 +17,7 @@ function OnRun($rootScope, $http, $state, AppSettings, AuthService, StorageServi
     ['h1', 'h2', 'h3'],
     ['bold', 'italics', 'underline', 'strikeThrough', 'ul', 'ol'],
     ['justifyLeft', 'justifyCenter', 'justifyRight'],
-    ['html', 'insertImage','insertLink', 'insertVideo']
+    ['html', 'insertImage','insertLink']
   ];
 
   // Redirect unauthenticated users if route is protected
