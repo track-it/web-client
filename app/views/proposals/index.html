@@ -33,17 +33,21 @@
   <div class="visible-xs-block">
     <div class="panel panel-default card" ng-repeat="proposal in proposalCtrl.proposals.data" ui-sref="showProposal({ id: proposal.id })">
       <div class="panel-body">
-        <h4 class="panel-title title">
-          {{ proposal.title }}
-        </h4>
-        <div class="proposal-status label label-success">
+        <div class="card-headers">
+          <h4 class="panel-title title">
+            {{ proposal.title | limitTo: 22 }} {{ proposal.title.length > 22 ? '...' : '' }}
+          </h4>
+          <span ng-if="proposal.author_id == proposalCtrl.user.id" class="owner-indicator text-muted small">
+            <i class="fa fa-universal-access" aria-hidden="true"></i>
+          </span>
+        </div>
+        <div class="card-labels">
+          <div class="proposal-status label label-success">
           {{ proposalCtrl.config.getProposalStatus(proposal.status) | capitalize }}
         </div>
-        <span class="label label-danger">{{ proposalCtrl.config.getCategory(proposal.category) | capitalize }}</span>
-        <span ng-if="proposal.author_id == proposalCtrl.user.id" class="owner-indicator text-muted small">
-          <i class="fa fa-universal-access" aria-hidden="true"></i>
-        </span>
-        <div class="text-right text-muted text-nowrap">
+        <span class="proposa-category label label-danger">{{ proposalCtrl.config.getCategory(proposal.category) | capitalize }}</span>
+        </div>
+        <div class="card-footer-proposal text-right text-muted text-nowrap">
           <div>{{ proposal.author.displayname }}</div>
           <i class="fa fa-clock-o" aria-hidden="true"></i>
           {{ proposal.created_at }}
@@ -57,9 +61,9 @@
       <table class="table table-striped table-responsive" ng-show="proposalCtrl.proposals.data.length > 0">
         <thead>
           <th>Title</th>
-          <th>Author</th>
-          <th>Status</th>
-          <th>Created</th>
+          <th class="text-right">Author</th>
+          <th class="text-right">Status</th>
+          <th class="text-right">Created</th>
         </thead>
         <tbody>
           <tr ng-repeat="proposal in proposalCtrl.proposals.data">
@@ -70,11 +74,11 @@
                 <span>Your proposal</span>
               </span>
             </td>
-            <td>
+            <td class="text-right">
               {{ proposal.author.displayname }}
             </td>
-            <td class="project-status">{{ proposalCtrl.config.getProposalStatus(proposal.status) | capitalize }}</td>
-            <td>{{ proposal.created_at }}</td>
+            <td class="project-status text-right">{{ proposalCtrl.config.getProposalStatus(proposal.status) | capitalize }}</td>
+            <td class="text-right">{{ proposal.created_at }}</td>
           </tr>
         </tbody>
       </table>

@@ -33,23 +33,20 @@
       </div>
 
       <div class="form-group">
-        <label for="attachments">Attachments</label>
-        <div class="row">
-          <div class="col-md-4 col-sm-8">
-            <ul class="attachments">
-              <li class="attachment" ng-repeat="file in proposalCtrl.files">
-                <span class="attachment-name">
-                  {{ file.name | limitTo: 20 }} {{ file.name.length > 20 ? '...' : '' }}
-                </span>
-                <span class="attachment-remove" ng-click="proposalCtrl.files.splice($index, 1)">&times;</span>
-              </li>
+        <label class="label-attachments" for="attachments">Attachments</label>
+        <ul class="attachments">
+          <li class="attachment" ng-repeat="file in proposalCtrl.files">
 
-              <li class="attachment attachment-empty" ng-show="proposalCtrl.files.length == 0">
-                No attachments selected.
-              </li>
-            </ul>
-          </div>
-        </div>
+            <span class="attachment-name">
+              {{ file.name | limitTo: 25 }} {{ file.name.length > 25 ? '...' : '' }}
+            </span>
+
+            <a href="" ng-click="proposalCtrl.files.splice($index, 1)"><i class="fa fa-minus-circle fa-2x text-danger pull-right" title="Remove" aria-hidden="true"></i></a>
+
+          </li>
+
+          <p class="attachment attachment-empty text-muted" ng-show="proposalCtrl.files.length == 0">No attachments selected.</p>
+        </ul>
         <label class="btn btn-default btn-file">
           Upload file
           <input type="file" ng-files="proposalCtrl.files">
