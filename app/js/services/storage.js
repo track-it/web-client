@@ -24,7 +24,7 @@ function StorageService() {
   };
 
   service.delete = function (key) {
-    storage[key] = null;
+    storage.removeItem(key);
   }
 
   return service;
