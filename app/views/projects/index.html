@@ -37,7 +37,7 @@
           <h4 class="panel-title title">
             {{ project.title | limitTo: 22 }} {{ project.title.length > 22 ? '...' : '' }}
           </h4>
-          <span ng-if="project.author_id == project.user.id" class="owner-indicator text-muted small">
+          <span ng-show="projectCtrl.userIsPartOf(project)" class="owner-indicator text-muted small">
             <i class="fa fa-universal-access" aria-hidden="true"></i>
           </span>
         </div>
@@ -45,7 +45,7 @@
           <div class="project-status label label-success">
             {{ projectCtrl.config.getProjectStatus(project.status) | capitalize }}
           </div>
-          <span class="label label-danger">Project</span>
+          <span class="label label-danger">{{ projectCtrl.config.getCategory(project.proposal.category) | capitalize }}</span>
         </div>
         <div class="card-footer-project text-right text-muted text-nowrap">
           <span class="label label-danger">{{ projectCtrl.config.getCategory(project.category) | capitalize }}</span>
@@ -61,9 +61,10 @@
       <table class="table table-striped" ng-show="projectCtrl.projects.data.length > 0">
         <thead>
           <th>Title</th>
-          <th>Proposal</th>
-          <th>Status</th>
-          <th>Created</th>
+          <th class="text-right">Proposal</th>
+          <th class="text-right">Status</th>
+          <th class="text-right">Category</th>
+          <th class="text-right">Created</th>
         </thead>
         <tbody>
           <tr ng-repeat="project in projectCtrl.projects.data">
@@ -74,9 +75,10 @@
                 <span>Your project</span>
               </span>
             </td>
-            <td class="link"><a ui-sref="showProposal({ id: project.proposal_id })">link</a></td>
-            <td class="project-status">{{ projectCtrl.config.getProjectStatus(project.status) | capitalize}}</td>
-            <td>{{ project.created_at }}</td>
+            <td class="link text-right"><a ui-sref="showProposal({ id: project.proposal_id })">link</a></td>
+            <td class="project-status text-right">{{ projectCtrl.config.getProjectStatus(project.status) | capitalize}}</td>
+            <td class="text-right">{{ projectCtrl.config.getCategory(project.proposal.category) | capitalize }}</span>
+            <td class="text-right">{{ project.created_at }}</td>
           </tr>
         </tbody>
       </table>
