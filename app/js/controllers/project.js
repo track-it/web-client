@@ -27,7 +27,7 @@ function ProjectCtrl(ProjectService, CommentService, StorageService, AppSettings
   };
 
   vm.isCommentable = () => {
-    return (config.PROJECT_STATUSES.PUBLISHED != project.status || vm.user.role_id == config.ROLES.ADMINISTRATOR);
+    return (vm.user && (config.PROJECT_STATUSES.PUBLISHED != project.status || vm.user.role_id == config.ROLES.ADMINISTRATOR));
   };
 
   vm.userIsTeacher = () => {
@@ -35,26 +35,29 @@ function ProjectCtrl(ProjectService, CommentService, StorageService, AppSettings
   };
 
   vm.userIsStudentInFinishedProject = () => {
-    let projectUser = $filter('filter')(project.participants, { id : vm.user.id })[0];
-    if (projectUser) {
-      let userIsStudent = projectUser.pivot.project_role_id == config.PROJECT_ROLES.STUDENT;
-      let projectIsFinished = (vm.project.status >= config.PROJECT_STATUSES.COMPLETED);
-      return userIsStudent && projectIsFinished;
+    if (vm.user) {
+      let projectUser = $filter('filter')(project.participants, { id : vm.user.id })[0];
+      if (projectUser) {
+        let userIsStudent = projectUser.pivot.project_role_id == config.PROJECT_ROLES.STUDENT;
+        let projectIsFinished = (vm.project.status >= config.PROJECT_STATUSES.COMPLETED);
+        return userIsStudent && projectIsFinished;
+      }
     }
+
     return false;
   };
 
   vm.userCanPublish = () => {
-    if (vm.project.status >= config.PROJECT_STATUSES.COMPLETED) {
+    if (vm.user && vm.project.status >= config.PROJECT_STATUSES.COMPLETED) {
       if (vm.user.role_id == config.ROLES.ADMINISTRATOR) {
         return true;
       } else if (project.participants) {
-          let projectUser = $filter('filter')(vm.project.participants, { id : vm.user.id })[0];
-          if (projectUser) {
-            return projectUser.pivot.project_role_id == config.PROJECT_ROLES.STUDENT;
-          }
+        let projectUser = $filter('filter')(vm.project.participants, { id : vm.user.id })[0];
+        if (projectUser) {
+          return projectUser.pivot.project_role_id == config.PROJECT_ROLES.STUDENT;
         }
       }
+    }
     return false;
   }
 
