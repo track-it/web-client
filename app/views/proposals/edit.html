@@ -29,34 +29,32 @@
       </div>
 
       <div class="form-group">
-        <label for="attachments">Attachments</label>
-        <div class="row">
-          <div class="col-md-4 col-sm-8">
-            <ul class="attachments">
-              <li class="attachment" ng-repeat="attachment in proposalCtrl.proposal.attachments">
-                <span class="attachment-name">
-                  {{ attachment.title | limitTo: 20 }} {{ attachment.title.length > 20 ? '...' : '' }}
-                </span>
-                <span class="attachment-remove" ng-click="proposalCtrl.deleteOldAttachment($index)">&times;</span>
-              </li>
-              <li class="attachment" ng-repeat="file in proposalCtrl.newFiles">
-                <span class="attachment-name">
-                  {{ file.name | limitTo: 20 }} {{ file.name.length > 20 ? '...' : '' }}
-                </span>
-                <span class="attachment-remove" ng-click="proposalCtrl.newFiles.splice($index, 1)()">&times;</span>
-              </li>
+        <label class="label-attachments" for="attachments">Attachments</label>
+        <ul class="attachments">
+          <li class="attachment" ng-repeat="file in proposalCtrl.proposal.attachments">
+            <span class="attachment-name">
+              {{ file.title | limitTo: 25 }} {{ file.title.length > 25 ? '...' : '' }}
+            </span>
 
-              <li class="attachment attachment-empty" ng-show="proposalCtrl.proposal.attachments.length == 0 && proposalCtrl.newFiles.length == 0">
-                No attachments.
-              </li>
-            </ul>
-          </div>
-        </div>
+            <a href="" ng-click="proposalCtrl.deleteOldAttachment($index)"><i class="fa fa-minus-circle fa-2x text-danger pull-right" title="Remove" aria-hidden="true"></i></a>
+          </li>
+
+          <li class="attachment" ng-repeat="file in proposalCtrl.newFiles">
+            <span class="attachment-name">
+              {{ file.name | limitTo: 25 }} {{ file.name.length > 25 ? '...' : '' }}
+            </span>
+
+            <a href="" ng-click="proposalCtrl.newFiles.splice($index, 1)"><i class="fa fa-minus-circle fa-2x text-danger pull-right" title="Remove" aria-hidden="true"></i></a>
+          </li>
+
+          <p class="attachment attachment-empty text-muted" ng-show="proposalCtrl.proposal.attachments.length == 0">No attachments selected.</p>
+        </ul>
         <label class="btn btn-default btn-file">
           Upload file
           <input type="file" ng-files="proposalCtrl.newFiles">
         </label>
       </div>
+
       <button class="btn btn-primary btn-lg">Save changes</button>
     </form>
   </div>
