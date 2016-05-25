@@ -50,7 +50,7 @@
             <ul class="attachments">
               <li class="attachment" ng-repeat="file in projectCtrl.files">
                 <span class="attachment-name">
-                  {{ file.name | limitTo: 22 }} {{ file.name.length > 22 ? '...' : '' }}
+                  {{ file.name | limitTo: 20 }} {{ file.name.length > 20 ? '...' : '' }}
                 </span>
                 <span class="attachment-remove" ng-click="projectCtrl.files.splice($index, 1)">&times;</span>
               </li>

@@ -35,7 +35,7 @@
             <ul class="attachments">
               <li class="attachment" ng-repeat="attachment in proposalCtrl.proposal.attachments">
                 <span class="attachment-name">
-                  {{ attachment.title | limitTo: 20 }} {{ attachment.title.length > 0 ? '...' : '' }}
+                  {{ attachment.title | limitTo: 20 }} {{ attachment.title.length > 20 ? '...' : '' }}
                 </span>
                 <span class="attachment-remove" ng-click="proposalCtrl.deleteOldAttachment($index)">&times;</span>
               </li>
