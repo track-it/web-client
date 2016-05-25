@@ -1,4 +1,4 @@
-function ProposalsCtrl(AppSettings, AccountService, ProposalService, proposals) {
+function ProposalsCtrl(AppSettings, AccountService, StorageService, ProposalService, proposals) {
   'ngInject';
 
   // ViewModel
@@ -46,10 +46,12 @@ function ProposalsCtrl(AppSettings, AccountService, ProposalService, proposals) 
       });
   }
 
-  AccountService.me()
-    .then(me => {
-      vm.user = me;
-    });
+  if (StorageService.exists(config.USER)) {
+    AccountService.me()
+      .then(me => {
+        vm.user = me;
+      });
+  }
 }
 
 export default {
